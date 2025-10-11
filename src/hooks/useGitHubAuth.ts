@@ -1,0 +1,68 @@
+import { useEffect, useRef, useState } from "react";
+import { generateCodeVerifier, generateCodeChallenge } from "../utils/pkce";
+
+const CLIENT_ID = import.meta.env.VITE_GITHUB_CLIENT_ID;
+const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI;
+
+export function useGitHubAuth() {
+  const [token, setToken] = useState<string | undefined>(() => sessionStorage.getItem("gh_token") ?? undefined);
+  const calledRef = useRef(false);
+  const urlParams = new URLSearchParams(window.location.search);
+  const code = urlParams.get("code");
+  const storedVerifier = sessionStorage.getItem("pkce_verifier");
+
+  useEffect(() => {
+    if (calledRef.current) return;
+
+    if (code && storedVerifier) {
+      calledRef.current = true;
+
+      if (code && storedVerifier) {
+        // Exchange code for access token
+        fetch("https://api.destructuring-bind.org/v1/github/token", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            code,
+            code_verifier: storedVerifier,
+            redirect_uri: REDIRECT_URI,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.access_token) {
+              sessionStorage.setItem("gh_token", data.access_token);
+              setToken(data.access_token);
+              // Clean URL
+              window.history.replaceState({}, document.title, "/");
+            } else if (data.error) {
+              console.error("Error obtaining access token:", data.error, data.error_description);
+            }
+          })
+          .catch((err) => {
+            console.error("Error exchanging code for token:", err);
+          });
+      }
+    }
+  }, [code, storedVerifier]);
+
+  function login() {
+    const verifier = generateCodeVerifier();
+    const challenge = generateCodeChallenge(verifier);
+    sessionStorage.setItem("pkce_verifier", verifier);
+
+    const authUrl =
+      `https://github.com/login/oauth/authorize?` +
+      `client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}` +
+      `&scope=repo&response_type=code&code_challenge=${challenge}&code_challenge_method=S256`;
+
+    window.location.href = authUrl;
+  }
+
+  function logout() {
+    sessionStorage.removeItem("gh_token");
+    setToken(undefined);
+  }
+
+  return { token, login, logout };
+}
