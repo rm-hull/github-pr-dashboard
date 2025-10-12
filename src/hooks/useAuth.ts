@@ -22,6 +22,7 @@ export function useAuth() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
+            client_id: CLIENT_ID,
             code,
             code_verifier: storedVerifier,
             redirect_uri: REDIRECT_URI,
