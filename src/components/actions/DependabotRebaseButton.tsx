@@ -14,7 +14,7 @@ export function DependabotRebaseButton({ owner, repo, pull_number, user }: Depen
 
   return (
     <Button onClick={() => mutate({ owner, repo, pull_number, body: "@dependabot rebase" })} disabled={disabled}>
-      Dependabot Rebase
+      Dependabot rebase
     </Button>
   );
 }
