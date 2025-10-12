@@ -1119,6 +1119,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rm-hull/use-local-storage@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "@rm-hull/use-local-storage@npm:0.1.0"
+  dependencies:
+    jotai: "npm:^2.15.0"
+    react: "npm:^19.2.0"
+    react-dom: "npm:^19.2.0"
+  peerDependencies:
+    react: ">=19.0.0"
+  checksum: 10c0/b5e2bce85caa80b3057b5721fe3f684e634e990d3394d70a80a9d42f019c3df5d2a604ac3b7440ee4ade0f6563fa2439de73c8fd0f1e8ae5d2bccdf7f02957d3
+  languageName: node
+  linkType: hard
+
 "@rolldown/pluginutils@npm:1.0.0-beta.38":
   version: 1.0.0-beta.38
   resolution: "@rolldown/pluginutils@npm:1.0.0-beta.38"
@@ -3366,6 +3379,7 @@ __metadata:
     "@emotion/react": "npm:~11.14.0"
     "@emotion/styled": "npm:~11.14.1"
     "@octokit/rest": "npm:^22.0.0"
+    "@rm-hull/use-local-storage": "npm:^0.1.0"
     "@tanstack/react-query": "npm:~5.90.2"
     "@tanstack/react-query-devtools": "npm:^5.90.2"
     "@tanstack/react-router": "npm:^1.132.47"
@@ -3633,6 +3647,27 @@ __metadata:
   dependencies:
     relative-time-format: "npm:^1.1.7"
   checksum: 10c0/2c18070ca1481baae6ff1e58d60826d948efeb376d6fc77116481bc23713fbd6aa3bde343563b3d747325015683f41725c34e7b5c02331e914e3bf1c129ceb45
+  languageName: node
+  linkType: hard
+
+"jotai@npm:^2.15.0":
+  version: 2.15.0
+  resolution: "jotai@npm:2.15.0"
+  peerDependencies:
+    "@babel/core": ">=7.0.0"
+    "@babel/template": ">=7.0.0"
+    "@types/react": ">=17.0.0"
+    react: ">=17.0.0"
+  peerDependenciesMeta:
+    "@babel/core":
+      optional: true
+    "@babel/template":
+      optional: true
+    "@types/react":
+      optional: true
+    react:
+      optional: true
+  checksum: 10c0/fbe67f504f293bf59bcd6855f5e603c6a51ad6d839eee46ef79e85a5b8a2cd8530a26f47cb65fa5afbc55d336fa2df5f832b264d32fd12fb0d53c68f9bf36687
   languageName: node
   linkType: hard
 
@@ -4278,7 +4313,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:~19.2.0":
+"react@npm:^19.2.0, react@npm:~19.2.0":
   version: 19.2.0
   resolution: "react@npm:19.2.0"
   checksum: 10c0/1b6d64eacb9324725bfe1e7860cb7a6b8a34bc89a482920765ebff5c10578eb487e6b46b2f0df263bd27a25edbdae2c45e5ea5d81ae61404301c1a7192c38330

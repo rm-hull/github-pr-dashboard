@@ -1,9 +1,6 @@
 import { Button, Spinner } from "@chakra-ui/react";
-import { TiTick } from "react-icons/ti";
-import { LiaSkullCrossbonesSolid } from "react-icons/lia";
-import { MdQuestionMark } from "react-icons/md";
+import { RxCross2, RxCheck, RxQuestionMark } from "react-icons/rx";
 import { usePullRequestDetail } from "@/hooks/usePullRequestDetail";
-import { MdOutlineBlock } from "react-icons/md";
 import { useMergePullRequest } from "@/hooks/useMergePullRequest";
 
 interface MergeButtonProps {
@@ -19,13 +16,14 @@ export function MergeButton({ owner, repo, pull_number, active }: MergeButtonPro
   const disabled = data?.mergeable_state !== "clean" || isPending;
 
   return (
-    <Button size="sm" onClick={() => mutate({ owner, repo, pull_number })} disabled={disabled} variant="subtle">
+    <Button onClick={() => mutate({ owner, repo, pull_number })} disabled={disabled}>
       Merge
       {isLoading && <Spinner size="sm" color="fg.info" />}
-      {!isLoading && !data && <MdQuestionMark color="purple" />}
-      {data?.mergeable_state === "clean" && <TiTick color="green" />}
-      {data?.mergeable_state === "unstable" && <LiaSkullCrossbonesSolid color="red" />}
-      {data?.mergeable_state === "blocked" && <MdOutlineBlock color="red" />}
+      {!isLoading && !data && <RxQuestionMark color="purple" />}
+      {data?.mergeable_state === "clean" && <RxCheck color="green" />}
+      {data?.mergeable_state === "unstable" && <RxCross2 color="red" />}
+      {data?.mergeable_state === "blocked" && <RxCross2 color="red" />}
+      {data?.mergeable_state === "dirty" && <RxCross2 color="red" />}
     </Button>
   );
 }
