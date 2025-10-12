@@ -10,6 +10,7 @@ import { DependabotRebaseButton } from "./actions/DependabotRebaseButton";
 import { GeminiReviewButton } from "./actions/GeminiReviewButton";
 import { IgnoreButton } from "./actions/IgnoreButton";
 import { MergeButton } from "./actions/MergeButton";
+import { InfoPopover } from "./InfoPopover";
 
 const MotionListItem = motion(List.Item);
 
@@ -67,9 +68,13 @@ export default function PullRequestsList({ pulls }: Props) {
             >
               <Stack direction={{ base: "column", lg: "row" }} justify="space-between" alignItems="center" gap={2}>
                 <Box>
-                  <Link href={pull.html_url} fontWeight="bold">
-                    {pull.title}
-                  </Link>
+                  <HStack alignItems="center" gap={1}>
+                    <Link href={pull.html_url} fontWeight="bold">
+                      {pull.title}
+                    </Link>
+                    <InfoPopover title={pull.title} descr={pull.body} />
+                  </HStack>
+
                   <HStack gap={1}>
                     <Text fontSize="sm">
                       {repoFullName} — #{pull.number}
