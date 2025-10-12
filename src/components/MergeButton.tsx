@@ -15,8 +15,8 @@ interface MergeButtonProps {
 
 export function MergeButton({ owner, repo, pull_number, active }: MergeButtonProps) {
   const { data, isLoading } = usePullRequestDetail(owner, repo, pull_number, active);
-  const { mutate } = useMergePullRequest();
-  const disabled = data?.mergeable_state !== "clean";
+  const { mutate, isPending } = useMergePullRequest();
+  const disabled = data?.mergeable_state !== "clean" || isPending;
 
   return (
     <Button size="sm" onClick={() => mutate({ owner, repo, pull_number })} disabled={disabled} variant="subtle">
