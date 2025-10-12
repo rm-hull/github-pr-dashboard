@@ -1,5 +1,5 @@
 import { IconButton, Popover, Portal, Separator } from "@chakra-ui/react";
-import { FaInfoCircle } from "react-icons/fa";
+import { FcInfo } from "react-icons/fc";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
@@ -16,8 +16,8 @@ export function InfoPopover({ title, descr }: InfoPopoverProps) {
   return (
     <Popover.Root lazyMount unmountOnExit>
       <Popover.Trigger asChild>
-        <IconButton variant="ghost" size="xs" color="blue">
-          <FaInfoCircle />
+        <IconButton variant="plain" size="sm">
+          <FcInfo />
         </IconButton>
       </Popover.Trigger>
       <Portal>
