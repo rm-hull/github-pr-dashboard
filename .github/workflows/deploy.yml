@@ -1,0 +1,81 @@
+name: Build and Deploy
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Yarn
+        uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+          cache: "yarn"
+
+      - name: Install dependencies
+        run: yarn install
+
+      # - name: Lint
+      #   run: yarn lint
+
+      # - name: Test
+      #   run: yarn test:ci
+
+      # - name: Coveralls
+      #   uses: coverallsapp/github-action@v2
+      #   continue-on-error: true
+      #   with:
+      #     file: coverage/clover.xml
+
+      - name: Build
+        env:
+          VITE_GITHUB_CLIENT_ID: ${{ env.VITE_GITHUB_CLIENT_ID }}
+          VITE_REDIRECT_URI: ${{ env.VITE_REDIRECT_URI }}
+        run: yarn build && cp ./dist/index.html ./dist/404.html
+
+      - name: Store dist files
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-files
+          path: ./dist/
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request'
+    concurrency:
+      group: "pages"
+      cancel-in-progress: true
+    steps:
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - uses: actions/download-artifact@v5
+        with:
+          name: dist-files
+          path: ./dist/
+
+      - name: Upload to Github Pages
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
