@@ -28,6 +28,12 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Build
+        env:
+          VITE_GITHUB_CLIENT_ID: ${{ vars.VITE_GITHUB_CLIENT_ID }}
+          VITE_REDIRECT_URI: ${{ vars.VITE_REDIRECT_URI }}
+        run: yarn build && cp ./dist/index.html ./dist/404.html
+
       - name: Lint
         continue-on-error: true
         run: yarn lint
@@ -40,12 +46,6 @@ jobs:
       #   continue-on-error: true
       #   with:
       #     file: coverage/clover.xml
-
-      - name: Build
-        env:
-          VITE_GITHUB_CLIENT_ID: ${{ vars.VITE_GITHUB_CLIENT_ID }}
-          VITE_REDIRECT_URI: ${{ vars.VITE_REDIRECT_URI }}
-        run: yarn build && cp ./dist/index.html ./dist/404.html
 
       - name: Store dist files
         uses: actions/upload-artifact@v4
