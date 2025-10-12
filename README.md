@@ -15,7 +15,7 @@ This is a minimal **TypeScript React** single-page app scaffolded for:
 
 ```
 VITE_GITHUB_CLIENT_ID=YOUR_CLIENT_ID
-VITE_REDIRECT_URI=http//localhost:5173/github-pr-dashboard
+VITE_REDIRECT_URI=http//localhost:5173/github-pr-dashboard/
 ```
 
 4. `yarn dev`

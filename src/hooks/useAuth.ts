@@ -1,11 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { generateCodeVerifier, generateCodeChallenge } from "../utils/pkce";
 
 const CLIENT_ID = import.meta.env.VITE_GITHUB_CLIENT_ID;
 const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI;
 
-export function useGitHubAuth() {
-  const [token, setToken] = useState<string | undefined>(() => sessionStorage.getItem("gh_token") ?? undefined);
+export function useAuth() {
   const calledRef = useRef(false);
   const urlParams = new URLSearchParams(window.location.search);
   const code = urlParams.get("code");
@@ -32,9 +31,10 @@ export function useGitHubAuth() {
           .then((data) => {
             if (data.access_token) {
               sessionStorage.setItem("gh_token", data.access_token);
-              setToken(data.access_token);
+              window.dispatchEvent(new CustomEvent("auth-token-change", { detail: data.access_token }));
+
               // Clean URL
-              window.history.replaceState({}, document.title, "/");
+              window.history.replaceState({}, document.title, "/github-pr-dashboard");
             } else if (data.error) {
               console.error("Error obtaining access token:", data.error, data.error_description);
             }
@@ -61,8 +61,8 @@ export function useGitHubAuth() {
 
   function logout() {
     sessionStorage.removeItem("gh_token");
-    setToken(undefined);
+    window.dispatchEvent(new CustomEvent("auth-token-change", { detail: undefined }));
   }
 
-  return { token, login, logout };
+  return { login, logout };
 }

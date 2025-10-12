@@ -1,23 +1,28 @@
-import { useGitHubAuth } from "@/hooks/useGitHubAuth";
-import { GitHubSearchItem } from "../types";
-import { Box, Button, HStack, Link, List, Text } from "@chakra-ui/react";
+import { Box, Button, ButtonGroup, HStack, Image, Link, List, Text } from "@chakra-ui/react";
 import { MergeButton } from "./MergeButton";
 import { useState } from "react";
+import { RestEndpointMethodTypes } from "@octokit/rest";
+import { useComment } from "@/hooks/useComment";
+import { DependabotRebaseButton } from "./DependabotRebaseButton";
+import TimeAgo from "react-time-ago";
+import en from "javascript-time-ago/locale/en.json";
+import JavascriptTimeAgo from "javascript-time-ago";
+
+JavascriptTimeAgo.addDefaultLocale(en);
 
 type Props = {
-  prs: GitHubSearchItem[];
-  onComment: (repo: string, number: number, body: string) => Promise<void>;
+  pulls: RestEndpointMethodTypes["search"]["issuesAndPullRequests"]["response"]["data"]["items"];
 };
 
-export default function PullRequestsList({ prs, onComment }: Props) {
+export default function PullRequestsList({ pulls }: Props) {
   const [active, setActive] = useState<number | undefined>();
-  const { token } = useGitHubAuth();
-  const disabled = !token;
+  const { mutate, isPending } = useComment();
 
   return (
-    <List.Root gap={2}>
-      {prs.map((item, index) => {
+    <List.Root gap={2} listStyleType="none">
+      {pulls.map((item, index) => {
         const repoFullName = item.repository_url.split("/repos/")[1];
+        const [owner, repo] = repoFullName.split("/");
 
         return (
           <List.Item
@@ -26,7 +31,7 @@ export default function PullRequestsList({ prs, onComment }: Props) {
             onMouseEnter={() => setActive(index)}
             onMouseLeave={() => setActive(undefined)}
             _hover={{
-              bg: "gray.50",
+              bg: "bg.subtle",
               cursor: "pointer",
             }}
           >
@@ -35,29 +40,36 @@ export default function PullRequestsList({ prs, onComment }: Props) {
                 <Link href={item.html_url} fontWeight="bold">
                   {item.title}
                 </Link>
-                <Text fontSize="sm">
-                  {repoFullName} — #{item.number}
-                </Text>
+                <HStack gap={1}>
+                  <Text fontSize="sm">
+                    {repoFullName} — #{item.number}
+                  </Text>
+                  <Image
+                    src={item.user?.avatar_url}
+                    ml={3}
+                    boxSize="18px"
+                    borderRadius="full"
+                    fit="cover"
+                    border="1px solid"
+                    borderColor="fg.subtle"
+                  />
+                  <Text fontSize="xs" color="fg.subtle" display="flex" flexDir="row" gap={2}>
+                    {item.user?.login} <TimeAgo date={new Date(item.created_at)} locale="en-US" />
+                  </Text>
+                </HStack>
               </Box>
-              <HStack>
-                <MergeButton repo={repoFullName} prNumber={item.number} active={index === active} />
+              <ButtonGroup>
+                <MergeButton owner={owner} repo={repo} pull_number={item.number} active={index === active} />
+                <DependabotRebaseButton owner={owner} repo={repo} pull_number={item.number} user={item.user?.login} />
                 <Button
                   variant="subtle"
                   size="sm"
-                  onClick={() => onComment(repoFullName, item.number, "@dependabot rebase")}
-                  disabled={disabled}
-                >
-                  Dependabot Rebase
-                </Button>
-                <Button
-                  variant="subtle"
-                  size="sm"
-                  onClick={() => onComment(repoFullName, item.number, "/gemini review")}
-                  disabled={disabled}
+                  onClick={() => mutate({ owner, repo, pull_number: item.number, body: "/gemini review" })}
+                  disabled={isPending}
                 >
                   Gemini Review
                 </Button>
-              </HStack>
+              </ButtonGroup>
             </HStack>
           </List.Item>
         );
