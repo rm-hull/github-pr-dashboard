@@ -1,8 +1,8 @@
+import { Container, Progress } from "@chakra-ui/react";
+import { createFileRoute } from "@tanstack/react-router";
 import PullRequestsList from "@/components/PullRequestsList";
 import { useErrorToast } from "@/hooks/useErrorToast";
 import { useOpenPullRequests } from "@/hooks/useOpenPullRequests";
-import { Container, Progress, Text, VStack } from "@chakra-ui/react";
-import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/github-pr-dashboard/")({
   component: RouteComponent,

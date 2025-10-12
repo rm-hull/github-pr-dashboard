@@ -1,6 +1,6 @@
+import { RestEndpointMethodTypes } from "@octokit/rest";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useApiClient } from "./useApiClient";
-import { RestEndpointMethodTypes } from "@octokit/rest";
 
 type MutationProps = {
   owner: string;

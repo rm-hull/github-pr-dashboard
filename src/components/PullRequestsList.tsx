@@ -1,17 +1,15 @@
-import { Box, Button, ButtonGroup, HStack, Image, Link, List, Stack, Text } from "@chakra-ui/react";
-import { MergeButton } from "./actions/MergeButton";
-import { useCallback, useState } from "react";
+import { Box, ButtonGroup, HStack, Image, Link, List, Stack, Text, useBreakpointValue } from "@chakra-ui/react";
 import { RestEndpointMethodTypes } from "@octokit/rest";
-import { useComment } from "@/hooks/useComment";
-import { DependabotRebaseButton } from "./actions/DependabotRebaseButton";
-import TimeAgo from "react-time-ago";
-import en from "javascript-time-ago/locale/en.json";
-import JavascriptTimeAgo from "javascript-time-ago";
 import { AnimatePresence, motion } from "framer-motion";
+import JavascriptTimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en.json";
+import { useCallback, useState } from "react";
+import TimeAgo from "react-time-ago";
 import { useGeneralSettings } from "@/hooks/useGeneralSettings";
-import { IgnoreButton } from "./actions/IgnoreButton";
-import { useBreakpointValue } from "@chakra-ui/react";
+import { DependabotRebaseButton } from "./actions/DependabotRebaseButton";
 import { GeminiReviewButton } from "./actions/GeminiReviewButton";
+import { IgnoreButton } from "./actions/IgnoreButton";
+import { MergeButton } from "./actions/MergeButton";
 
 const MotionListItem = motion(List.Item);
 
@@ -28,10 +26,6 @@ export default function PullRequestsList({ pulls }: Props) {
   const { settings, isLoading } = useGeneralSettings();
   const isStacked = useBreakpointValue({ base: true, lg: false });
 
-  if (isLoading) {
-    return null;
-  }
-
   const isSelected = useCallback(
     (pull: PullRequest) => {
       if (pull.state !== "open") {
@@ -43,6 +37,10 @@ export default function PullRequestsList({ pulls }: Props) {
     },
     [settings]
   );
+
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <List.Root gap={2} listStyleType="none">

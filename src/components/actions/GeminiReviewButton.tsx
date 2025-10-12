@@ -1,5 +1,5 @@
-import { useComment } from "@/hooks/useComment";
 import { Button } from "@chakra-ui/react";
+import { useComment } from "@/hooks/useComment";
 
 interface GeminiReviewButton {
   owner: string;

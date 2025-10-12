@@ -61,7 +61,9 @@ export function useReadableStack(error: Error | null) {
     if (!error?.stack) return;
 
     let cancelled = false;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setStack(error.stack);
+     
     setLoading(true);
 
     // eslint-disable-next-line promise/catch-or-return, promise/no-promise-in-callback

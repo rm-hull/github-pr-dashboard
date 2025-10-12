@@ -1,12 +1,11 @@
+import { Heading, Container, HStack, Text, IconButton, ButtonGroup } from "@chakra-ui/react";
+import { MdLogin, MdLogout , MdInfoOutline } from "react-icons/md";
 import { useAuth } from "@/hooks/useAuth";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
-import { Heading, Container, HStack, Text, IconButton, ButtonGroup } from "@chakra-ui/react";
+import { alpha } from "@/utils/alpha";
+import { AboutDialog } from "./AboutDialog";
 import { ColorModeButton, useColorModeValue } from "./ui/color-mode";
 import { Tooltip } from "./ui/tooltip";
-import { alpha } from "@/utils/alpha";
-import { MdLogin, MdLogout } from "react-icons/md";
-import { MdInfoOutline } from "react-icons/md";
-import { AboutDialog } from "./AboutDialog";
 
 export function NavBar() {
   const { login, logout } = useAuth();

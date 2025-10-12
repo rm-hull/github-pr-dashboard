@@ -1,7 +1,7 @@
 import { CatchBoundary, Outlet, createRootRoute } from "@tanstack/react-router";
+import { Backdrop } from "@/components/Backdrop";
 import { ErrorFallback } from "@/components/ErrorFallback";
 import { NavBar } from "@/components/NavBar";
-import { Backdrop } from "@/components/Backdrop";
 
 export const Route = createRootRoute({
   component: () => {

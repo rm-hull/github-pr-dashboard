@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
 import { Octokit } from "@octokit/rest";
+import { useEffect, useMemo, useState } from "react";
 
 export const useApiClient = () => {
   const [token, setToken] = useState<string | null>(() => sessionStorage.getItem("gh_token"));

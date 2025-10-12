@@ -1,7 +1,7 @@
 import { Button, Spinner } from "@chakra-ui/react";
 import { RxCross2, RxCheck, RxQuestionMark } from "react-icons/rx";
-import { usePullRequestDetail } from "@/hooks/usePullRequestDetail";
 import { useMergePullRequest } from "@/hooks/useMergePullRequest";
+import { usePullRequestDetail } from "@/hooks/usePullRequestDetail";
 
 interface MergeButtonProps {
   owner: string;
