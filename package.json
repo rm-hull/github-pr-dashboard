@@ -43,7 +43,7 @@
     "@stylistic/eslint-plugin": "^5.4.0",
     "@tanstack/eslint-plugin-query": "^5.91.0",
     "@tanstack/router-plugin": "^1.132.56",
-    "@types/eslint-plugin-jsx-a11y": "^6",
+    "@types/eslint-plugin-jsx-a11y": "^6.10.1",
     "@types/node": "^24.7.2",
     "@types/react": "~19.2.2",
     "@types/react-dom": "~19.2.1",

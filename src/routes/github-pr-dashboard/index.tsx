@@ -22,7 +22,7 @@ function RouteComponent() {
         </Progress.Root>
       )}
       {data && (
-        <Container py={4} maxW="container.md" bg="bg.panel">
+        <Container py={4} maxW="full" bg="bg.panel">
           <PullRequestsList pulls={data} />
         </Container>
       )}

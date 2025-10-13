@@ -20,7 +20,7 @@ export function NavBar() {
   return (
     <Container
       py={2}
-      maxW="container.md"
+      maxW="full"
       position="sticky"
       top={0}
       bg={bgColor}
