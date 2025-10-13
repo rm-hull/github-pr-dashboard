@@ -2740,9 +2740,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/router-plugin@npm:^1.132.51":
-  version: 1.132.51
-  resolution: "@tanstack/router-plugin@npm:1.132.51"
+"@tanstack/router-plugin@npm:^1.132.56":
+  version: 1.132.56
+  resolution: "@tanstack/router-plugin@npm:1.132.56"
   dependencies:
     "@babel/core": "npm:^7.27.7"
     "@babel/plugin-syntax-jsx": "npm:^7.27.1"
@@ -2775,7 +2775,7 @@ __metadata:
       optional: true
     webpack:
       optional: true
-  checksum: 10c0/deef39fde0ca8dd419646be18dc2fd13497d07616e81d35592d59692f7f262d87f89ef0387e51628956a513d58c62542488034cc8e20096e67efc103e57917de
+  checksum: 10c0/45b0aea034dfc7df89972dc806fecf807b69bad9b23010b129c7c36f859a185739f74fde20627f5493f4b0e80cf0a0a486e8b7f7db02e2fec49ca9b9be32a479
   languageName: node
   linkType: hard
 
@@ -6700,7 +6700,7 @@ __metadata:
     "@tanstack/react-query": "npm:~5.90.2"
     "@tanstack/react-query-devtools": "npm:^5.90.2"
     "@tanstack/react-router": "npm:^1.132.47"
-    "@tanstack/router-plugin": "npm:^1.132.51"
+    "@tanstack/router-plugin": "npm:^1.132.56"
     "@types/eslint-plugin-jsx-a11y": "npm:^6"
     "@types/node": "npm:^24.7.2"
     "@types/react": "npm:~19.2.2"
