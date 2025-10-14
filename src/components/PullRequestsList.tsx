@@ -66,7 +66,12 @@ export default function PullRequestsList({ pulls }: Props) {
                 cursor: "pointer",
               }}
             >
-              <Stack direction={{ base: "column", lg: "row" }} justify="space-between" alignItems="center" gap={2}>
+              <Stack
+                direction={{ base: "column", lg: "row" }}
+                justify="space-between"
+                alignItems={isStacked ? undefined : "center"}
+                gap={2}
+              >
                 <Box>
                   <HStack alignItems="center" gap={1}>
                     <Link href={pull.html_url} fontWeight="bold">
