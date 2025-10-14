@@ -71,7 +71,7 @@ export default function PullRequestsList({ pulls }: Props) {
               >
                 <Box>
                   <HStack alignItems="center" gap={1}>
-                    <Link href={pull.html_url} fontWeight="bold">
+                    <Link href={pull.html_url} fontWeight="bold" target="_blank" rel="noopener noreferrer">
                       {pull.title}
                     </Link>
                     <InfoPopover title={pull.title} descr={pull.body} />
