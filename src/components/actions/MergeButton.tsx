@@ -24,6 +24,7 @@ export function MergeButton({ owner, repo, pull_number, active }: MergeButtonPro
       {data?.mergeable_state === "unstable" && <RxCross2 color="red" />}
       {data?.mergeable_state === "blocked" && <RxCross2 color="red" />}
       {data?.mergeable_state === "dirty" && <RxCross2 color="red" />}
+      {data?.mergeable_state === "unknown" && <RxQuestionMark color="purple" />}
     </Button>
   );
 }
