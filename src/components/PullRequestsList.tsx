@@ -51,13 +51,13 @@ export default function PullRequestsList({ pulls }: Props) {
 
           return (
             <MotionListItem
-              layout={!isStacked}
-              initial={isStacked ? false : { opacity: 0, x: -10 }}
-              animate={isStacked ? {} : { opacity: 1, x: 0 }}
-              exit={isStacked ? {} : { opacity: 0, x: 20, transition: { duration: 0.3 } }}
-              transition={isStacked ? undefined : { duration: 0.3 }}
-              p={2}
               key={pull.id}
+              layout
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 20, transition: { duration: 0.3 } }}
+              transition={{ duration: 0.3 }}
+              p={2}
               _hover={{
                 bg: "bg.subtle",
                 cursor: "pointer",
