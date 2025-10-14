@@ -74,7 +74,7 @@ export default function PullRequestsList({ pulls }: Props) {
                     <Link href={pull.html_url} fontWeight="bold" target="_blank" rel="noopener noreferrer">
                       {pull.title}
                     </Link>
-                    <InfoPopover title={pull.title} descr={pull.body} />
+                    <InfoPopover title={pull.title} descr={pull.body} width={isStacked ? "md" : "lg"} />
                   </HStack>
 
                   <HStack gap={1}>

@@ -7,8 +7,10 @@ import remarkGfm from "remark-gfm";
 interface InfoPopoverProps {
   title?: string;
   descr?: string;
+  width?: string;
 }
-export function InfoPopover({ title, descr }: InfoPopoverProps) {
+
+export function InfoPopover({ title, descr, width }: InfoPopoverProps) {
   if (!descr) {
     return null;
   }
@@ -22,7 +24,7 @@ export function InfoPopover({ title, descr }: InfoPopoverProps) {
       </Popover.Trigger>
       <Portal>
         <Popover.Positioner>
-          <Popover.Content width="lg">
+          <Popover.Content width={width}>
             <Popover.Arrow />
             <Popover.Body maxHeight="70%" overflowY="scroll">
               {title && (
