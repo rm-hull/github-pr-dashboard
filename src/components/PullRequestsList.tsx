@@ -3,7 +3,7 @@ import { RestEndpointMethodTypes } from "@octokit/rest";
 import { AnimatePresence, motion } from "framer-motion";
 import JavascriptTimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import TimeAgo from "react-time-ago";
 import { useGeneralSettings } from "@/hooks/useGeneralSettings";
 import { DependabotRebaseButton } from "./actions/DependabotRebaseButton";
@@ -23,7 +23,6 @@ type Props = {
 };
 
 export default function PullRequestsList({ pulls }: Props) {
-  const [active, setActive] = useState<number | undefined>();
   const { settings, isLoading } = useGeneralSettings();
   const isStacked = useBreakpointValue({ base: true, lg: false });
 
@@ -46,7 +45,7 @@ export default function PullRequestsList({ pulls }: Props) {
   return (
     <List.Root gap={2} listStyleType="none">
       <AnimatePresence>
-        {pulls.filter(isSelected).map((pull, index) => {
+        {pulls.filter(isSelected).map((pull) => {
           const repoFullName = pull.repository_url.split("/repos/")[1];
           const [owner, repo] = repoFullName.split("/");
 
@@ -59,8 +58,6 @@ export default function PullRequestsList({ pulls }: Props) {
               transition={isStacked ? undefined : { duration: 0.3 }}
               p={2}
               key={pull.id}
-              onMouseEnter={() => setActive(index)}
-              onMouseLeave={() => setActive(undefined)}
               _hover={{
                 bg: "bg.subtle",
                 cursor: "pointer",
@@ -100,7 +97,7 @@ export default function PullRequestsList({ pulls }: Props) {
                 </Box>
                 <ButtonGroup variant="subtle" size="xs">
                   <IgnoreButton url={pull.url} />
-                  <MergeButton owner={owner} repo={repo} pull_number={pull.number} active={index === active} />
+                  <MergeButton owner={owner} repo={repo} pull_number={pull.number} />
                   <DependabotRebaseButton owner={owner} repo={repo} pull_number={pull.number} user={pull.user?.login} />
                   <GeminiReviewButton owner={owner} repo={repo} pull_number={pull.number} user={pull.user?.login} />
                 </ButtonGroup>

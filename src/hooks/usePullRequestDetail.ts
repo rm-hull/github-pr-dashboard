@@ -2,7 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import { useApiClient } from "./useApiClient";
 import { useCurrentUser } from "./useCurrentUser";
 
-export function usePullRequestDetail(owner: string, repo: string, pull_number: number, active: boolean) {
+type Options = {
+  isActive: boolean;
+};
+
+export function usePullRequestDetail(owner: string, repo: string, pull_number: number, options?: Options) {
   const { octokit } = useApiClient();
   const { data: user } = useCurrentUser();
 
@@ -12,6 +16,6 @@ export function usePullRequestDetail(owner: string, repo: string, pull_number: n
       const resp = await octokit.rest.pulls.get({ owner, repo, pull_number });
       return resp.data;
     },
-    enabled: !!user && active,
+    enabled: !!user && options?.isActive,
   });
 }
