@@ -10,17 +10,22 @@ type Options = {
 export function usePullRequestDetail(owner: string, repo: string, pull_number: number, options?: Options) {
   const { octokit } = useApiClient();
   const { data: user } = useCurrentUser();
-  const [mergeableState, setMergeableState] = useState<string | undefined>();
+  const [maxAge, setMaxAge] = useState<number | undefined>();
 
   return useQuery({
     queryKey: ["pr", `${owner}/${repo}`, pull_number],
     queryFn: async () => {
       const resp = await octokit.rest.pulls.get({ owner, repo, pull_number });
-      setMergeableState(resp.data.mergeable_state);
+
+      const cacheControl = resp.headers["cache-control"];
+      const maxAgeMatch = cacheControl?.match(/max-age=(\d+)/);
+      const maxAge = parseInt(maxAgeMatch?.[1] ?? "0", 10) * 1000; // ms
+
+      setMaxAge(resp.data.mergeable_state === "unknown" ? maxAge : undefined);
       return resp.data;
     },
-    staleTime: mergeableState === "unknown" ? 5000 : 300_000,
-    refetchInterval: mergeableState === "unknown" ? 5000 : false,
+    staleTime: maxAge,
+    refetchInterval: maxAge,
     enabled: !!user && options?.isActive,
   });
 }
