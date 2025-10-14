@@ -16,6 +16,9 @@ export function useMergePullRequest() {
   return useMutation({
     mutationFn: ({ owner, repo, pull_number, merge_method = "squash" }: MutationProps) =>
       octokit.pulls.merge({ owner, repo, pull_number, merge_method }),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["open-prs"] }),
+    onSuccess: async (_, variables) => {
+      await qc.invalidateQueries({ queryKey: ["open-prs"] });
+      await qc.invalidateQueries({ queryKey: ["pr", `${variables.owner}/${variables.repo}`] });
+    },
   });
 }
