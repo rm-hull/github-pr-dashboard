@@ -1,4 +1,4 @@
-import { Box, Heading, List, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Heading, List, Separator, useBreakpointValue } from "@chakra-ui/react";
 import { AnimatePresence } from "framer-motion";
 import { useCallback, useMemo, useState } from "react";
 import { useGeneralSettings } from "@/hooks/useGeneralSettings";
@@ -45,14 +45,16 @@ export default function PullRequestsList({ pulls }: Props) {
     <>
       <List.Root gap={2} listStyleType="none" mb={8}>
         <AnimatePresence>
-          {Object.entries(pullsBySelector).map(([groupBy, pulls]) => {
+          {Object.entries(pullsBySelector).flatMap(([groupBy, pulls], index, array) => {
             const repoFullName = groupBy.split("/repos/")[1];
+            const isLast = index === array.length - 1;
             return (
               <Box key={repoFullName}>
                 {groupBy && <Heading>{repoFullName}</Heading>}
                 {pulls.map((pull) => (
                   <PullRequestListItem key={pull.id} pull={pull} isStacked={isStacked} />
                 ))}
+                {!isLast && <Separator mt={2} />}
               </Box>
             );
           })}
