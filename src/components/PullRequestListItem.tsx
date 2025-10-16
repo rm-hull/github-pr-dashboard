@@ -10,7 +10,7 @@ import { IgnoreButton } from "./actions/IgnoreButton";
 import { MergeButton } from "./actions/MergeButton";
 import { InfoPopover } from "./InfoPopover";
 
-const MotionListItem = motion(List.Item);
+const MotionListItem = motion.create(List.Item);
 
 JavascriptTimeAgo.addDefaultLocale(en);
 

@@ -1,5 +1,5 @@
 import { Heading, Container, HStack, Text, IconButton, ButtonGroup } from "@chakra-ui/react";
-import { MdLogin, MdLogout , MdInfoOutline } from "react-icons/md";
+import { MdLogin, MdLogout, MdInfoOutline } from "react-icons/md";
 import { useAuth } from "@/hooks/useAuth";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { alpha } from "@/utils/alpha";
@@ -46,7 +46,7 @@ export function NavBar() {
           {!user && (
             <Tooltip content="Sign in with GitHub">
               <IconButton onClick={login}>
-                <MdLogin size="md" />
+                <MdLogin />
               </IconButton>
             </Tooltip>
           )}
