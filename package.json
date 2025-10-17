@@ -41,7 +41,7 @@
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.37.0",
     "@stylistic/eslint-plugin": "^5.4.0",
-    "@tanstack/eslint-plugin-query": "^5.91.0",
+    "@tanstack/eslint-plugin-query": "^5.91.2",
     "@tanstack/router-plugin": "^1.133.4",
     "@types/eslint-plugin-jsx-a11y": "^6.10.1",
     "@types/node": "^24.8.1",
