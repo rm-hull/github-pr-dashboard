@@ -49,16 +49,18 @@ export function PullRequestListItem({ pull, isStacked, searchTerm }: PullRequest
           <Box cursor={pull.body ? "pointer" : undefined}>
             <HStack alignItems="center" gap={2}>
               <Link href={pull.html_url} fontWeight="bold" target="_blank" rel="noopener noreferrer">
-                <SearchHighlight query={searchTerm}>{pull.title}</SearchHighlight>
+                <Text as="span">
+                  <SearchHighlight query={searchTerm}>{pull.title}</SearchHighlight>
+                </Text>
               </Link>
               <StatusIcon owner={owner} repo={repo} pull_number={pull.number} />
             </HStack>
 
             <HStack gap={1}>
               <Text fontSize="sm">
-              <SearchHighlight query={searchTerm}>
+                <SearchHighlight query={searchTerm}>
                   {repoFullName} — #{pull.number}
-              </SearchHighlight>
+                </SearchHighlight>
               </Text>
               <Image
                 src={pull.user?.avatar_url}

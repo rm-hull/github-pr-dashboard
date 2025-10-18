@@ -4,6 +4,7 @@ import { useCallback, useMemo, useState } from "react";
 import { useGeneralSettings } from "@/hooks/useGeneralSettings";
 import { PullRequest } from "@/types";
 import { ListFooter } from "./ListFooter";
+import { NoSearchMatches } from "./NoSearchMatches";
 import { PullRequestListItem } from "./PullRequestListItem";
 import { SearchHighlight } from "./SearchHighlight";
 
@@ -57,6 +58,8 @@ export default function PullRequestsList({ pulls }: Props) {
 
   return (
     <>
+      {pullsBySelector && Object.keys(pullsBySelector).length === 0 && <NoSearchMatches />}
+
       <List.Root gap={2} listStyleType="none" mb={8}>
         <AnimatePresence>
           {Object.entries(pullsBySelector).flatMap(([groupBy, pulls], index, array) => {

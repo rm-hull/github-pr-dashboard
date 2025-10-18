@@ -10,7 +10,8 @@ import {
 } from "@chakra-ui/react";
 import { ChangeEvent, useCallback, useState } from "react";
 import { LuSearch } from "react-icons/lu";
-import { useDebounce } from "react-use";
+import { useDebounce, useKeyPressEvent } from "react-use";
+import useFocus from "@/hooks/useFocus";
 import { alpha } from "@/utils/alpha";
 import { useColorModeValue } from "./ui/color-mode";
 
@@ -20,6 +21,7 @@ interface ListFooterProps {
 }
 
 export function ListFooter({ onSelect, onSearch }: ListFooterProps) {
+  const [inputRef, setInputFocus] = useFocus();
   const isStacked = useBreakpointValue({ base: true, lg: false });
   const [value, setValue] = useState("");
   const bgColor = useColorModeValue(
@@ -50,6 +52,12 @@ export function ListFooter({ onSelect, onSearch }: ListFooterProps) {
 
   useDebounce(() => onSearch(value), 300, [value]);
 
+  useKeyPressEvent("Escape", () => setValue(""));
+  useKeyPressEvent("/", (event: KeyboardEvent) => {
+    event.preventDefault();
+    setTimeout(setInputFocus, 20);
+  });
+
   return (
     <Container
       py={2}
@@ -71,6 +79,7 @@ export function ListFooter({ onSelect, onSearch }: ListFooterProps) {
             endElement={<CloseButton size="xs" variant="plain" onClick={() => setValue("")} />}
           >
             <Input
+              ref={inputRef}
               colorPalette="blue"
               background="bg.muted"
               size="sm"
