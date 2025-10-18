@@ -1,6 +1,7 @@
 import { Box, Spinner } from "@chakra-ui/react";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import { IoWarning } from "react-icons/io5";
 import { RxCheck, RxCross2, RxQuestionMark } from "react-icons/rx";
 import { usePullRequestDetail } from "@/hooks/usePullRequestDetail";
 import { Tooltip } from "./ui/tooltip";
@@ -27,16 +28,15 @@ function icon(isLoading: boolean, state?: string) {
   if (isLoading) {
     return <Spinner size="xs" color="fg.info" />;
   }
-  if (!state) {
-    return <RxQuestionMark color="purple" />;
-  }
+
   switch (state) {
     case "clean":
       return <RxCheck color="green" />;
+    case "behind":
     case "unstable":
+      return <IoWarning color="orange" />;
     case "blocked":
     case "dirty":
-    case "behind":
       return <RxCross2 color="red" />;
     case "unknown":
     default:

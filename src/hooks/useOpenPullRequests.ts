@@ -10,7 +10,7 @@ export function useOpenPullRequests() {
     queryKey: ["open-prs", user?.login],
     queryFn: async () => {
       const q = `user:${user?.login} type:pr state:open`;
-      const resp = await octokit.rest.search.issuesAndPullRequests({ q, per_page: 100 });
+      const resp = await octokit.rest.search.issuesAndPullRequests({ q, per_page: 100, advanced_search: "true" });
       return resp.data.items;
     },
     enabled: !!user,
