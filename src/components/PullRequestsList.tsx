@@ -4,7 +4,9 @@ import { useCallback, useMemo, useState } from "react";
 import { useGeneralSettings } from "@/hooks/useGeneralSettings";
 import { PullRequest } from "@/types";
 import { ListFooter } from "./ListFooter";
+import { NoSearchMatches } from "./NoSearchMatches";
 import { PullRequestListItem } from "./PullRequestListItem";
+import { SearchHighlight } from "./SearchHighlight";
 
 type Props = {
   pulls: PullRequest[];
@@ -16,6 +18,7 @@ const selector = {
 };
 
 export default function PullRequestsList({ pulls }: Props) {
+  const [searchTerm, setSearchTerm] = useState("");
   const { settings, isLoading } = useGeneralSettings();
   const isStacked = useBreakpointValue({ base: true, lg: false });
   const [select, setSelect] = useState<string | null>("recent");
@@ -27,9 +30,22 @@ export default function PullRequestsList({ pulls }: Props) {
       }
 
       const unignoreTime = settings?.ignores?.[pull.url];
-      return unignoreTime === undefined || Date.now() >= unignoreTime;
+      const shouldIgnore = unignoreTime !== undefined && Date.now() <= unignoreTime;
+      if (shouldIgnore) {
+        return false;
+      }
+
+      if (searchTerm?.length > 0) {
+        const lowerCaseSearchTerm = searchTerm.toLowerCase();
+        return (
+          pull.title.toLowerCase().includes(lowerCaseSearchTerm) ||
+          pull.repository_url.toLowerCase().includes(lowerCaseSearchTerm)
+        );
+      }
+
+      return true;
     },
-    [settings]
+    [settings, searchTerm]
   );
 
   const pullsBySelector: Record<string, PullRequest[]> = useMemo(
@@ -43,6 +59,8 @@ export default function PullRequestsList({ pulls }: Props) {
 
   return (
     <>
+      {pullsBySelector && Object.keys(pullsBySelector).length === 0 && <NoSearchMatches />}
+
       <List.Root gap={2} listStyleType="none" mb={8}>
         <AnimatePresence>
           {Object.entries(pullsBySelector).flatMap(([groupBy, pulls], index, array) => {
@@ -50,9 +68,13 @@ export default function PullRequestsList({ pulls }: Props) {
             const isLast = index === array.length - 1;
             return (
               <Box key={repoFullName}>
-                {groupBy && <Heading>{repoFullName}</Heading>}
+                {groupBy && (
+                  <Heading>
+                    <SearchHighlight query={searchTerm}>{repoFullName ?? ""}</SearchHighlight>
+                  </Heading>
+                )}
                 {pulls.map((pull) => (
-                  <PullRequestListItem key={pull.id} pull={pull} isStacked={isStacked} />
+                  <PullRequestListItem key={pull.id} pull={pull} isStacked={isStacked} searchTerm={searchTerm} />
                 ))}
                 {!isLast && <Separator mt={2} />}
               </Box>
@@ -60,7 +82,7 @@ export default function PullRequestsList({ pulls }: Props) {
           })}
         </AnimatePresence>
       </List.Root>
-      <ListFooter onSelect={setSelect} />
+      <ListFooter onSelect={setSelect} onSearch={setSearchTerm} />
     </>
   );
 }
