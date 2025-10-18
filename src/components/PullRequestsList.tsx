@@ -36,9 +36,10 @@ export default function PullRequestsList({ pulls }: Props) {
       }
 
       if (searchTerm?.length > 0) {
-        const rec = pull as unknown as Record<string, string>;
-        return ["repository_url", "title"].some((field) =>
-          String(rec[field]).toLowerCase().includes(searchTerm.toLowerCase())
+        const lowerCaseSearchTerm = searchTerm.toLowerCase();
+        return (
+          pull.title.toLowerCase().includes(lowerCaseSearchTerm) ||
+          pull.repository_url.toLowerCase().includes(lowerCaseSearchTerm)
         );
       }
 
