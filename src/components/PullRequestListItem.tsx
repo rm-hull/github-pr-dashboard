@@ -9,6 +9,7 @@ import { GeminiReviewButton } from "./actions/GeminiReviewButton";
 import { IgnoreButton } from "./actions/IgnoreButton";
 import { MergeButton } from "./actions/MergeButton";
 import { InfoPopover } from "./InfoPopover";
+import { StatusIcon } from "./StatusIcon";
 
 const MotionListItem = motion.create(List.Item);
 
@@ -34,7 +35,6 @@ export function PullRequestListItem({ pull, isStacked }: PullRequestListItemProp
       p={2}
       _hover={{
         bg: "bg.subtle",
-        cursor: "pointer",
       }}
     >
       <Stack
@@ -43,32 +43,34 @@ export function PullRequestListItem({ pull, isStacked }: PullRequestListItemProp
         alignItems={isStacked ? undefined : "center"}
         gap={2}
       >
-        <Box>
-          <HStack alignItems="center" gap={1}>
-            <Link href={pull.html_url} fontWeight="bold" target="_blank" rel="noopener noreferrer">
-              {pull.title}
-            </Link>
-            <InfoPopover title={pull.title} descr={pull.body} width={isStacked ? "md" : "lg"} />
-          </HStack>
+        <InfoPopover title={pull.title} descr={pull.body} width={isStacked ? "md" : "lg"}>
+          <Box cursor={pull.body ? "pointer" : undefined}>
+            <HStack alignItems="center" gap={2}>
+              <Link href={pull.html_url} fontWeight="bold" target="_blank" rel="noopener noreferrer">
+                {pull.title}
+              </Link>
+              <StatusIcon owner={owner} repo={repo} pull_number={pull.number} />
+            </HStack>
 
-          <HStack gap={1}>
-            <Text fontSize="sm">
-              {repoFullName} — #{pull.number}
-            </Text>
-            <Image
-              src={pull.user?.avatar_url}
-              ml={3}
-              boxSize="18px"
-              borderRadius="full"
-              fit="cover"
-              border="1px solid"
-              borderColor="fg.subtle"
-            />
-            <Text fontSize="xs" color="fg.subtle" display="flex" flexDir="row" gap={2}>
-              {pull.user?.login} <TimeAgo date={new Date(pull.created_at)} locale="en-US" />
-            </Text>
-          </HStack>
-        </Box>
+            <HStack gap={1}>
+              <Text fontSize="sm">
+                {repoFullName} — #{pull.number}
+              </Text>
+              <Image
+                src={pull.user?.avatar_url}
+                ml={3}
+                boxSize="18px"
+                borderRadius="full"
+                fit="cover"
+                border="1px solid"
+                borderColor="fg.subtle"
+              />
+              <Text fontSize="xs" color="fg.subtle" display="flex" flexDir="row" gap={2}>
+                {pull.user?.login} <TimeAgo date={new Date(pull.created_at)} locale="en-US" />
+              </Text>
+            </HStack>
+          </Box>
+        </InfoPopover>
         <ButtonGroup variant="subtle" size="xs">
           <IgnoreButton url={pull.url} />
           <MergeButton owner={owner} repo={repo} pull_number={pull.number} />
