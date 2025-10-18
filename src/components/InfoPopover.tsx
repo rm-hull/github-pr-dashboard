@@ -1,5 +1,5 @@
-import { IconButton, Popover, Portal, Separator } from "@chakra-ui/react";
-import { FcInfo } from "react-icons/fc";
+import { Popover, Portal, Separator } from "@chakra-ui/react";
+import { PropsWithChildren } from "react";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
@@ -10,18 +10,14 @@ interface InfoPopoverProps {
   width?: string;
 }
 
-export function InfoPopover({ title, descr, width }: InfoPopoverProps) {
+export function InfoPopover({ title, descr, width, children }: PropsWithChildren<InfoPopoverProps>) {
   if (!descr) {
-    return null;
+    return children;
   }
 
   return (
     <Popover.Root lazyMount unmountOnExit>
-      <Popover.Trigger asChild>
-        <IconButton variant="plain" size="sm">
-          <FcInfo />
-        </IconButton>
-      </Popover.Trigger>
+      <Popover.Trigger asChild>{children}</Popover.Trigger>
       <Portal>
         <Popover.Positioner>
           <Popover.Content width={width}>

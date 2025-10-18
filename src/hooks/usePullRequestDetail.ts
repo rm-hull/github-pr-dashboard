@@ -21,7 +21,7 @@ export function usePullRequestDetail(owner: string, repo: string, pull_number: n
       const maxAgeMatch = cacheControl?.match(/max-age=(\d+)/);
       const maxAge = parseInt(maxAgeMatch?.[1] ?? "0", 10) * 1000; // ms
 
-      setMaxAge(resp.data.mergeable_state === "unknown" ? maxAge : undefined);
+      setMaxAge(resp.data.mergeable_state !== "clean" ? maxAge : undefined);
       return resp.data;
     },
     staleTime: maxAge,

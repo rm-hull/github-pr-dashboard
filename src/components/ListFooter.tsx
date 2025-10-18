@@ -90,9 +90,9 @@ export function ListFooter({ onSelect, onSearch }: ListFooterProps) {
           <HStack gap="6">
             <RadioGroup.Label>Group by:</RadioGroup.Label>
             {items.map((item) => (
-              <RadioGroup.Item key={item.value} value={item.value}>
+              <RadioGroup.Item key={item.value} value={item.value} cursor="pointer">
                 <RadioGroup.ItemHiddenInput />
-                <RadioGroup.ItemIndicator />
+                <RadioGroup.ItemIndicator cursor="pointer" />
                 <RadioGroup.ItemText>{item.label}</RadioGroup.ItemText>
               </RadioGroup.Item>
             ))}
