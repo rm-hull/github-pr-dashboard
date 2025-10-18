@@ -1,13 +1,27 @@
-import { Container, HStack, RadioGroup, RadioGroupValueChangeDetails } from "@chakra-ui/react";
-import { useCallback } from "react";
+import {
+  CloseButton,
+  Container,
+  HStack,
+  Input,
+  InputGroup,
+  RadioGroup,
+  RadioGroupValueChangeDetails,
+  useBreakpointValue,
+} from "@chakra-ui/react";
+import { ChangeEvent, useCallback, useState } from "react";
+import { LuSearch } from "react-icons/lu";
+import { useDebounce } from "react-use";
 import { alpha } from "@/utils/alpha";
 import { useColorModeValue } from "./ui/color-mode";
 
 interface ListFooterProps {
   onSelect: (value: string) => void;
+  onSearch: (value: string) => void;
 }
 
-export function ListFooter({ onSelect }: ListFooterProps) {
+export function ListFooter({ onSelect, onSearch }: ListFooterProps) {
+  const isStacked = useBreakpointValue({ base: true, lg: false });
+  const [value, setValue] = useState("");
   const bgColor = useColorModeValue(
     alpha("blue.50", 0.5), // light
     alpha("blue.800", 0.3) // dark
@@ -20,18 +34,28 @@ export function ListFooter({ onSelect }: ListFooterProps) {
     { label: "By repo", value: "by-repo" },
   ];
 
-  const handleValueChange = useCallback(
+  const handleRadioValueChange = useCallback(
     (details: RadioGroupValueChangeDetails) => {
       onSelect(details.value ?? "recent");
     },
     [onSelect]
   );
 
+  const handleSearchChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      setValue(event.target.value.trim());
+    },
+    [setValue]
+  );
+
+  useDebounce(() => onSearch(value), 300, [value]);
+
   return (
     <Container
       py={2}
       maxW="full"
       position="fixed"
+      left={0}
       bottom={0}
       bg={bgColor}
       backdropFilter="saturate(180%) blur(5px)"
@@ -39,18 +63,42 @@ export function ListFooter({ onSelect }: ListFooterProps) {
       borderColor={borderColor}
       zIndex={100}
     >
-      <RadioGroup.Root colorPalette="blue" variant="subtle" defaultValue="recent" onValueChange={handleValueChange}>
-        <HStack gap="6">
-          <RadioGroup.Label>Group by:</RadioGroup.Label>
-          {items.map((item) => (
-            <RadioGroup.Item key={item.value} value={item.value}>
-              <RadioGroup.ItemHiddenInput />
-              <RadioGroup.ItemIndicator />
-              <RadioGroup.ItemText>{item.label}</RadioGroup.ItemText>
-            </RadioGroup.Item>
-          ))}
-        </HStack>
-      </RadioGroup.Root>
+      <HStack width="full" gap={8}>
+        {!isStacked && (
+          <InputGroup
+            width="300px"
+            startElement={<LuSearch />}
+            endElement={<CloseButton size="xs" variant="plain" onClick={() => setValue("")} />}
+          >
+            <Input
+              colorPalette="blue"
+              background="bg.muted"
+              size="sm"
+              placeholder="Search..."
+              value={value}
+              onChange={handleSearchChange}
+            />
+          </InputGroup>
+        )}
+
+        <RadioGroup.Root
+          colorPalette="blue"
+          variant="subtle"
+          defaultValue="recent"
+          onValueChange={handleRadioValueChange}
+        >
+          <HStack gap="6">
+            <RadioGroup.Label>Group by:</RadioGroup.Label>
+            {items.map((item) => (
+              <RadioGroup.Item key={item.value} value={item.value}>
+                <RadioGroup.ItemHiddenInput />
+                <RadioGroup.ItemIndicator />
+                <RadioGroup.ItemText>{item.label}</RadioGroup.ItemText>
+              </RadioGroup.Item>
+            ))}
+          </HStack>
+        </RadioGroup.Root>
+      </HStack>
     </Container>
   );
 }

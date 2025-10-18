@@ -5,6 +5,7 @@ import { useGeneralSettings } from "@/hooks/useGeneralSettings";
 import { PullRequest } from "@/types";
 import { ListFooter } from "./ListFooter";
 import { PullRequestListItem } from "./PullRequestListItem";
+import { SearchHighlight } from "./SearchHighlight";
 
 type Props = {
   pulls: PullRequest[];
@@ -16,6 +17,7 @@ const selector = {
 };
 
 export default function PullRequestsList({ pulls }: Props) {
+  const [searchTerm, setSearchTerm] = useState("");
   const { settings, isLoading } = useGeneralSettings();
   const isStacked = useBreakpointValue({ base: true, lg: false });
   const [select, setSelect] = useState<string | null>("recent");
@@ -27,19 +29,31 @@ export default function PullRequestsList({ pulls }: Props) {
       }
 
       const unignoreTime = settings?.ignores?.[pull.url];
-      return unignoreTime === undefined || Date.now() >= unignoreTime;
-    },
-    [settings]
-  );
+      const shouldIgnore = unignoreTime !== undefined && Date.now() <= unignoreTime;
+      if (shouldIgnore) {
+        return false;
+      }
 
-  if (isLoading) {
-    return null;
-  }
+      if (searchTerm?.length > 0) {
+        const rec = pull as unknown as Record<string, string>;
+        return ["repository_url", "title"].some((field) =>
+          String(rec[field]).toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      }
+
+      return true;
+    },
+    [settings, searchTerm]
+  );
 
   const pullsBySelector: Record<string, PullRequest[]> = useMemo(
     () => Object.groupBy(pulls.filter(isSelected), selector[select]),
     [pulls, isSelected, select]
   );
+
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <>
@@ -50,9 +64,13 @@ export default function PullRequestsList({ pulls }: Props) {
             const isLast = index === array.length - 1;
             return (
               <Box key={repoFullName}>
-                {groupBy && <Heading>{repoFullName}</Heading>}
+                {groupBy && (
+                  <Heading>
+                    <SearchHighlight query={searchTerm}>{repoFullName ?? ""}</SearchHighlight>
+                  </Heading>
+                )}
                 {pulls.map((pull) => (
-                  <PullRequestListItem key={pull.id} pull={pull} isStacked={isStacked} />
+                  <PullRequestListItem key={pull.id} pull={pull} isStacked={isStacked} searchTerm={searchTerm} />
                 ))}
                 {!isLast && <Separator mt={2} />}
               </Box>
@@ -60,7 +78,7 @@ export default function PullRequestsList({ pulls }: Props) {
           })}
         </AnimatePresence>
       </List.Root>
-      <ListFooter onSelect={setSelect} />
+      <ListFooter onSelect={setSelect} onSearch={setSearchTerm} />
     </>
   );
 }
