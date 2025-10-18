@@ -32,14 +32,14 @@ export default function PullRequestsList({ pulls }: Props) {
     [settings]
   );
 
-  if (isLoading) {
-    return null;
-  }
-
   const pullsBySelector: Record<string, PullRequest[]> = useMemo(
     () => Object.groupBy(pulls.filter(isSelected), selector[select]),
     [pulls, isSelected, select]
   );
+
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <>
