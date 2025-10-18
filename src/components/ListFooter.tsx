@@ -32,6 +32,7 @@ export function ListFooter({ onSelect }: ListFooterProps) {
       py={2}
       maxW="full"
       position="fixed"
+      left={0}
       bottom={0}
       bg={bgColor}
       backdropFilter="saturate(180%) blur(5px)"
