@@ -22,7 +22,7 @@ interface ListFooterProps {
 
 export function ListFooter({ onSelect, onSearch }: ListFooterProps) {
   const [inputRef, setInputFocus] = useFocus();
-  const isStacked = useBreakpointValue({ base: true, lg: false });
+  const isStacked = useBreakpointValue({ base: true, md: false });
   const [value, setValue] = useState("");
   const bgColor = useColorModeValue(
     alpha("blue.50", 0.5), // light

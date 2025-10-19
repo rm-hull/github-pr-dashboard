@@ -12,17 +12,19 @@ import { InfoPopover } from "./InfoPopover";
 import { SearchHighlight } from "./SearchHighlight";
 import { StatusIcon } from "./StatusIcon";
 
+export type Breakpoint = "base" | "md" | "lg";
+
 const MotionListItem = motion.create(List.Item);
 
 JavascriptTimeAgo.addDefaultLocale(en);
 
 interface PullRequestListItemProps {
   pull: PullRequest;
-  isStacked?: boolean;
+  breakpoint?: Breakpoint;
   searchTerm?: string;
 }
 
-export function PullRequestListItem({ pull, isStacked, searchTerm }: PullRequestListItemProps) {
+export function PullRequestListItem({ pull, breakpoint, searchTerm }: PullRequestListItemProps) {
   const repoFullName = pull.repository_url.split("/repos/")[1];
   const [owner, repo] = repoFullName.split("/");
 
@@ -40,16 +42,16 @@ export function PullRequestListItem({ pull, isStacked, searchTerm }: PullRequest
       }}
     >
       <Stack
-        direction={{ base: "column", lg: "row" }}
+        direction={breakpoint === "base" ? "column" : "row"}
         justify="space-between"
-        alignItems={isStacked ? undefined : "center"}
+        alignItems={breakpoint === "base" ? undefined : "center"}
         gap={2}
       >
-        <InfoPopover title={pull.title} descr={pull.body} width={isStacked ? "md" : "lg"}>
+        <InfoPopover title={pull.title} descr={pull.body} width={breakpoint === "base" ? "md" : "lg"}>
           <Box cursor={pull.body ? "pointer" : undefined}>
             <HStack alignItems="center" gap={2}>
               <Link href={pull.html_url} fontWeight="bold" target="_blank" rel="noopener noreferrer">
-                <Text as="span" truncate maxW={isStacked ? "360px" : undefined}>
+                <Text as="span" truncate maxW={breakpoint === "lg" ? undefined : "320px"}>
                   <SearchHighlight query={searchTerm}>{pull.title}</SearchHighlight>
                 </Text>
               </Link>

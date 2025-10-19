@@ -5,10 +5,10 @@ import { useGeneralSettings } from "@/hooks/useGeneralSettings";
 import { PullRequest } from "@/types";
 import { ListFooter } from "./ListFooter";
 import { NoSearchMatches } from "./NoSearchMatches";
-import { PullRequestListItem } from "./PullRequestListItem";
+import { Breakpoint, PullRequestListItem } from "./PullRequestListItem";
 import { SearchHighlight } from "./SearchHighlight";
 
-type Props = {
+type PullRequestListProps = {
   pulls: PullRequest[];
 };
 
@@ -17,10 +17,10 @@ const selector = {
   "by-repo": (pull: PullRequest) => pull.repository_url,
 };
 
-export default function PullRequestsList({ pulls }: Props) {
+export default function PullRequestsList({ pulls }: PullRequestListProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const { settings, isLoading } = useGeneralSettings();
-  const isStacked = useBreakpointValue({ base: true, lg: false });
+  const breakpoint = useBreakpointValue<Breakpoint>({ base: "base", md: "md", lg: "lg" });
   const [select, setSelect] = useState<string | null>("recent");
 
   const isSelected = useCallback(
@@ -74,7 +74,7 @@ export default function PullRequestsList({ pulls }: Props) {
                   </Heading>
                 )}
                 {pulls.map((pull) => (
-                  <PullRequestListItem key={pull.id} pull={pull} isStacked={isStacked} searchTerm={searchTerm} />
+                  <PullRequestListItem key={pull.id} pull={pull} breakpoint={breakpoint} searchTerm={searchTerm} />
                 ))}
                 {!isLast && <Separator mt={2} />}
               </Box>
