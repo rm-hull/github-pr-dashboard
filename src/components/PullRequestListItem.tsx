@@ -49,30 +49,33 @@ export function PullRequestListItem({ pull, isStacked, searchTerm }: PullRequest
           <Box cursor={pull.body ? "pointer" : undefined}>
             <HStack alignItems="center" gap={2}>
               <Link href={pull.html_url} fontWeight="bold" target="_blank" rel="noopener noreferrer">
-                <Text as="span">
+                <Text as="span" truncate maxW={isStacked ? "360px" : undefined}>
                   <SearchHighlight query={searchTerm}>{pull.title}</SearchHighlight>
                 </Text>
               </Link>
               <StatusIcon owner={owner} repo={repo} pull_number={pull.number} />
             </HStack>
 
-            <HStack gap={1}>
-              <Text fontSize="sm">
+            <HStack gapX={3} gapY={0} flexWrap="wrap">
+              <Text as="span" fontSize="sm">
                 <SearchHighlight query={searchTerm}>
                   {repoFullName} — #{pull.number}
                 </SearchHighlight>
               </Text>
-              <Image
-                src={pull.user?.avatar_url}
-                ml={3}
-                boxSize="18px"
-                borderRadius="full"
-                fit="cover"
-                border="1px solid"
-                borderColor="fg.subtle"
-              />
-              <Text fontSize="xs" color="fg.subtle" display="flex" flexDir="row" gap={2}>
-                {pull.user?.login} <TimeAgo date={new Date(pull.created_at)} locale="en-US" />
+
+              <Text as="span" fontSize="xs" color="fg.subtle" display="inline-flex" gap={1}>
+                <Image
+                  src={pull.user?.avatar_url}
+                  boxSize="18px"
+                  borderRadius="full"
+                  fit="cover"
+                  border="1px solid"
+                  borderColor="fg.subtle"
+                />
+                {pull.user?.login}
+              </Text>
+              <Text as="span" fontSize="xs" color="fg.subtle">
+                <TimeAgo date={new Date(pull.created_at)} locale="en-US" />
               </Text>
             </HStack>
           </Box>
