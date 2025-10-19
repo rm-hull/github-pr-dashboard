@@ -1,12 +1,12 @@
 import { Box, Heading, List, Separator, useBreakpointValue } from "@chakra-ui/react";
 import { AnimatePresence } from "framer-motion";
 import { useCallback, useMemo, useState } from "react";
+import { FaGitAlt } from "react-icons/fa";
 import { useGeneralSettings } from "@/hooks/useGeneralSettings";
 import { PullRequest } from "@/types";
 import { ListFooter } from "./ListFooter";
 import { NoSearchMatches } from "./NoSearchMatches";
 import { Breakpoint, PullRequestListItem } from "./PullRequestListItem";
-import { SearchHighlight } from "./SearchHighlight";
 
 type PullRequestListProps = {
   pulls: PullRequest[];
@@ -68,9 +68,10 @@ export default function PullRequestsList({ pulls }: PullRequestListProps) {
             const isLast = index === array.length - 1;
             return (
               <Box key={repoFullName}>
-                {groupBy && (
-                  <Heading>
-                    <SearchHighlight query={searchTerm}>{repoFullName ?? ""}</SearchHighlight>
+                {!!repoFullName && (
+                  <Heading fontSize="2xl" py={1} mb={1} color="fg.info" display="flex" alignItems="center" gap={2}>
+                    <FaGitAlt size={24} />
+                    {repoFullName}
                   </Heading>
                 )}
                 {pulls.map((pull) => (
