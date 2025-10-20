@@ -1,0 +1,61 @@
+.pr-body-markdown-container td {
+  padding: 5px;
+  border: 1px solid var(--chakra-colors-fg-muted);
+}
+.pr-body-markdown-container th {
+  padding: 5px;
+  border: 1px solid var(--chakra-colors-fg-muted);
+  background-color: var(--chakra-colors-bg-muted);
+}
+.pr-body-markdown-container table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.pr-body-markdown-container pre {
+  background-color: var(--chakra-colors-bg-muted);
+  padding: 10px;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+.pr-body-markdown-container code:not(pre *) {
+  background-color: var(--chakra-colors-bg-muted);
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+.pr-body-markdown-container blockquote {
+  border-left: 4px solid var(--chakra-colors-fg-subtle);
+  padding-left: 10px;
+  color: var(--chakra-colors-fg-muted);
+  margin-left: 0;
+}
+.pr-body-markdown-container ul {
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+.pr-body-markdown-container li {
+  margin-bottom: 5px;
+  list-style-type: disc;
+}
+.pr-body-markdown-container p {
+  padding-bottom: 5px;
+}
+.pr-body-markdown-container h2,
+.pr-body-markdown-container h3,
+.pr-body-markdown-container h4,
+.pr-body-markdown-container h5,
+.pr-body-markdown-container h6 {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.pr-body-markdown-container h2 {
+  font-size: large;
+}
+.pr-body-markdown-container h3,
+.pr-body-markdown-container h4,
+.pr-body-markdown-container h5,
+.pr-body-markdown-container h6 {
+  font-size: medium;
+}
