@@ -2,7 +2,7 @@ import { Box, Heading, List, Separator, useBreakpointValue } from "@chakra-ui/re
 import { AnimatePresence } from "framer-motion";
 import { useCallback, useMemo, useState } from "react";
 import { FaGitAlt } from "react-icons/fa";
-import { useGeneralSettings } from "@/hooks/useGeneralSettings";
+import { ListViewBy, useGeneralSettings } from "@/hooks/useGeneralSettings";
 import { PullRequest } from "@/types";
 import { ListFooter } from "./ListFooter";
 import { NoSearchMatches } from "./NoSearchMatches";
@@ -12,16 +12,16 @@ type PullRequestListProps = {
   pulls: PullRequest[];
 };
 
-const selector = {
+const selector: Record<ListViewBy, (pull: PullRequest) => string | null> = {
   recent: () => null,
-  "by-repo": (pull: PullRequest) => pull.repository_url,
+  repo: (pull: PullRequest) => pull.repository_url,
 };
 
 export default function PullRequestsList({ pulls }: PullRequestListProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const { settings, isLoading } = useGeneralSettings();
   const breakpoint = useBreakpointValue<Breakpoint>({ base: "base", md: "md", lg: "lg" });
-  const [select, setSelect] = useState<string | null>("recent");
+  const listViewBy = settings?.listViewBy || "recent";
 
   const isSelected = useCallback(
     (pull: PullRequest) => {
@@ -49,8 +49,8 @@ export default function PullRequestsList({ pulls }: PullRequestListProps) {
   );
 
   const pullsBySelector: Record<string, PullRequest[]> = useMemo(
-    () => Object.groupBy(pulls.filter(isSelected), selector[select]),
-    [pulls, isSelected, select]
+    () => Object.groupBy(pulls.filter(isSelected), selector[listViewBy]),
+    [pulls, isSelected, listViewBy]
   );
 
   if (isLoading) {
@@ -83,7 +83,7 @@ export default function PullRequestsList({ pulls }: PullRequestListProps) {
           })}
         </AnimatePresence>
       </List.Root>
-      <ListFooter onSelect={setSelect} onSearch={setSearchTerm} />
+      <ListFooter onSearch={setSearchTerm} />
     </>
   );
 }

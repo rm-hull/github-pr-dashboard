@@ -1,7 +1,16 @@
 import { useLocalStorage } from "@rm-hull/use-local-storage";
 
+// Single source of truth for the allowed list view values at runtime.
+const LIST_VIEW_BY = ["repo", "recent"] as const;
+export type ListViewBy = (typeof LIST_VIEW_BY)[number];
+
 export interface GeneralSettings {
   ignores?: Record<string, number>;
+  listViewBy?: ListViewBy;
+}
+
+export function isListViewBy(v: unknown): v is ListViewBy {
+  return typeof v === "string" && (LIST_VIEW_BY as readonly string[]).includes(v);
 }
 
 type UseGeneralSettingsReturnType = {

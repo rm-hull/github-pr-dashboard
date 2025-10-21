@@ -12,16 +12,27 @@ import { ChangeEvent, useCallback, useState } from "react";
 import { LuSearch } from "react-icons/lu";
 import { useDebounce, useKeyPressEvent } from "react-use";
 import useFocus from "@/hooks/useFocus";
+import { isListViewBy, ListViewBy, useGeneralSettings } from "@/hooks/useGeneralSettings";
 import { alpha } from "@/utils/alpha";
 import { useColorModeValue } from "./ui/color-mode";
 
 interface ListFooterProps {
-  onSelect: (value: string) => void;
   onSearch: (value: string) => void;
 }
 
-export function ListFooter({ onSelect, onSearch }: ListFooterProps) {
+type RadioItem = {
+  label: string;
+  value: ListViewBy;
+};
+
+const items = [
+  { label: "Recently created", value: "recent" },
+  { label: "By repo", value: "repo" },
+] as const satisfies ReadonlyArray<RadioItem>;
+
+export function ListFooter({ onSearch }: ListFooterProps) {
   const [inputRef, setInputFocus] = useFocus();
+  const { settings, updateSettings } = useGeneralSettings();
   const isStacked = useBreakpointValue({ base: true, md: false });
   const [value, setValue] = useState("");
   const bgColor = useColorModeValue(
@@ -31,16 +42,13 @@ export function ListFooter({ onSelect, onSearch }: ListFooterProps) {
 
   const borderColor = useColorModeValue("blue.100", "blue.900");
 
-  const items = [
-    { label: "Recently created", value: "recent" },
-    { label: "By repo", value: "by-repo" },
-  ];
-
   const handleRadioValueChange = useCallback(
     (details: RadioGroupValueChangeDetails) => {
-      onSelect(details.value ?? "recent");
+      if (isListViewBy(details.value)) {
+        updateSettings({ ...settings, listViewBy: details.value });
+      }
     },
-    [onSelect]
+    [settings, updateSettings]
   );
 
   const handleSearchChange = useCallback(
@@ -93,7 +101,7 @@ export function ListFooter({ onSelect, onSearch }: ListFooterProps) {
         <RadioGroup.Root
           colorPalette="blue"
           variant="subtle"
-          defaultValue="recent"
+          value={settings?.listViewBy ?? "recent"}
           onValueChange={handleRadioValueChange}
         >
           <HStack gap="6">
