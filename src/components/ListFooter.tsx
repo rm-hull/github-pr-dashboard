@@ -66,6 +66,8 @@ export function ListFooter({ onSearch }: ListFooterProps) {
     setTimeout(setInputFocus, 20);
   });
 
+  const clearSearch = useCallback(() => setValue(""), [setValue]);
+
   return (
     <Container
       py={2}
@@ -84,7 +86,7 @@ export function ListFooter({ onSearch }: ListFooterProps) {
           <InputGroup
             width="300px"
             startElement={<LuSearch />}
-            endElement={<CloseButton size="xs" variant="plain" onClick={() => setValue("")} />}
+            endElement={<CloseButton size="xs" variant="plain" onClick={clearSearch} />}
           >
             <Input
               ref={inputRef}
