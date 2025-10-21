@@ -48,10 +48,14 @@ export default function PullRequestsList({ pulls }: PullRequestListProps) {
     [settings, searchTerm]
   );
 
-  const pullsBySelector: Record<string, PullRequest[]> = useMemo(
-    () => Object.groupBy(pulls.filter(isSelected), selector[listViewBy]),
-    [pulls, isSelected, listViewBy]
-  );
+  const pullsBySelector = useMemo(() => {
+    return pulls.filter(isSelected).reduce<Record<string, PullRequest[]>>((acc, pr) => {
+      const key = selector[listViewBy](pr) ?? "";
+      if (!acc[key]) acc[key] = [];
+      acc[key].push(pr);
+      return acc;
+    }, {});
+  }, [pulls, isSelected, listViewBy]);
 
   if (isLoading) {
     return null;
