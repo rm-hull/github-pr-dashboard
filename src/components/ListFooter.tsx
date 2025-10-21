@@ -34,7 +34,7 @@ export function ListFooter({ onSearch }: ListFooterProps) {
   const [inputRef, setInputFocus] = useFocus();
   const { settings, updateSettings } = useGeneralSettings();
   const isStacked = useBreakpointValue({ base: true, md: false });
-  const [value, setValue] = useState("");
+  const [searchText, setSearchText] = useState("");
   const bgColor = useColorModeValue(
     alpha("blue.50", 0.5), // light
     alpha("blue.800", 0.3) // dark
@@ -53,20 +53,19 @@ export function ListFooter({ onSearch }: ListFooterProps) {
 
   const handleSearchChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
-      setValue(event.target.value.trim());
+      setSearchText(event.target.value.trim());
     },
-    [setValue]
+    [setSearchText]
   );
 
-  useDebounce(() => onSearch(value), 300, [value]);
+  useDebounce(() => onSearch(searchText), 300, [searchText]);
+  const clearSearch = useCallback(() => setSearchText(""), [setSearchText]);
 
-  useKeyPressEvent("Escape", () => setValue(""));
+  useKeyPressEvent("Escape", clearSearch);
   useKeyPressEvent("/", (event: KeyboardEvent) => {
     event.preventDefault();
     setTimeout(setInputFocus, 20);
   });
-
-  const clearSearch = useCallback(() => setValue(""), [setValue]);
 
   return (
     <Container
@@ -86,7 +85,9 @@ export function ListFooter({ onSearch }: ListFooterProps) {
           <InputGroup
             width="300px"
             startElement={<LuSearch />}
-            endElement={<CloseButton size="xs" variant="plain" onClick={clearSearch} />}
+            endElement={
+              <CloseButton size="xs" variant="plain" onClick={clearSearch} disabled={searchText.length === 0} />
+            }
           >
             <Input
               ref={inputRef}
@@ -94,7 +95,7 @@ export function ListFooter({ onSearch }: ListFooterProps) {
               background="bg.muted"
               size="sm"
               placeholder="Search..."
-              value={value}
+              value={searchText}
               onChange={handleSearchChange}
             />
           </InputGroup>
