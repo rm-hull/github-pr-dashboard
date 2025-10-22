@@ -2713,9 +2713,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-router@npm:^1.133.20":
-  version: 1.133.20
-  resolution: "@tanstack/react-router@npm:1.133.20"
+"@tanstack/react-router@npm:^1.133.22":
+  version: 1.133.22
+  resolution: "@tanstack/react-router@npm:1.133.22"
   dependencies:
     "@tanstack/history": "npm:1.133.19"
     "@tanstack/react-store": "npm:^0.7.0"
@@ -2726,7 +2726,7 @@ __metadata:
   peerDependencies:
     react: ">=18.0.0 || >=19.0.0"
     react-dom: ">=18.0.0 || >=19.0.0"
-  checksum: 10c0/36cb9205e0639d098e42e02d0d76e2dd5f1f9a47e45e8b9c044d150fc7a3fcb0fc6747278b12619e72e092917333506177e9e4c282b15a261e5b72d0f5de3caa
+  checksum: 10c0/ab001b11a9e0d6fe38aa6a356cf1e8f85dccabe00fede6f8831fb15d2c337e0449c4b867e4046e604f612a0a552c4f33cf7d93cfc27e6825d4f09b404df0d46a
   languageName: node
   linkType: hard
 
@@ -2774,9 +2774,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/router-plugin@npm:^1.133.20":
-  version: 1.133.20
-  resolution: "@tanstack/router-plugin@npm:1.133.20"
+"@tanstack/router-plugin@npm:^1.133.22":
+  version: 1.133.22
+  resolution: "@tanstack/router-plugin@npm:1.133.22"
   dependencies:
     "@babel/core": "npm:^7.27.7"
     "@babel/plugin-syntax-jsx": "npm:^7.27.1"
@@ -2794,9 +2794,9 @@ __metadata:
     zod: "npm:^3.24.2"
   peerDependencies:
     "@rsbuild/core": ">=1.0.2"
-    "@tanstack/react-router": ^1.133.20
+    "@tanstack/react-router": ^1.133.22
     vite: ">=5.0.0 || >=6.0.0 || >=7.0.0"
-    vite-plugin-solid: ^2.11.8
+    vite-plugin-solid: ^2.11.10
     webpack: ">=5.92.0"
   peerDependenciesMeta:
     "@rsbuild/core":
@@ -2809,7 +2809,7 @@ __metadata:
       optional: true
     webpack:
       optional: true
-  checksum: 10c0/79ce4eff736a2c8f15c350374767fccd1bf120babef96d2fddb9bc3eb83099c5a53daba8692001042399de1a9483e625ac29391f59601cfd1896369d52dabd42
+  checksum: 10c0/822cdceafdddb54226be69c41d2a3f149cc17e4e70fc471b8ebbedd842fbb6715dfe30ce6460d48c6736b9de87e70923bb83cf59a7a7e7a4ecf7f6d87aa4525a
   languageName: node
   linkType: hard
 
@@ -6938,8 +6938,8 @@ __metadata:
     "@tanstack/eslint-plugin-query": "npm:^5.91.2"
     "@tanstack/react-query": "npm:~5.90.5"
     "@tanstack/react-query-devtools": "npm:^5.90.2"
-    "@tanstack/react-router": "npm:^1.133.20"
-    "@tanstack/router-plugin": "npm:^1.133.20"
+    "@tanstack/react-router": "npm:^1.133.22"
+    "@tanstack/router-plugin": "npm:^1.133.22"
     "@types/eslint-plugin-jsx-a11y": "npm:^6.10.1"
     "@types/node": "npm:^24.8.1"
     "@types/react": "npm:~19.2.2"
