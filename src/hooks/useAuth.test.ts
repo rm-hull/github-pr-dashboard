@@ -31,6 +31,7 @@ global.sessionStorage = dom.window.sessionStorage;
 
 describe("useAuth", () => {
   let fetchSpy: ReturnType<typeof vi.fn>;
+  let replaceStateSpy: ReturnType<typeof vi.spyOn>;
 
   beforeEach(() => {
     fetchSpy = vi.fn(() =>
@@ -40,6 +41,7 @@ describe("useAuth", () => {
       } as Response)
     );
     vi.stubGlobal("fetch", fetchSpy);
+    replaceStateSpy = vi.spyOn(window.history, "replaceState");
 
     sessionStorage.clear();
     mockLocation.search = "";
@@ -50,6 +52,7 @@ describe("useAuth", () => {
 
   afterEach(() => {
     vi.restoreAllMocks();
+    replaceStateSpy.mockRestore();
   });
 
   it("should call fetch exactly once when code and verifier are present and ghToken is absent", async () => {
@@ -61,7 +64,7 @@ describe("useAuth", () => {
     await act(() => Promise.resolve());
     expect(fetchSpy).toHaveBeenCalledTimes(1);
     expect(sessionStorage.getItem("gh_token")).toBe("mock_token");
-    expect(global.window.history.replaceState).toHaveBeenCalledWith({}, document.title, "/github-pr-dashboard");
+    expect(replaceStateSpy).toHaveBeenCalledWith({}, document.title, "/github-pr-dashboard");
     expect(global.window.dispatchEvent).toHaveBeenCalledWith(expect.any(CustomEvent));
   });
 
