@@ -32,6 +32,7 @@ jobs:
         env:
           VITE_GITHUB_CLIENT_ID: ${{ vars.VITE_GITHUB_CLIENT_ID }}
           VITE_REDIRECT_URI: ${{ vars.VITE_REDIRECT_URI }}
+          VITE_SENTRY_DSN: ${{ vars.VITE_SENTRY_DSN }}
         run: yarn build && cp ./dist/index.html ./dist/404.html
 
       - name: Lint
