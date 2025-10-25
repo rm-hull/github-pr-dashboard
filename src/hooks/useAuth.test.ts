@@ -1,5 +1,4 @@
 import { renderHook, act } from "@testing-library/react";
-import { JSDOM } from "jsdom";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { useAuth } from "./useAuth";
 
@@ -24,10 +23,6 @@ Object.defineProperty(global, "window", {
   },
   writable: true,
 });
-
-const dom = new JSDOM("<!doctype html><html><body></body></html>", { url: "http://localhost" });
-global.document = dom.window.document;
-global.sessionStorage = dom.window.sessionStorage;
 
 describe("useAuth", () => {
   let fetchSpy: ReturnType<typeof vi.fn>;
