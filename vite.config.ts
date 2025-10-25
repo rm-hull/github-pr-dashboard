@@ -1,9 +1,9 @@
 /// <reference types="vitest" />
-import { defineConfig } from "vitest/config";
 import { execSync } from "child_process";
+import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react";
 import tsconfigPaths from "vite-tsconfig-paths";
-import { tanstackRouter } from "@tanstack/router-plugin/vite";
+import { defineConfig } from "vitest/config";
 
 // https://vitejs.dev/config/
 export default defineConfig(() => {
@@ -22,6 +22,9 @@ export default defineConfig(() => {
     base: "/github-pr-dashboard",
     build: {
       sourcemap: true,
+    },
+    test: {
+      environment: "jsdom",
     },
   };
 });

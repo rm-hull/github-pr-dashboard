@@ -38,14 +38,14 @@ jobs:
         continue-on-error: true
         run: yarn lint
 
-      # - name: Test
-      #   run: yarn test:ci
+      - name: Test
+        run: yarn test:ci
 
-      # - name: Coveralls
-      #   uses: coverallsapp/github-action@v2
-      #   continue-on-error: true
-      #   with:
-      #     file: coverage/clover.xml
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
+        continue-on-error: true
+        with:
+          file: coverage/clover.xml
 
       - name: Store dist files
         uses: actions/upload-artifact@v4
