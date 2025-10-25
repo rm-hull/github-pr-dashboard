@@ -10,6 +10,7 @@ import { Tooltip } from "./ui/tooltip";
 export function NavBar() {
   const { login, logout } = useAuth();
   const { data: user } = useCurrentUser();
+
   const bgColor = useColorModeValue(
     alpha("blue.50", 0.5), // light
     alpha("blue.800", 0.3) // dark
@@ -61,12 +62,7 @@ export function NavBar() {
                 </Text>
               }
             >
-              <IconButton
-                onClick={() => {
-                  logout();
-                  window.location.reload();
-                }}
-              >
+              <IconButton onClick={logout}>
                 <MdLogout />
               </IconButton>
             </Tooltip>
