@@ -1,4 +1,4 @@
-import { Box, Heading, List, Separator, useBreakpointValue } from "@chakra-ui/react";
+import { Box, For, Heading, List, Separator, useBreakpointValue } from "@chakra-ui/react";
 import { AnimatePresence } from "framer-motion";
 import { useCallback, useMemo, useState } from "react";
 import { FaGitAlt } from "react-icons/fa";
@@ -78,9 +78,11 @@ export default function PullRequestsList({ pulls }: PullRequestListProps) {
                     {repoFullName}
                   </Heading>
                 )}
-                {pulls.map((pull) => (
-                  <PullRequestListItem key={pull.id} pull={pull} breakpoint={breakpoint} searchTerm={searchTerm} />
-                ))}
+                <For each={pulls}>
+                  {(pull) => (
+                    <PullRequestListItem key={pull.id} pull={pull} breakpoint={breakpoint} searchTerm={searchTerm} />
+                  )}
+                </For>
                 {!isLast && <Separator mt={2} />}
               </Box>
             );
