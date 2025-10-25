@@ -1,5 +1,5 @@
 import { atom, useAtom } from "jotai";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { toaster } from "@/components/ui/toaster";
 import { generateCodeVerifier, generateCodeChallenge } from "../utils/pkce";
 
@@ -70,7 +70,7 @@ export function useAuth() {
     }
   }, [code, storedVerifier, hasFetched, setHasFetched]);
 
-  function login() {
+  const login = useCallback(() => {
     const verifier = generateCodeVerifier();
     const challenge = generateCodeChallenge(verifier);
     sessionStorage.removeItem("gh_token");
@@ -91,15 +91,16 @@ export function useAuth() {
 
     // eslint-disable-next-line react-compiler/react-compiler
     window.location.href = authUrl;
-  }
+  }, [setExpired, setHasFetched]);
 
-  function logout() {
+  const logout = useCallback(() => {
     sessionStorage.removeItem("gh_token");
     sessionStorage.removeItem("pkce_verifier");
     window.dispatchEvent(new CustomEvent("auth-token-change", { detail: undefined }));
     setHasFetched(false);
     setExpired(false);
-  }
+    window.location.reload();
+  }, [setExpired, setHasFetched]);
 
   return { login, logout, isExpired, setExpired };
 }

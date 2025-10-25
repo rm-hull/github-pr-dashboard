@@ -1,5 +1,4 @@
 import { Heading, Container, HStack, Text, IconButton, ButtonGroup } from "@chakra-ui/react";
-import { useCallback } from "react";
 import { MdLogin, MdLogout, MdInfoOutline } from "react-icons/md";
 import { useAuth } from "@/hooks/useAuth";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
@@ -11,11 +10,6 @@ import { Tooltip } from "./ui/tooltip";
 export function NavBar() {
   const { login, logout } = useAuth();
   const { data: user } = useCurrentUser();
-
-  const handleLogout = useCallback(() => {
-    logout();
-    window.location.reload();
-  }, [logout]);
 
   const bgColor = useColorModeValue(
     alpha("blue.50", 0.5), // light
@@ -68,7 +62,7 @@ export function NavBar() {
                 </Text>
               }
             >
-              <IconButton onClick={handleLogout}>
+              <IconButton onClick={logout}>
                 <MdLogout />
               </IconButton>
             </Tooltip>
