@@ -23,6 +23,16 @@ export function AppProviders({ children }: PropsWithChildren) {
         }
       },
     }),
+    defaultOptions: {
+      queries: {
+        retry: (failureCount, error) => {
+          if (isRequestError(error) && error.status >= 400 && error.status < 500) {
+            return false;
+          }
+          return failureCount < 3; // Default retry behavior
+        },
+      },
+    },
   });
 
   return (
