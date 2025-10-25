@@ -1,5 +1,6 @@
 import { atom, useAtom } from "jotai";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
+import { toaster } from "@/components/ui/toaster";
 import { generateCodeVerifier, generateCodeChallenge } from "../utils/pkce";
 
 const CLIENT_ID = import.meta.env.VITE_GITHUB_CLIENT_ID as string;
@@ -11,23 +12,22 @@ interface TokenData {
   error_description?: string;
 }
 
-const authExpiredAtom = atom(false);
+const expiredAtom = atom(false);
+const fetchedAtom = atom(false);
 
 export function useAuth() {
-  const calledRef = useRef(false);
   const urlParams = new URLSearchParams(window.location.search);
   const code = urlParams.get("code");
   const storedVerifier = sessionStorage.getItem("pkce_verifier");
-  const ghToken = sessionStorage.getItem("gh_token");
-  const [isExpired, setExpired] = useAtom(authExpiredAtom);
+  const [isExpired, setExpired] = useAtom(expiredAtom);
+  const [hasFetched, setHasFetched] = useAtom(fetchedAtom);
 
   useEffect(() => {
-    if (calledRef.current) return;
+    if (hasFetched) return;
 
-    if (code && storedVerifier && !ghToken) {
-      calledRef.current = true;
+    if (code && storedVerifier) {
+      setHasFetched(true);
 
-      // Exchange code for access token
       fetch("https://api.destructuring-bind.org/v1/github/token", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -43,24 +43,40 @@ export function useAuth() {
           if (data.access_token) {
             sessionStorage.setItem("gh_token", data.access_token);
             window.dispatchEvent(new CustomEvent("auth-token-change", { detail: data.access_token }));
-
-            // Clean URL
             window.history.replaceState({}, document.title, "/github-pr-dashboard");
           } else if (data.error) {
-            console.error("Error obtaining access token:", data.error, data.error_description);
+            toaster.create({
+              id: "use-auth",
+              title: "Error obtaining access token:",
+              description: `${data.error_description} (${data.error})`,
+              type: "error",
+              duration: 9000,
+              closable: true,
+            });
           }
           return null;
         })
         .catch((err) => {
-          console.error("Error exchanging code for token:", err);
+          toaster.create({
+            id: "use-auth",
+            title: "Error exchanging code for token",
+            description: (err as Error).message,
+            type: "error",
+            duration: 9000,
+            closable: true,
+          });
+          setHasFetched(false);
         });
     }
-  }, [code, storedVerifier, ghToken]);
+  }, [code, storedVerifier, hasFetched, setHasFetched]);
 
   function login() {
     const verifier = generateCodeVerifier();
     const challenge = generateCodeChallenge(verifier);
+    sessionStorage.removeItem("gh_token");
     sessionStorage.setItem("pkce_verifier", verifier);
+    setExpired(false);
+    setHasFetched(false); // reset on new login
 
     const authUrl =
       `https://github.com/login/oauth/authorize?` +
@@ -81,6 +97,8 @@ export function useAuth() {
     sessionStorage.removeItem("gh_token");
     sessionStorage.removeItem("pkce_verifier");
     window.dispatchEvent(new CustomEvent("auth-token-change", { detail: undefined }));
+    setHasFetched(false);
+    setExpired(false);
   }
 
   return { login, logout, isExpired, setExpired };
