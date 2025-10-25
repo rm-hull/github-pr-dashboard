@@ -6940,6 +6940,7 @@ __metadata:
     framer-motion: "npm:~12.23.24"
     globals: "npm:^16.4.0"
     javascript-time-ago: "npm:^2.5.12"
+    jotai: "npm:^2.15.0"
     js-sha256: "npm:^0.11.1"
     next-themes: "npm:^0.4.6"
     prettier: "npm:^3.6.2"

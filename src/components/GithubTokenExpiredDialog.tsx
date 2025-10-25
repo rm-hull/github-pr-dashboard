@@ -1,19 +1,11 @@
 import { Alert, Button, Dialog, Heading } from "@chakra-ui/react";
-import { useCallback } from "react";
 import { useAuth } from "../hooks/useAuth";
-import { useAuthStatus } from "./AuthStatusProvider";
 
 export function GithubTokeExpiredDialog() {
-  const { isAuthExpired, setAuthExpired } = useAuthStatus();
-  const { login } = useAuth();
-
-  const handleRelogin = useCallback(() => {
-    setAuthExpired(false);
-    login();
-  }, [login, setAuthExpired]);
+  const { login, isExpired } = useAuth();
 
   return (
-    <Dialog.Root open={isAuthExpired} closeOnInteractOutside={false} closeOnEscape={false}>
+    <Dialog.Root open={isExpired} closeOnInteractOutside={false} closeOnEscape={false}>
       <Dialog.Backdrop />
       <Dialog.Positioner>
         <Dialog.Content>
@@ -32,7 +24,7 @@ export function GithubTokeExpiredDialog() {
             </Alert.Root>
           </Dialog.Header>
           <Dialog.Footer>
-            <Button colorPalette="blue" variant="subtle" onClick={handleRelogin}>
+            <Button colorPalette="blue" variant="subtle" onClick={login}>
               Re-login with GitHub
             </Button>
           </Dialog.Footer>
