@@ -31,7 +31,7 @@ export function IgnoreButton({ url }: IgnoreButtonProps) {
         },
       });
     },
-    [settings, updateSettings, url],
+    [settings, updateSettings, url]
   );
 
   return (
