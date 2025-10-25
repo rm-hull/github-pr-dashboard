@@ -65,7 +65,7 @@ export default function PullRequestsList({ pulls }: PullRequestListProps) {
     <>
       {pullsBySelector && Object.keys(pullsBySelector).length === 0 && <NoSearchMatches />}
 
-      <List.Root gap={2} listStyleType="none" mb={8}>
+      <List.Root gap={2} listStyleType="none" pb={12}>
         <AnimatePresence>
           {Object.entries(pullsBySelector).flatMap(([groupBy, pulls], index, array) => {
             const repoFullName = groupBy.split("/repos/")[1];
