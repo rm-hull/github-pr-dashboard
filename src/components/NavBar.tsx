@@ -1,9 +1,9 @@
 import { Heading, Container, HStack, Text, IconButton, ButtonGroup } from "@chakra-ui/react";
-import { MdLogin, MdLogout, MdInfoOutline } from "react-icons/md";
+import { MdLogin, MdLogout, MdOutlineSettings } from "react-icons/md";
 import { useAuth } from "@/hooks/useAuth";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { alpha } from "@/utils/alpha";
-import { AboutDialog } from "./AboutDialog";
+import { SettingsDialog } from "./SettingsDialog";
 import { ColorModeButton, useColorModeValue } from "./ui/color-mode";
 import { Tooltip } from "./ui/tooltip";
 
@@ -35,11 +35,11 @@ export function NavBar() {
 
         <ButtonGroup variant="subtle" colorPalette="blue" size="sm">
           <Tooltip content="About">
-            <AboutDialog>
+            <SettingsDialog>
               <IconButton>
-                <MdInfoOutline />
+                <MdOutlineSettings />
               </IconButton>
-            </AboutDialog>
+            </SettingsDialog>
           </Tooltip>
 
           <ColorModeButton variant="subtle" />
