@@ -26,7 +26,7 @@ export default function PullRequestsList({ pulls }: PullRequestListProps) {
 
   const isSelected = useCallback(
     (pull: PullRequest) => {
-      if (pull.state !== "open") {
+      if (pull.state !== "open" || pull.draft) {
         return false;
       }
 
