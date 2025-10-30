@@ -7,7 +7,7 @@ export function SettingsForm() {
   const { settings, updateSettings } = useGeneralSettings();
 
   const handleCutoffDateChange = useCallback(
-    (dt?: Date) => void updateSettings({ ...settings, cutoffDate: dt?.getTime() }),
+    (dt?: Date) => updateSettings({ ...(settings ?? {}), cutoffDate: dt?.getTime() }),
     [settings, updateSettings]
   );
 
