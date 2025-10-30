@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import JavascriptTimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
 import TimeAgo from "react-time-ago";
-import { PullRequest } from "@/types";
+import { PullRequest } from "@/utils/types";
 import { DependabotRebaseButton } from "./actions/DependabotRebaseButton";
 import { GeminiReviewButton } from "./actions/GeminiReviewButton";
 import { IgnoreButton } from "./actions/IgnoreButton";

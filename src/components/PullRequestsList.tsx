@@ -3,7 +3,7 @@ import { AnimatePresence } from "framer-motion";
 import { useCallback, useMemo, useState } from "react";
 import { FaGitAlt } from "react-icons/fa";
 import { ListViewBy, useGeneralSettings } from "@/hooks/useGeneralSettings";
-import { PullRequest } from "@/types";
+import { PullRequest } from "@/utils/types";
 import { ListFooter } from "./ListFooter";
 import { NoSearchMatches } from "./NoSearchMatches";
 import { Breakpoint, PullRequestListItem } from "./PullRequestListItem";
