@@ -1,6 +1,7 @@
 import { Box, For, Heading, List, Separator, useBreakpointValue } from "@chakra-ui/react";
 import { AnimatePresence } from "framer-motion";
 import { useCallback, useMemo, useState } from "react";
+import Favicon from "react-favicon";
 import { FaGitAlt } from "react-icons/fa";
 import { ListViewBy, useGeneralSettings } from "@/hooks/useGeneralSettings";
 import { PullRequest } from "@/utils/types";
@@ -57,14 +58,19 @@ export default function PullRequestsList({ pulls }: PullRequestListProps) {
     }, {});
   }, [pulls, isSelected, listViewBy]);
 
+  const count = useMemo(() => Object.values(pullsBySelector).flat().length, [pullsBySelector]);
+
   if (isLoading) {
     return null;
   }
 
+  const alertCount = count === 0 ? undefined : count > 9 ? "+" : count;
+
   return (
     <>
-      {pullsBySelector && Object.keys(pullsBySelector).length === 0 && <NoSearchMatches />}
+      {count === 0 && <NoSearchMatches />}
 
+      <Favicon url={`${window.location.href}/favicon.ico`} alertCount={alertCount} iconSize={32} />
       <List.Root gap={2} listStyleType="none" pb={12}>
         <AnimatePresence>
           {Object.entries(pullsBySelector).flatMap(([groupBy, pulls], index, array) => {
