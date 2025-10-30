@@ -1,7 +1,8 @@
 import { Button, CloseButton, Dialog, Portal, Tabs } from "@chakra-ui/react";
 import { PropsWithChildren } from "react";
-import { License } from "./License";
 import { About } from "./settings/About";
+import { License } from "./settings/License";
+import { SettingsForm } from "./settings/SettingsForm";
 
 export function SettingsDialog({ children }: PropsWithChildren) {
   return (
@@ -22,7 +23,9 @@ export function SettingsDialog({ children }: PropsWithChildren) {
                 </Dialog.Title>
               </Dialog.Header>
               <Dialog.Body>
-                <Tabs.Content value="settings">Coming soon!</Tabs.Content>
+                <Tabs.Content value="settings">
+                  <SettingsForm />
+                </Tabs.Content>
                 <Tabs.Content value="about">
                   <About />
                 </Tabs.Content>

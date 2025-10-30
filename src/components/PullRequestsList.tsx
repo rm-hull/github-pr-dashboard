@@ -18,6 +18,14 @@ const selector: Record<ListViewBy, (pull: PullRequest) => string | null> = {
   repo: (pull: PullRequest) => pull.repository_url,
 };
 
+function isBefore(pull: PullRequest, cutoffDate?: number) {
+  if (!cutoffDate) {
+    return false;
+  }
+
+  return new Date(pull.created_at).getTime() < cutoffDate;
+}
+
 export default function PullRequestsList({ pulls }: PullRequestListProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const { settings, isLoading } = useGeneralSettings();
@@ -26,7 +34,7 @@ export default function PullRequestsList({ pulls }: PullRequestListProps) {
 
   const isSelected = useCallback(
     (pull: PullRequest) => {
-      if (pull.state !== "open" || pull.draft) {
+      if (pull.state !== "open" || pull.draft || isBefore(pull, settings?.cutoffDate)) {
         return false;
       }
 

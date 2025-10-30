@@ -7,6 +7,7 @@ export type ListViewBy = (typeof LIST_VIEW_BY)[number];
 export interface GeneralSettings {
   ignores?: Record<string, number>;
   listViewBy?: ListViewBy;
+  cutoffDate?: number;
 }
 
 export function isListViewBy(v: unknown): v is ListViewBy {
