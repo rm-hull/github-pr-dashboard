@@ -34,7 +34,7 @@ export function NavBar() {
         <Heading>GitHub PR Dashboard</Heading>
 
         <ButtonGroup variant="subtle" colorPalette="blue" size="sm">
-          <Tooltip content="About">
+          <Tooltip content="Settings">
             <SettingsDialog>
               <IconButton>
                 <MdOutlineSettings />
