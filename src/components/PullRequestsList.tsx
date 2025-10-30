@@ -70,7 +70,7 @@ export default function PullRequestsList({ pulls }: PullRequestListProps) {
     <>
       {count === 0 && <NoSearchMatches />}
 
-      <Favicon url={`${window.location.href}/favicon.ico`} alertCount={alertCount} iconSize={32} />
+      <Favicon url={`${import.meta.env.BASE_URL}/favicon.ico`} alertCount={alertCount} iconSize={32} />
       <List.Root gap={2} listStyleType="none" pb={12}>
         <AnimatePresence>
           {Object.entries(pullsBySelector).flatMap(([groupBy, pulls], index, array) => {
