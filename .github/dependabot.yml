@@ -24,6 +24,9 @@ updates:
         patterns:
           - "@testing-library/*"
           - "*jsdom*"
+      chakra-ui:
+        patterns:
+          - "@chakra-ui/*"
   - package-ecosystem: github-actions
     directory: /
     schedule:
