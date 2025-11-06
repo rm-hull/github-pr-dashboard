@@ -13,6 +13,8 @@ export function useOpenPullRequests() {
       const resp = await octokit.rest.search.issuesAndPullRequests({ q, per_page: 100, advanced_search: "true" });
       return resp.data.items;
     },
+    refetchInterval: 60000,
+    refetchIntervalInBackground: true,
     enabled: !!user,
   });
 }

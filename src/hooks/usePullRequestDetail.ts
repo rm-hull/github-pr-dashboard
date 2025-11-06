@@ -26,6 +26,7 @@ export function usePullRequestDetail(owner: string, repo: string, pull_number: n
     },
     staleTime: maxAge,
     refetchInterval: maxAge,
+    refetchIntervalInBackground: true,
     enabled: !!user && options?.isActive,
   });
 }
