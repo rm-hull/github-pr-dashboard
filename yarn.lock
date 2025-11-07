@@ -1565,9 +1565,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@chakra-ui/cli@npm:^3.28.1":
-  version: 3.28.1
-  resolution: "@chakra-ui/cli@npm:3.28.1"
+"@chakra-ui/cli@npm:^3.29.0":
+  version: 3.29.0
+  resolution: "@chakra-ui/cli@npm:3.29.0"
   dependencies:
     "@clack/prompts": "npm:0.11.0"
     "@pandacss/is-valid-prop": "npm:1.4.3"
@@ -1593,13 +1593,13 @@ __metadata:
     "@chakra-ui/react": ">=3.0.0-next.0"
   bin:
     chakra: bin/index.js
-  checksum: 10c0/e4b701ce8f35abd572de9f98d36777acff72519c2d3eaefe262561e719201b76d6f674132199abba4b3e1ad9fddf402eaf579e0ca9f23e070f1d576bd70064cb
+  checksum: 10c0/3ff145d0d615328d6cdd4a433201935caaef5eb7c38583c1a60dbed4628559c57b2b37f750f561363f18455d61df39345d633c0faff6abd165863de5b134437d
   languageName: node
   linkType: hard
 
-"@chakra-ui/react@npm:~3.28.1":
-  version: 3.28.1
-  resolution: "@chakra-ui/react@npm:3.28.1"
+"@chakra-ui/react@npm:~3.29.0":
+  version: 3.29.0
+  resolution: "@chakra-ui/react@npm:3.29.0"
   dependencies:
     "@ark-ui/react": "npm:^5.27.1"
     "@emotion/is-prop-valid": "npm:^1.4.0"
@@ -1612,7 +1612,7 @@ __metadata:
     "@emotion/react": ">=11"
     react: ">=18"
     react-dom: ">=18"
-  checksum: 10c0/9ae3dfe7a2f86c560789b5925eca9d80c4be162fb3e3eb0a5da04fbfb55bc2dfa7db7e93e35237f41e76abda54641e45680bfd46130d6089f682986cd2ab97a8
+  checksum: 10c0/223a17e063ddc6d73f2a11ad1e0647250dab0e77bc07f34cb3ff2816b0f9941e2fd426d1e1f6545a10004cafea51bfec786c860b3b2266854e1aeb06730eb728
   languageName: node
   linkType: hard
 
@@ -7363,8 +7363,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "github-pr-dashboard@workspace:."
   dependencies:
-    "@chakra-ui/cli": "npm:^3.28.1"
-    "@chakra-ui/react": "npm:~3.28.1"
+    "@chakra-ui/cli": "npm:^3.29.0"
+    "@chakra-ui/react": "npm:~3.29.0"
     "@emotion/react": "npm:~11.14.0"
     "@emotion/styled": "npm:~11.14.1"
     "@eslint/compat": "npm:^1.4.1"
