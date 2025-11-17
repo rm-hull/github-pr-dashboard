@@ -46,7 +46,7 @@ export function ListFooter({ onSearch }: ListFooterProps) {
   const handleRadioValueChange = useCallback(
     (details: RadioGroupValueChangeDetails) => {
       if (isListViewBy(details.value)) {
-        updateSettings({ ...settings, listViewBy: details.value });
+        void updateSettings({ ...settings, listViewBy: details.value });
       }
     },
     [settings, updateSettings]

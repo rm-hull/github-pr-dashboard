@@ -23,7 +23,7 @@ export function IgnoreButton({ url }: IgnoreButtonProps) {
         ignoreUntil = now + parseInt(value, 10);
       }
 
-      updateSettings({
+      void updateSettings({
         ...settings,
         ignores: {
           ...settings?.ignores,

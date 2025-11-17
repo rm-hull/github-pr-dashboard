@@ -16,7 +16,7 @@ export function isListViewBy(v: unknown): v is ListViewBy {
 
 type UseGeneralSettingsReturnType = {
   settings: GeneralSettings | undefined;
-  updateSettings: (value: GeneralSettings | undefined) => void;
+  updateSettings: (value: GeneralSettings | undefined) => Promise<void>;
   isLoading: boolean;
 };
 

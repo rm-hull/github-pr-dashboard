@@ -7,7 +7,7 @@ export function SettingsForm() {
   const { settings, updateSettings } = useGeneralSettings();
 
   const handleCutoffDateChange = useCallback(
-    (dt?: Date) => updateSettings({ ...(settings ?? {}), cutoffDate: dt?.getTime() }),
+    (dt?: Date) => void updateSettings({ ...(settings ?? {}), cutoffDate: dt?.getTime() }),
     [settings, updateSettings]
   );
 
@@ -35,7 +35,7 @@ export function SettingsForm() {
               />
               <Button
                 variant="ghost"
-                onClick={() => handleCutoffDateChange(undefined)}
+                onClick={() => void handleCutoffDateChange(undefined)}
                 disabled={!settings?.cutoffDate}
               >
                 Clear

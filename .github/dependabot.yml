@@ -8,7 +8,7 @@ updates:
   - package-ecosystem: npm
     directory: /
     schedule:
-      interval: "daily"
+      interval: daily
     versioning-strategy: increase
     groups:
       tanstack:
@@ -20,6 +20,15 @@ updates:
       vite:
         patterns:
           - "*vite*"
+      chakra:
+        patterns:
+          - "@chakra-ui/*"
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
       testing-library:
         patterns:
           - "@testing-library/*"
