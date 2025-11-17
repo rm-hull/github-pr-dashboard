@@ -9,6 +9,7 @@ import { GeminiReviewButton } from "./actions/GeminiReviewButton";
 import { IgnoreButton } from "./actions/IgnoreButton";
 import { MergeButton } from "./actions/MergeButton";
 import { InfoPopover } from "./InfoPopover";
+import { InlineCodeText } from "./InlineCodeText";
 import { SearchHighlight } from "./SearchHighlight";
 import { StatusIcon } from "./StatusIcon";
 
@@ -52,7 +53,9 @@ export function PullRequestListItem({ pull, breakpoint, searchTerm }: PullReques
             <HStack alignItems="center" gap={2}>
               <Link href={pull.html_url} fontWeight="bold" target="_blank" rel="noopener noreferrer">
                 <Text as="span" truncate maxW={breakpoint === "lg" ? undefined : "320px"}>
-                  <SearchHighlight query={searchTerm}>{pull.title}</SearchHighlight>
+                  <InlineCodeText>
+                    <SearchHighlight query={searchTerm}>{pull.title}</SearchHighlight>
+                  </InlineCodeText>
                 </Text>
               </Link>
               <StatusIcon owner={owner} repo={repo} pull_number={pull.number} />
