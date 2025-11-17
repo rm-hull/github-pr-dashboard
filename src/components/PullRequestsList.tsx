@@ -1,6 +1,6 @@
 import { Box, For, Heading, List, Separator, useBreakpointValue } from "@chakra-ui/react";
 import { AnimatePresence } from "framer-motion";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Favicon from "react-favicon";
 import { FaGitAlt } from "react-icons/fa";
 import { ListViewBy, useGeneralSettings } from "@/hooks/useGeneralSettings";
@@ -67,6 +67,19 @@ export default function PullRequestsList({ pulls }: PullRequestListProps) {
   }, [pulls, isSelected, listViewBy]);
 
   const count = useMemo(() => Object.values(pullsBySelector).flat().length, [pullsBySelector]);
+  const prevCountRef = useRef(count);
+
+  useEffect(() => {
+    if (count > prevCountRef.current && count - prevCountRef.current > 0) {
+      const notification = new Notification(`There are ${count - prevCountRef.current} new PRs`, {
+        body: `Oompa Lumpa!`,
+        tag: `github-pr-dashboard`,
+        icon: `${import.meta.env.BASE_URL}/favicon.ico`,
+        requireInteraction: true,
+      });
+      prevCountRef.current = count;
+    }
+  }, [count]);
 
   if (isLoading) {
     return null;
