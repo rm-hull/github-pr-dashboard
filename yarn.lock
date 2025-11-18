@@ -2894,7 +2894,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@stylistic/eslint-plugin@npm:^5.5.0":
+"@stylistic/eslint-plugin@npm:^5.6.0":
   version: 5.6.0
   resolution: "@stylistic/eslint-plugin@npm:5.6.0"
   dependencies:
@@ -7284,7 +7284,7 @@ __metadata:
     "@rm-hull/chakra-error-fallback": "npm:^0.0.5"
     "@rm-hull/use-local-storage": "npm:^0.3.2"
     "@sentry/react": "npm:^10.25.0"
-    "@stylistic/eslint-plugin": "npm:^5.5.0"
+    "@stylistic/eslint-plugin": "npm:^5.6.0"
     "@tanstack/eslint-plugin-query": "npm:^5.91.2"
     "@tanstack/react-query": "npm:~5.90.10"
     "@tanstack/react-query-devtools": "npm:^5.90.2"
