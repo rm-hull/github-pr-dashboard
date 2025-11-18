@@ -9,9 +9,14 @@ type NotificationsProps = {
 
 export function Notifications({ count = 0 }: NotificationsProps) {
     const prevCountRef = useRef(count);
-
-      const { settings, updateSettings } = useGeneralSettings();
+    const { settings, updateSettings } = useGeneralSettings();
   
+    console.log({
+      count,
+      prev: prevCountRef.current,
+      notificationPermission: Notification.permission,
+    });
+
     useEffect(() => {
       if (settings?.enableNotifications && Notification.permission === "granted" && count > prevCountRef.current) {
         const diff = count - prevCountRef.current;
@@ -25,7 +30,7 @@ export function Notifications({ count = 0 }: NotificationsProps) {
         });
       }
       prevCountRef.current = count;
-    }, [settings?.enableNotifications, count]);
+    }, [settings?.enableNotifications, count, prevCountRef.current]);
 
 
       const enableNotifications = useCallback(async () => {
