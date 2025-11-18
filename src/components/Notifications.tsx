@@ -12,12 +12,6 @@ export function Notifications({ count = 0 }: NotificationsProps) {
   const { settings, updateSettings } = useGeneralSettings();
 
   useEffect(() => {
-    console.log({
-      count,
-      prev: prevCountRef.current,
-      notificationPermission: Notification.permission,
-    });
-
     if (settings?.enableNotifications && Notification.permission === "granted" && count > prevCountRef.current) {
       const diff = count - prevCountRef.current;
       const verb = diff === 1 ? "is" : "are";
