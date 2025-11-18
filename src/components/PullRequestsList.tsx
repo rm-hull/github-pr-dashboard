@@ -7,8 +7,8 @@ import { ListViewBy, useGeneralSettings } from "@/hooks/useGeneralSettings";
 import { PullRequest } from "@/utils/types";
 import { ListFooter } from "./ListFooter";
 import { NoSearchMatches } from "./NoSearchMatches";
-import { Breakpoint, PullRequestListItem } from "./PullRequestListItem";
 import { Notifications } from "./Notifications";
+import { Breakpoint, PullRequestListItem } from "./PullRequestListItem";
 
 type PullRequestListProps = {
   pulls: PullRequest[];
