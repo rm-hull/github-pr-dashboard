@@ -12,7 +12,7 @@ export function SettingsForm() {
   );
 
   const handleToggleEnableNotifications = useCallback(() => {
-    void updateSettings({ ...settings, enableNotifications: !(settings?.enableNotifications ?? false) });
+    void updateSettings({ ...(settings ?? {}), enableNotifications: !(settings?.enableNotifications ?? false) });
   }, [settings, updateSettings]);
 
   return (
