@@ -8,6 +8,7 @@ export interface GeneralSettings {
   ignores?: Record<string, number>;
   listViewBy?: ListViewBy;
   cutoffDate?: number;
+  enableNotifications?: boolean;
 }
 
 export function isListViewBy(v: unknown): v is ListViewBy {

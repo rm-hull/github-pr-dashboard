@@ -7,6 +7,7 @@ import { ListViewBy, useGeneralSettings } from "@/hooks/useGeneralSettings";
 import { PullRequest } from "@/utils/types";
 import { ListFooter } from "./ListFooter";
 import { NoSearchMatches } from "./NoSearchMatches";
+import { Notifications } from "./Notifications";
 import { Breakpoint, PullRequestListItem } from "./PullRequestListItem";
 
 type PullRequestListProps = {
@@ -78,6 +79,7 @@ export default function PullRequestsList({ pulls }: PullRequestListProps) {
     <>
       {count === 0 && <NoSearchMatches />}
 
+      <Notifications count={count} />
       <Favicon url={`${import.meta.env.BASE_URL}/favicon.ico`} alertCount={alertCount} iconSize={32} />
       <List.Root gap={2} listStyleType="none" pb={12}>
         <AnimatePresence>

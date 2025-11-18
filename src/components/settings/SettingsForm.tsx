@@ -1,4 +1,4 @@
-import { Button, Field, HStack, VStack } from "@chakra-ui/react";
+import { Button, Field, HStack, Switch, VStack } from "@chakra-ui/react";
 import { SingleDatepicker } from "chakra-dayzed-datepicker";
 import { useCallback } from "react";
 import { useGeneralSettings } from "@/hooks/useGeneralSettings";
@@ -10,6 +10,10 @@ export function SettingsForm() {
     (dt?: Date) => void updateSettings({ ...(settings ?? {}), cutoffDate: dt?.getTime() }),
     [settings, updateSettings]
   );
+
+  const handleToggleEnableNotifications = useCallback(() => {
+    void updateSettings({ ...(settings ?? {}), enableNotifications: !(settings?.enableNotifications ?? false) });
+  }, [settings, updateSettings]);
 
   return (
     <VStack>
@@ -43,6 +47,18 @@ export function SettingsForm() {
             </HStack>
             <Field.HelperText>When set, any PRs created before this date will not be shown.</Field.HelperText>
           </VStack>
+        </HStack>
+      </Field.Root>
+
+      <Field.Root>
+        <HStack alignItems="top">
+          <Field.Label width="100px">Enable notifications?</Field.Label>
+          <Switch.Root checked={settings?.enableNotifications ?? false} onChange={handleToggleEnableNotifications}>
+            <Switch.HiddenInput />
+            <Switch.Control>
+              <Switch.Thumb />
+            </Switch.Control>
+          </Switch.Root>
         </HStack>
       </Field.Root>
     </VStack>

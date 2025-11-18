@@ -3328,6 +3328,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/pluralize@npm:^0.0.33":
+  version: 0.0.33
+  resolution: "@types/pluralize@npm:0.0.33"
+  checksum: 10c0/24899caf85b79dd291a6b6e9b9f3b67b452b18d578d0ac0d531a705bf5ee0361d9386ea1f8532c64de9e22c6e9606c5497787bb5e31bd299c487980436c59785
+  languageName: node
+  linkType: hard
+
 "@types/react-dom@npm:~19.2.3":
   version: 19.2.3
   resolution: "@types/react-dom@npm:19.2.3"
@@ -7288,6 +7295,7 @@ __metadata:
     "@types/eslint-plugin-jsx-a11y": "npm:^6.10.1"
     "@types/jsdom": "npm:^27.0.0"
     "@types/node": "npm:^24.10.1"
+    "@types/pluralize": "npm:^0.0.33"
     "@types/react": "npm:~19.2.6"
     "@types/react-dom": "npm:~19.2.3"
     "@typescript-eslint/eslint-plugin": "npm:^8.47.0"
@@ -7324,6 +7332,7 @@ __metadata:
     js-sha256: "npm:^0.11.1"
     jsdom: "npm:^27.2.0"
     next-themes: "npm:^0.4.6"
+    pluralize: "npm:^8.0.0"
     prettier: "npm:^3.6.2"
     react: "npm:~19.2.0"
     react-dom: "npm:^19.2.0"
@@ -9795,6 +9804,13 @@ __metadata:
   version: 4.0.7
   resolution: "pirates@npm:4.0.7"
   checksum: 10c0/a51f108dd811beb779d58a76864bbd49e239fa40c7984cd11596c75a121a8cc789f1c8971d8bb15f0dbf9d48b76c05bb62fcbce840f89b688c0fa64b37e8478a
+  languageName: node
+  linkType: hard
+
+"pluralize@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "pluralize@npm:8.0.0"
+  checksum: 10c0/2044cfc34b2e8c88b73379ea4a36fc577db04f651c2909041b054c981cd863dd5373ebd030123ab058d194ae615d3a97cfdac653991e499d10caf592e8b3dc33
   languageName: node
   linkType: hard
 
