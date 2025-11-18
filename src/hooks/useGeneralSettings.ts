@@ -5,7 +5,10 @@ const LIST_VIEW_BY = ["repo", "recent"] as const;
 export type ListViewBy = (typeof LIST_VIEW_BY)[number];
 
 export interface GeneralSettings {
-  ignores?: Record<string, number>;
+  ignored?: {
+    prs?: Record<string, number>;
+    repos?: string[];
+  };
   listViewBy?: ListViewBy;
   cutoffDate?: number;
   enableNotifications?: boolean;

@@ -2,6 +2,7 @@ import { Button, Field, HStack, Switch, VStack } from "@chakra-ui/react";
 import { SingleDatepicker } from "chakra-dayzed-datepicker";
 import { useCallback } from "react";
 import { useGeneralSettings } from "@/hooks/useGeneralSettings";
+import { RepoListbox } from "./RepoListbox";
 
 export function SettingsForm() {
   const { settings, updateSettings } = useGeneralSettings();
@@ -59,6 +60,18 @@ export function SettingsForm() {
               <Switch.Thumb />
             </Switch.Control>
           </Switch.Root>
+        </HStack>
+      </Field.Root>
+
+      <Field.Root>
+        <HStack alignItems="top">
+          <Field.Label width="100px">Ignore repos:</Field.Label>
+          <RepoListbox
+            values={settings?.ignored?.repos ?? []}
+            onChange={(vals) =>
+              void updateSettings({ ...(settings ?? {}), ignored: { ...settings?.ignored, repos: vals } })
+            }
+          />
         </HStack>
       </Field.Root>
     </VStack>

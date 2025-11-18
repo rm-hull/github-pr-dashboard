@@ -39,7 +39,7 @@ export default function PullRequestsList({ pulls }: PullRequestListProps) {
         return false;
       }
 
-      const unignoreTime = settings?.ignores?.[pull.url];
+      const unignoreTime = settings?.ignored?.prs?.[pull.url];
       const shouldIgnore = unignoreTime !== undefined && Date.now() <= unignoreTime;
       if (shouldIgnore) {
         return false;

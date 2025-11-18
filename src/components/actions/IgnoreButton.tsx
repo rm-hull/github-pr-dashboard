@@ -25,9 +25,12 @@ export function IgnoreButton({ url }: IgnoreButtonProps) {
 
       void updateSettings({
         ...settings,
-        ignores: {
-          ...settings?.ignores,
-          [url]: ignoreUntil,
+        ignored: {
+          ...settings?.ignored,
+          prs: {
+            ...settings?.ignored?.prs,
+            [url]: ignoreUntil,
+          },
         },
       });
     },
