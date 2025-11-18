@@ -1,5 +1,6 @@
 import { Box, For, Heading, List, Separator, useBreakpointValue } from "@chakra-ui/react";
 import { AnimatePresence } from "framer-motion";
+import pluralize from "pluralize";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Favicon from "react-favicon";
 import { FaGitAlt } from "react-icons/fa";
@@ -70,16 +71,19 @@ export default function PullRequestsList({ pulls }: PullRequestListProps) {
   const prevCountRef = useRef(count);
 
   useEffect(() => {
-    if (count > prevCountRef.current && count - prevCountRef.current > 0) {
-      const notification = new Notification(`There are ${count - prevCountRef.current} new PRs`, {
-        body: `Oompa Lumpa!`,
+    if (settings?.enableNotifications && Notification.permission === "granted" && count > prevCountRef.current) {
+      const diff = count - prevCountRef.current;
+      const verb = diff === 1 ? "is" : "are";
+      const prWord = pluralize("PR", diff);
+
+      new Notification(`GitHub PR Dashboard`, {
+        body: `There ${verb} ${diff} new ${prWord}`,
         tag: `github-pr-dashboard`,
         icon: `${import.meta.env.BASE_URL}/favicon.ico`,
-        requireInteraction: true,
       });
-      prevCountRef.current = count;
     }
-  }, [count]);
+    prevCountRef.current = count;
+  }, [settings?.enableNotifications, count]);
 
   if (isLoading) {
     return null;
