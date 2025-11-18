@@ -1,41 +1,10 @@
 import { Button, Field, HStack, Switch, VStack } from "@chakra-ui/react";
 import { SingleDatepicker } from "chakra-dayzed-datepicker";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { useGeneralSettings } from "@/hooks/useGeneralSettings";
-import { toaster } from "../ui/toaster";
 
 export function SettingsForm() {
   const { settings, updateSettings } = useGeneralSettings();
-
-  const enableNotifications = useCallback(async () => {
-    if (settings?.enableNotifications && Notification.permission !== "granted") {
-      const reason = await Notification.requestPermission();
-      if (reason === "denied") {
-        queueMicrotask(() =>
-          toaster.create({
-            title: "Notifications are disabled",
-            description: `You have disabled notifications for this site. Please enable them in your browser settings to use this feature.`, // TODO: More descriptive message
-            type: "warning",
-            duration: 9000,
-            closable: true,
-          })
-        );
-        return await updateSettings({ ...settings, enableNotifications: false });
-      } else if (reason === "granted") {
-        queueMicrotask(() =>
-          toaster.create({
-            title: "Notifications enabled",
-            description: "Notifications have been enabled for this site.",
-            type: "success",
-            duration: 5000,
-            closable: true,
-          })
-        );
-      }
-    }
-  }, [settings, updateSettings]);
-
-  useEffect(() => void enableNotifications(), [enableNotifications]);
 
   const handleCutoffDateChange = useCallback(
     (dt?: Date) => void updateSettings({ ...(settings ?? {}), cutoffDate: dt?.getTime() }),

@@ -1,7 +1,6 @@
 import { Box, For, Heading, List, Separator, useBreakpointValue } from "@chakra-ui/react";
 import { AnimatePresence } from "framer-motion";
-import pluralize from "pluralize";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import Favicon from "react-favicon";
 import { FaGitAlt } from "react-icons/fa";
 import { ListViewBy, useGeneralSettings } from "@/hooks/useGeneralSettings";
@@ -9,6 +8,7 @@ import { PullRequest } from "@/utils/types";
 import { ListFooter } from "./ListFooter";
 import { NoSearchMatches } from "./NoSearchMatches";
 import { Breakpoint, PullRequestListItem } from "./PullRequestListItem";
+import { Notifications } from "./Notifications";
 
 type PullRequestListProps = {
   pulls: PullRequest[];
@@ -68,22 +68,6 @@ export default function PullRequestsList({ pulls }: PullRequestListProps) {
   }, [pulls, isSelected, listViewBy]);
 
   const count = useMemo(() => Object.values(pullsBySelector).flat().length, [pullsBySelector]);
-  const prevCountRef = useRef(count);
-
-  useEffect(() => {
-    if (settings?.enableNotifications && Notification.permission === "granted" && count > prevCountRef.current) {
-      const diff = count - prevCountRef.current;
-      const verb = diff === 1 ? "is" : "are";
-      const prWord = pluralize("PR", diff);
-
-      new Notification(`GitHub PR Dashboard`, {
-        body: `There ${verb} ${diff} new ${prWord}`,
-        tag: `github-pr-dashboard`,
-        icon: `${import.meta.env.BASE_URL}/favicon.ico`,
-      });
-    }
-    prevCountRef.current = count;
-  }, [settings?.enableNotifications, count]);
 
   if (isLoading) {
     return null;
@@ -95,6 +79,7 @@ export default function PullRequestsList({ pulls }: PullRequestListProps) {
     <>
       {count === 0 && <NoSearchMatches />}
 
+      <Notifications count={count} />
       <Favicon url={`${import.meta.env.BASE_URL}/favicon.ico`} alertCount={alertCount} iconSize={32} />
       <List.Root gap={2} listStyleType="none" pb={12}>
         <AnimatePresence>
