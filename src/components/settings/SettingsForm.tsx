@@ -69,16 +69,7 @@ export function SettingsForm() {
         </HStack>
       </Field.Root>
 
-      <Field.Root>
-        <HStack alignItems="start">
-          <Field.Label width="100px" pt={2}>
-            Ignore repos:
-          </Field.Label>
-          <VStack alignItems="start" gap={1}>
-            <RepoListbox value={settings?.ignored?.repos ?? []} onChange={handleIgnoredRepoChange} />
-          </VStack>
-        </HStack>
-      </Field.Root>
+      <RepoListbox value={settings?.ignored?.repos ?? []} onChange={handleIgnoredRepoChange} />
     </VStack>
   );
 }
