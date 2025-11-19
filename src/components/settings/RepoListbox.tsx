@@ -1,4 +1,4 @@
-import { createListCollection, Listbox, Center, Spinner, Field, HStack, VStack } from "@chakra-ui/react";
+import { createListCollection, Listbox, Center, Spinner, Field, HStack, VStack, Text } from "@chakra-ui/react";
 import { ValueChangeDetails } from "@zag-js/listbox";
 import { useInView } from "framer-motion";
 import { useEffect, useCallback, useRef } from "react";
@@ -31,7 +31,7 @@ export function RepoListbox({ value, onChange }: RepoListboxProps) {
     [onChange]
   );
 
-  if (!isEnabled || (isLoading && !data)) {
+  if (!isEnabled) {
     return null;
   }
 
@@ -45,11 +45,10 @@ export function RepoListbox({ value, onChange }: RepoListboxProps) {
           <Listbox.Root
             collection={allRepos}
             selectionMode="multiple"
-            height={200}
             value={value}
             onValueChange={handleRepoIgnoreDetailChange}
           >
-            <Listbox.Content>
+            <Listbox.Content height={200} width={300}>
               {allRepos.items.map((repo) => (
                 <Listbox.Item item={repo} key={repo}>
                   <Listbox.ItemText>{repo}</Listbox.ItemText>
@@ -57,9 +56,12 @@ export function RepoListbox({ value, onChange }: RepoListboxProps) {
                 </Listbox.Item>
               ))}
               <div ref={ref} />
-              {isFetchingNextPage && (
-                <Center p={2}>
-                  <Spinner size="sm" color="blue" />
+              {(isLoading || isFetchingNextPage) && (
+                <Center gap={2}>
+                  <Spinner size="xs" color="blue" />
+                  <Text textStyle="sm" color="fg.muted">
+                    Loading...
+                  </Text>
                 </Center>
               )}
             </Listbox.Content>
