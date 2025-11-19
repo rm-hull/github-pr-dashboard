@@ -12,7 +12,7 @@ type RepoListboxProps = {
 export function RepoListbox({ value, onChange }: RepoListboxProps) {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useRepos();
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const isInView = useInView(ref, { margin: "-50px" });
 
   useEffect(() => {
     if (isInView && hasNextPage && !isFetchingNextPage) {
