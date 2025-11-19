@@ -1,7 +1,7 @@
 import { createListCollection, Listbox, Center, Spinner } from "@chakra-ui/react";
 import { ValueChangeDetails } from "@zag-js/listbox";
-import { useRef, useEffect, useCallback } from "react";
-import { useIntersection } from "react-use";
+import { useInView } from "framer-motion";
+import { useEffect, useCallback, useRef } from "react";
 import { useRepos } from "@/hooks/useRepos";
 
 type RepoListboxProps = {
@@ -10,19 +10,15 @@ type RepoListboxProps = {
 };
 
 export function RepoListbox({ value, onChange }: RepoListboxProps) {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useRepos();
-  const intersectionRef = useRef(null);
-  const intersection = useIntersection(intersectionRef, {
-    root: null,
-    rootMargin: "0px",
-    threshold: 1.0,
-  });
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useRepos();
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   useEffect(() => {
-    if (intersection?.isIntersecting && hasNextPage && !isFetchingNextPage) {
+    if (isInView && hasNextPage && !isFetchingNextPage) {
       void fetchNextPage();
     }
-  }, [intersection, hasNextPage, isFetchingNextPage, fetchNextPage]);
+  }, [isInView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   const allRepos = createListCollection({
     items: data?.pages.flatMap((page) => page.map((repo) => repo.full_name)) ?? [],
@@ -34,6 +30,14 @@ export function RepoListbox({ value, onChange }: RepoListboxProps) {
     },
     [onChange]
   );
+
+  if (isLoading && !data) {
+    return (
+      <Center p={4}>
+        <Spinner size="xl" />
+      </Center>
+    );
+  }
 
   return (
     <Listbox.Root
@@ -50,10 +54,10 @@ export function RepoListbox({ value, onChange }: RepoListboxProps) {
             <Listbox.ItemIndicator />
           </Listbox.Item>
         ))}
-        <div ref={intersectionRef} />
+        <div ref={ref} />
         {isFetchingNextPage && (
           <Center p={2}>
-            <Spinner size="sm" />
+            <Spinner size="sm" color="blue" />
           </Center>
         )}
       </Listbox.Content>
