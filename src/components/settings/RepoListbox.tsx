@@ -32,11 +32,7 @@ export function RepoListbox({ value, onChange }: RepoListboxProps) {
   );
 
   if (isLoading && !data) {
-    return (
-      <Center p={4}>
-        <Spinner size="xl" />
-      </Center>
-    );
+    return null;
   }
 
   return (

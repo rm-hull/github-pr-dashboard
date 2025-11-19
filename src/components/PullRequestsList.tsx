@@ -32,6 +32,7 @@ export default function PullRequestsList({ pulls }: PullRequestListProps) {
   const { settings, isLoading } = useGeneralSettings();
   const breakpoint = useBreakpointValue<Breakpoint>({ base: "base", md: "md", lg: "lg" });
   const listViewBy = settings?.listViewBy || "recent";
+  const ignoredRepos = useMemo(() => new Set(settings?.ignored?.repos || []), [settings?.ignored?.repos]);
 
   const isSelected = useCallback(
     (pull: PullRequest) => {
@@ -39,9 +40,14 @@ export default function PullRequestsList({ pulls }: PullRequestListProps) {
         return false;
       }
 
+      const repoFullName = pull.repository_url.split("/repos/")[1];
+      if (ignoredRepos.has(repoFullName)) {
+        return false;
+      }
+
       const unignoreTime = settings?.ignored?.prs?.[pull.url];
-      const shouldIgnore = unignoreTime !== undefined && Date.now() <= unignoreTime;
-      if (shouldIgnore) {
+      const shouldIgnorePR = unignoreTime !== undefined && Date.now() <= unignoreTime;
+      if (shouldIgnorePR) {
         return false;
       }
 
@@ -55,7 +61,7 @@ export default function PullRequestsList({ pulls }: PullRequestListProps) {
 
       return true;
     },
-    [settings, searchTerm]
+    [settings, searchTerm, ignoredRepos]
   );
 
   const pullsBySelector = useMemo(() => {
