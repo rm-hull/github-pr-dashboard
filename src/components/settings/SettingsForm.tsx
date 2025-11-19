@@ -2,6 +2,7 @@ import { Button, Field, HStack, Switch, VStack } from "@chakra-ui/react";
 import { SingleDatepicker } from "chakra-dayzed-datepicker";
 import { useCallback } from "react";
 import { useGeneralSettings } from "@/hooks/useGeneralSettings";
+import { RepoListbox } from "./RepoListbox";
 
 export function SettingsForm() {
   const { settings, updateSettings } = useGeneralSettings();
@@ -11,9 +12,17 @@ export function SettingsForm() {
     [settings, updateSettings]
   );
 
+  const handleClearCutoffDate = useCallback(() => handleCutoffDateChange(undefined), [handleCutoffDateChange]);
+
   const handleToggleEnableNotifications = useCallback(() => {
     void updateSettings({ ...(settings ?? {}), enableNotifications: !(settings?.enableNotifications ?? false) });
   }, [settings, updateSettings]);
+
+  const handleIgnoredRepoChange = useCallback(
+    (ignored: string[]) =>
+      void updateSettings({ ...(settings ?? {}), ignored: { ...settings?.ignored, repos: ignored } }),
+    [settings, updateSettings]
+  );
 
   return (
     <VStack>
@@ -37,11 +46,7 @@ export function SettingsForm() {
                 onDateChange={handleCutoffDateChange}
                 maxDate={new Date()}
               />
-              <Button
-                variant="ghost"
-                onClick={() => void handleCutoffDateChange(undefined)}
-                disabled={!settings?.cutoffDate}
-              >
+              <Button variant="ghost" onClick={handleClearCutoffDate} disabled={!settings?.cutoffDate}>
                 Clear
               </Button>
             </HStack>
@@ -51,14 +56,27 @@ export function SettingsForm() {
       </Field.Root>
 
       <Field.Root>
-        <HStack alignItems="top">
-          <Field.Label width="100px">Enable notifications?</Field.Label>
+        <HStack alignItems="center">
+          <Field.Label width="100px" pt={2}>
+            Enable notifications?
+          </Field.Label>
           <Switch.Root checked={settings?.enableNotifications ?? false} onChange={handleToggleEnableNotifications}>
             <Switch.HiddenInput />
             <Switch.Control>
               <Switch.Thumb />
             </Switch.Control>
           </Switch.Root>
+        </HStack>
+      </Field.Root>
+
+      <Field.Root>
+        <HStack alignItems="start">
+          <Field.Label width="100px" pt={2}>
+            Ignore repos:
+          </Field.Label>
+          <VStack alignItems="start" gap={1}>
+            <RepoListbox value={settings?.ignored?.repos ?? []} onChange={handleIgnoredRepoChange} />
+          </VStack>
         </HStack>
       </Field.Root>
     </VStack>
