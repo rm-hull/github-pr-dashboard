@@ -10,8 +10,11 @@ type NotificationsProps = {
 export function Notifications({ count = 0 }: NotificationsProps) {
   const prevCountRef = useRef(count);
   const { settings, updateSettings } = useGeneralSettings();
+  const isNotificationsSupported = "Notification" in window;
 
   useEffect(() => {
+    if (!isNotificationsSupported) return;
+
     if (settings?.enableNotifications && Notification.permission === "granted" && count > prevCountRef.current) {
       const diff = count - prevCountRef.current;
       const verb = diff === 1 ? "is" : "are";
@@ -25,10 +28,10 @@ export function Notifications({ count = 0 }: NotificationsProps) {
       });
     }
     prevCountRef.current = count;
-  }, [settings?.enableNotifications, count]);
+  }, [settings?.enableNotifications, count, isNotificationsSupported]);
 
   const enableNotifications = useCallback(async () => {
-    if (!("Notification" in window)) {
+    if (!isNotificationsSupported) {
       return await updateSettings({ ...settings, enableNotifications: false });
     }
 
@@ -57,7 +60,7 @@ export function Notifications({ count = 0 }: NotificationsProps) {
         );
       }
     }
-  }, [settings, updateSettings]);
+  }, [settings, updateSettings, isNotificationsSupported]);
 
   useEffect(() => void enableNotifications(), [enableNotifications]);
 
