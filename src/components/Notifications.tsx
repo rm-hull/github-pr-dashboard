@@ -28,6 +28,10 @@ export function Notifications({ count = 0 }: NotificationsProps) {
   }, [settings?.enableNotifications, count]);
 
   const enableNotifications = useCallback(async () => {
+    if (!("Notification" in window)) {
+      return await updateSettings({ ...settings, enableNotifications: false });
+    }
+
     if (settings?.enableNotifications && Notification.permission !== "granted") {
       const reason = await Notification.requestPermission();
       if (reason === "denied") {

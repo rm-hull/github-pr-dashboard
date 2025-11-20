@@ -1,11 +1,13 @@
-import { Button, Field, HStack, Switch, VStack } from "@chakra-ui/react";
+import { Badge, Button, Field, HStack, Switch, VStack } from "@chakra-ui/react";
 import { SingleDatepicker } from "chakra-dayzed-datepicker";
 import { useCallback } from "react";
+import { IoWarning } from "react-icons/io5";
 import { useGeneralSettings } from "@/hooks/useGeneralSettings";
 import { RepoListbox } from "./RepoListbox";
 
 export function SettingsForm() {
   const { settings, updateSettings } = useGeneralSettings();
+  const isNotificationsSupported = "Notification" in window;
 
   const handleCutoffDateChange = useCallback(
     (dt?: Date) => void updateSettings({ ...(settings ?? {}), cutoffDate: dt?.getTime() }),
@@ -60,11 +62,24 @@ export function SettingsForm() {
           <Field.Label width="100px" pt={2}>
             Enable notifications?
           </Field.Label>
-          <Switch.Root checked={settings?.enableNotifications ?? false} onChange={handleToggleEnableNotifications}>
+          <Switch.Root
+            checked={settings?.enableNotifications ?? false}
+            onChange={handleToggleEnableNotifications}
+            disabled={!isNotificationsSupported}
+          >
             <Switch.HiddenInput />
             <Switch.Control>
               <Switch.Thumb />
             </Switch.Control>
+
+            {!isNotificationsSupported && (
+              <Field.HelperText>
+                <Badge colorPalette="yellow">
+                  <IoWarning />
+                  This browser does not support notifications
+                </Badge>
+              </Field.HelperText>
+            )}
           </Switch.Root>
         </HStack>
       </Field.Root>
