@@ -2,7 +2,7 @@
 
 A streamlined, single-page application designed to help developers manage their GitHub Pull Requests efficiently. Built with performance and usability in mind, this dashboard provides a centralized view of your work across multiple repositories.
 
-![Dashboard Screenshot](doc/screenshot.png)
+![Dashboard Screenshot](doc/screenshot.webp)
 
 ## Capabilities
 
