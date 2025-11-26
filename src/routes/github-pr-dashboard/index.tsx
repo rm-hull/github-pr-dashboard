@@ -9,20 +9,30 @@ export const Route = createFileRoute("/github-pr-dashboard/")({
 });
 
 function RouteComponent() {
-  const { data, isFetching, error } = useOpenPullRequests();
+  const { data, isFetching, isEnabled, error } = useOpenPullRequests();
   useErrorToast("open-prs", "Failed to load open PRs", error);
 
   return (
     <>
-      <Progress.Root maxW="full" value={null} colorPalette="blue" size="xs" height={2} backgroundColor="bg.panel">
-        {isFetching && (
-          <Progress.Track>
-            <Progress.Range />
-          </Progress.Track>
-        )}
-      </Progress.Root>
+      {isEnabled && (
+        <Progress.Root
+          variant="subtle"
+          width="full"
+          value={null}
+          colorPalette="blue"
+          size="xs"
+          height="5px"
+          backgroundColor="bg.panel"
+        >
+          {isFetching && (
+            <Progress.Track>
+              <Progress.Range />
+            </Progress.Track>
+          )}
+        </Progress.Root>
+      )}
       {data && (
-        <Container py={2} maxW="full" bg="bg.panel" minHeight="calc(100vh - 4rem)">
+        <Container py={2} maxW="full" bg="bg.panel" minHeight="calc(100vh - 3rem)">
           <PullRequestsList pulls={data} />
         </Container>
       )}
