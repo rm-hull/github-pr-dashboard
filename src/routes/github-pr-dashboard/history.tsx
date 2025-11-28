@@ -10,7 +10,7 @@ export const Route = createFileRoute("/github-pr-dashboard/history")({
 
 function RouteComponent() {
   const { data, isFetching, isEnabled, error } = usePullRequests("merged");
-  useErrorToast("open-prs", "Failed to load open PRs", error);
+  useErrorToast("merged-prs", "Failed to load merged PRs", error);
 
   return (
     <>
