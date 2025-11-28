@@ -6,11 +6,12 @@ interface MergeButtonProps {
   owner: string;
   repo: string;
   pull_number: number;
+  state: string;
 }
 
-export function MergeButton({ owner, repo, pull_number }: MergeButtonProps) {
+export function MergeButton({ owner, repo, pull_number, state }: MergeButtonProps) {
   const { mutate, isPending, error } = useMergePullRequest();
-  const disabled = /*data?.mergeable_state !== "clean" ||*/ isPending;
+  const disabled = /*data?.mergeable_state !== "clean" ||*/ isPending || state === "closed";
 
   useErrorToast("merge-error", "Failed to merge pull request", error);
 

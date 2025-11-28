@@ -59,6 +59,7 @@ export function useAuth() {
           }
           return null;
         })
+        .finally(() => setInProgress(false))
         .catch((err) => {
           toaster.create({
             id: "use-auth",
@@ -69,9 +70,6 @@ export function useAuth() {
             closable: true,
           });
           setHasFetched(false);
-        })
-        .finally(() => {
-          setInProgress(false);
         });
     }
   }, [code, storedVerifier, hasFetched, setHasFetched, setInProgress]);
@@ -98,7 +96,7 @@ export function useAuth() {
 
     // eslint-disable-next-line react-compiler/react-compiler
     window.location.href = authUrl;
-  }, [setExpired, setHasFetched]);
+  }, [setExpired, setHasFetched, setInProgress]);
 
   const logout = useCallback(() => {
     setInProgress(true);
