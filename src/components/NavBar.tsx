@@ -8,7 +8,7 @@ import { ColorModeButton, useColorModeValue } from "./ui/color-mode";
 import { Tooltip } from "./ui/tooltip";
 
 export function NavBar() {
-  const { login, logout } = useAuth();
+  const { login, logout, inProgress } = useAuth();
   const { data: user } = useCurrentUser();
 
   const bgColor = useColorModeValue(
@@ -46,7 +46,7 @@ export function NavBar() {
 
           {!user && (
             <Tooltip content="Sign in with GitHub">
-              <IconButton onClick={login}>
+              <IconButton onClick={login} disabled={inProgress}>
                 <MdLogin />
               </IconButton>
             </Tooltip>

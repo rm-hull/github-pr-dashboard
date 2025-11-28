@@ -14,6 +14,7 @@ interface TokenData {
 
 const expiredAtom = atom(false);
 const fetchedAtom = atom(false);
+const inProgressAtom = atom(false);
 
 export function useAuth() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -21,12 +22,14 @@ export function useAuth() {
   const storedVerifier = sessionStorage.getItem("pkce_verifier");
   const [isExpired, setExpired] = useAtom(expiredAtom);
   const [hasFetched, setHasFetched] = useAtom(fetchedAtom);
+  const [inProgress, setInProgress] = useAtom(inProgressAtom);
 
   useEffect(() => {
     if (hasFetched) return;
 
     if (code && storedVerifier) {
       setHasFetched(true);
+      setInProgress(true);
 
       fetch("https://api.destructuring-bind.org/v1/github/token", {
         method: "POST",
@@ -66,11 +69,15 @@ export function useAuth() {
             closable: true,
           });
           setHasFetched(false);
+        })
+        .finally(() => {
+          setInProgress(false);
         });
     }
-  }, [code, storedVerifier, hasFetched, setHasFetched]);
+  }, [code, storedVerifier, hasFetched, setHasFetched, setInProgress]);
 
   const login = useCallback(() => {
+    setInProgress(true);
     const verifier = generateCodeVerifier();
     const challenge = generateCodeChallenge(verifier);
     sessionStorage.removeItem("gh_token");
@@ -94,13 +101,15 @@ export function useAuth() {
   }, [setExpired, setHasFetched]);
 
   const logout = useCallback(() => {
+    setInProgress(true);
     sessionStorage.removeItem("gh_token");
     sessionStorage.removeItem("pkce_verifier");
     window.dispatchEvent(new CustomEvent("auth-token-change", { detail: undefined }));
     setHasFetched(false);
     setExpired(false);
+    setInProgress(false);
     window.location.reload();
-  }, [setExpired, setHasFetched]);
+  }, [setExpired, setHasFetched, setInProgress]);
 
-  return { login, logout, isExpired, setExpired };
+  return { login, logout, isExpired, setExpired, inProgress };
 }
