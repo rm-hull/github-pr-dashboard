@@ -11,7 +11,7 @@ export function usePullRequests(state: PullRequestState = "open") {
   return useQuery({
     queryKey: ["pull-requests", state, user?.login],
     queryFn: async () => {
-      const q = `user:${user?.login} type:pr state:${state}`;
+      const q = `user:${user?.login} type:pr ${state === "merged" ? "is:merged" : `state:${state}`}`;
       const resp = await octokit.rest.search.issuesAndPullRequests({ q, per_page: 100, advanced_search: "true" });
       return resp.data.items;
     },
