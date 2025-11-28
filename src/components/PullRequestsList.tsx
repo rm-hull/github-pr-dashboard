@@ -12,6 +12,8 @@ import { Breakpoint, PullRequestListItem } from "./PullRequestListItem";
 
 type PullRequestListProps = {
   pulls: PullRequest[];
+  state: string;
+  enableNotifications?: boolean;
 };
 
 const selector: Record<ListViewBy, (pull: PullRequest) => string | null> = {
@@ -27,7 +29,7 @@ function isBefore(pull: PullRequest, cutoffDate?: number) {
   return new Date(pull.created_at).getTime() < cutoffDate;
 }
 
-export default function PullRequestsList({ pulls }: PullRequestListProps) {
+export default function PullRequestsList({ pulls, state, enableNotifications = false }: PullRequestListProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const { settings, isLoading } = useGeneralSettings();
   const breakpoint = useBreakpointValue<Breakpoint>({ base: "base", md: "md", lg: "lg" });
@@ -36,7 +38,7 @@ export default function PullRequestsList({ pulls }: PullRequestListProps) {
 
   const isSelected = useCallback(
     (pull: PullRequest) => {
-      if (pull.state !== "open" || pull.draft || isBefore(pull, settings?.cutoffDate)) {
+      if (pull.state !== state || pull.draft || isBefore(pull, settings?.cutoffDate)) {
         return false;
       }
 
@@ -61,7 +63,7 @@ export default function PullRequestsList({ pulls }: PullRequestListProps) {
 
       return true;
     },
-    [settings, searchTerm, ignoredRepos]
+    [settings, searchTerm, ignoredRepos, state]
   );
 
   const pullsBySelector = useMemo(() => {
@@ -85,8 +87,12 @@ export default function PullRequestsList({ pulls }: PullRequestListProps) {
     <>
       {count === 0 && <NoSearchMatches />}
 
-      <Notifications count={count} />
-      <Favicon url={`${import.meta.env.BASE_URL}/favicon.ico`} alertCount={alertCount} iconSize={32} />
+      {enableNotifications && (
+        <>
+          <Notifications count={count} />
+          <Favicon url={`${import.meta.env.BASE_URL}/favicon.ico`} alertCount={alertCount} iconSize={32} />
+        </>
+      )}
       <List.Root gap={2} listStyleType="none" pb={12}>
         <AnimatePresence>
           {Object.entries(pullsBySelector).flatMap(([groupBy, pulls], index, array) => {

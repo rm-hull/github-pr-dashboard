@@ -86,10 +86,16 @@ export function PullRequestListItem({ pull, breakpoint, searchTerm }: PullReques
           </Box>
         </InfoPopover>
         <ButtonGroup variant="subtle" size="xs">
-          <IgnoreButton url={pull.url} />
-          <MergeButton owner={owner} repo={repo} pull_number={pull.number} />
-          <DependabotRebaseButton owner={owner} repo={repo} pull_number={pull.number} user={pull.user?.login} />
-          <GeminiReviewButton owner={owner} repo={repo} pull_number={pull.number} user={pull.user?.login} />
+          <IgnoreButton url={pull.url} disabled={pull.state === "closed"} />
+          <MergeButton owner={owner} repo={repo} pull_number={pull.number} state={pull.state} />
+          <DependabotRebaseButton
+            owner={owner}
+            repo={repo}
+            pull_number={pull.number}
+            user={pull.user?.login}
+            state={pull.state}
+          />
+          <GeminiReviewButton owner={owner} repo={repo} pull_number={pull.number} state={pull.state} />
         </ButtonGroup>
       </Stack>
     </MotionListItem>

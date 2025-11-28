@@ -2,14 +2,16 @@ import { useQuery } from "@tanstack/react-query";
 import { useApiClient } from "./useApiClient";
 import { useCurrentUser } from "./useCurrentUser";
 
-export function useOpenPullRequests() {
+export type PullRequestState = "open" | "closed" | "merged";
+
+export function usePullRequests(state: PullRequestState = "open") {
   const { octokit } = useApiClient();
   const { data: user } = useCurrentUser();
 
   return useQuery({
-    queryKey: ["open-prs", user?.login],
+    queryKey: ["pull-requests", state, user?.login],
     queryFn: async () => {
-      const q = `user:${user?.login} type:pr state:open`;
+      const q = `user:${user?.login} type:pr ${state === "merged" ? "is:merged" : `state:${state}`}`;
       const resp = await octokit.rest.search.issuesAndPullRequests({ q, per_page: 100, advanced_search: "true" });
       return resp.data.items;
     },

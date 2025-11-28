@@ -4,13 +4,13 @@ import PullRequestsList from "@/components/PullRequestsList";
 import { useErrorToast } from "@/hooks/useErrorToast";
 import { usePullRequests } from "@/hooks/usePullRequests";
 
-export const Route = createFileRoute("/github-pr-dashboard/")({
+export const Route = createFileRoute("/github-pr-dashboard/history")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { data, isFetching, isEnabled, error } = usePullRequests();
-  useErrorToast("open-prs", "Failed to load open PRs", error);
+  const { data, isFetching, isEnabled, error } = usePullRequests("merged");
+  useErrorToast("merged-prs", "Failed to load merged PRs", error);
 
   return (
     <>
@@ -33,7 +33,7 @@ function RouteComponent() {
       )}
       {data && (
         <Container py={2} maxW="full" bg="bg.panel" minHeight="calc(100vh - 3rem)">
-          <PullRequestsList pulls={data} state="open" enableNotifications />
+          <PullRequestsList pulls={data} state="closed" />
         </Container>
       )}
     </>

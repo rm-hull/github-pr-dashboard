@@ -7,11 +7,12 @@ interface DependabotRebaseButtonProps {
   repo: string;
   pull_number: number;
   user?: string;
+  state: string;
 }
 
-export function DependabotRebaseButton({ owner, repo, pull_number, user }: DependabotRebaseButtonProps) {
+export function DependabotRebaseButton({ owner, repo, pull_number, user, state }: DependabotRebaseButtonProps) {
   const { mutate, isPending, error } = useComment();
-  const disabled = user !== "dependabot[bot]" || isPending;
+  const disabled = user !== "dependabot[bot]" || isPending || state === "closed";
 
   useErrorToast("gemini-review-error", "Failed to post a comment", error);
 
