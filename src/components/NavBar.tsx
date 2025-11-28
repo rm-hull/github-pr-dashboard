@@ -1,6 +1,5 @@
 import { Heading, Container, HStack, Text, IconButton, ButtonGroup, Link } from "@chakra-ui/react";
 import { Link as RouterLink, useRouterState } from "@tanstack/react-router";
-import { useCallback } from "react";
 import { MdLogin, MdLogout, MdOutlineSettings } from "react-icons/md";
 import { useAuth } from "@/hooks/useAuth";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
@@ -25,10 +24,7 @@ export function NavBar() {
   const { data: user } = useCurrentUser();
   const { location } = useRouterState();
 
-  const isActive = useCallback(
-    (path: string) => location.pathname === path || location.pathname + "/" === path,
-    [location.pathname]
-  );
+  const isActive = (path: string) => location.pathname === path || location.pathname + "/" === path;
 
   const bgColor = useColorModeValue(
     alpha("blue.50", 0.5), // light
