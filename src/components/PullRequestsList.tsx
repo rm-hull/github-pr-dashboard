@@ -87,8 +87,12 @@ export default function PullRequestsList({ pulls, state, enableNotifications = f
     <>
       {count === 0 && <NoSearchMatches />}
 
-      {enableNotifications && <Notifications count={count} />}
-      <Favicon url={`${import.meta.env.BASE_URL}/favicon.ico`} alertCount={alertCount} iconSize={32} />
+      {enableNotifications && (
+        <>
+          <Notifications count={count} />
+          <Favicon url={`${import.meta.env.BASE_URL}/favicon.ico`} alertCount={alertCount} iconSize={32} />
+        </>
+      )}
       <List.Root gap={2} listStyleType="none" pb={12}>
         <AnimatePresence>
           {Object.entries(pullsBySelector).flatMap(([groupBy, pulls], index, array) => {
