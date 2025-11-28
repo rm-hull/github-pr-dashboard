@@ -47,7 +47,10 @@ export function NavBar() {
     >
       <HStack gap={6} align="center" justify="space-between">
         <HStack gap={4}>
-          <Heading>GitHub PR Dashboard</Heading>
+          <Heading hideBelow="md">GitHub PR Dashboard</Heading>
+          <Heading hideBelow="sm" hideFrom="md">
+            PR Dashboard
+          </Heading>
 
           <HStack gap={4}>
             {navItems.map((item, index) => (

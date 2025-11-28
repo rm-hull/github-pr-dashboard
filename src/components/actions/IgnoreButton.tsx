@@ -4,11 +4,12 @@ import { useGeneralSettings } from "@/hooks/useGeneralSettings";
 
 interface IgnoreButtonProps {
   url: string;
+  disabled?: boolean;
 }
 
 const ONE_DAY_IN_MILLIS = 24 * 60 * 60 * 1000;
 
-export function IgnoreButton({ url }: IgnoreButtonProps) {
+export function IgnoreButton({ url, disabled = false }: IgnoreButtonProps) {
   const { settings, updateSettings } = useGeneralSettings();
 
   const handleSelect = useCallback(
@@ -40,7 +41,7 @@ export function IgnoreButton({ url }: IgnoreButtonProps) {
   return (
     <Menu.Root onSelect={handleSelect}>
       <Menu.Trigger asChild>
-        <Button>Ignore...</Button>
+        <Button disabled={disabled}>Ignore...</Button>
       </Menu.Trigger>
       <Portal>
         <Menu.Positioner>
