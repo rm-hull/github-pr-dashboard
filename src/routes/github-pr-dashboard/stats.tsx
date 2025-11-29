@@ -5,15 +5,15 @@ import { MergeTimeDistributionChart } from "@/components/metrics/MergeTimeDistri
 import { PrAgeDistributionChart } from "@/components/metrics/PrAgeDistributionChart";
 import { PrsByRepoChart } from "@/components/metrics/PrsByRepoChart";
 import { DraftVsReadyChart } from "../../components/metrics/DraftVsReadyChart";
-import { usePullRequests } from "../../hooks/usePullRequests";
+import { useAllPullRequests } from "../../hooks/useAllPullRequests";
 
 export const Route = createFileRoute("/github-pr-dashboard/stats")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { data: openPRs, isLoading: isLoadingOpen, error: errorOpen } = usePullRequests("open");
-  const { data: mergedPRs, isLoading: isLoadingMerged, error: errorMerged } = usePullRequests("merged");
+  const { allPullRequests: openPRs, isLoading: isLoadingOpen, error: errorOpen } = useAllPullRequests("open");
+  const { allPullRequests: mergedPRs, isLoading: isLoadingMerged, error: errorMerged } = useAllPullRequests("merged");
 
   if (isLoadingOpen || isLoadingMerged) {
     return (

@@ -13,13 +13,15 @@ interface PullRequestPageProps {
 }
 
 export function PullRequestPage({ prState, listState, bgOpacity = 0.85, enableNotifications }: PullRequestPageProps) {
-  const { data, isFetching, isEnabled, error } = usePullRequests(prState);
+  const { data, isFetching, isEnabled, error, fetchNextPage, hasNextPage, isFetchingNextPage } = usePullRequests(prState);
   useErrorToast("pull-requests", `Failed to fetch ${prState} pull requests`, error);
 
   const bgColor = useColorModeValue(
     alpha("blue.50", bgOpacity), // light
     alpha("blue.900", bgOpacity) // dark
   );
+
+  const allPullRequests = data?.pages.flatMap((page) => page) || [];
 
   return (
     <>
@@ -34,18 +36,25 @@ export function PullRequestPage({ prState, listState, bgOpacity = 0.85, enableNo
           bg={bgColor}
           backdropFilter="saturate(180%) blur(5px)"
         >
-          {isFetching && (
+          {(isFetching || isFetchingNextPage) && (
             <Progress.Track>
               <Progress.Range />
             </Progress.Track>
           )}
         </Progress.Root>
       )}
-      {data && (
+      {allPullRequests.length > 0 && (
         <Box minHeight="calc(100vh - 3rem)" position="relative">
           <Box position="absolute" inset={0} bg={bgColor} backdropFilter="saturate(180%) blur(5px)" />
           <Container py={2} maxW="full" position="relative">
-            <PullRequestsList pulls={data} state={listState} enableNotifications={enableNotifications} />
+            <PullRequestsList
+              pulls={allPullRequests}
+              state={listState}
+              enableNotifications={enableNotifications}
+              fetchNextPage={fetchNextPage}
+              hasNextPage={hasNextPage}
+              isFetchingNextPage={isFetchingNextPage}
+            />
           </Container>
         </Box>
       )}

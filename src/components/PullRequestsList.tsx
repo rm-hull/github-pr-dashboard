@@ -9,11 +9,15 @@ import { ListFooter } from "./ListFooter";
 import { NoSearchMatches } from "./NoSearchMatches";
 import { Notifications } from "./Notifications";
 import { Breakpoint, PullRequestListItem } from "./PullRequestListItem";
+import { UseInfiniteQueryResult } from "@tanstack/react-query";
 
 type PullRequestListProps = {
   pulls: PullRequest[];
   state: string;
   enableNotifications?: boolean;
+  fetchNextPage: UseInfiniteQueryResult<PullRequest[]>["fetchNextPage"];
+  hasNextPage?: UseInfiniteQueryResult<PullRequest[]>["hasNextPage"];
+  isFetchingNextPage: UseInfiniteQueryResult<PullRequest[]>["isFetchingNextPage"];
 };
 
 const selector: Record<ListViewBy, (pull: PullRequest) => string | null> = {
@@ -29,7 +33,14 @@ function isBefore(pull: PullRequest, cutoffDate?: number) {
   return new Date(pull.created_at).getTime() < cutoffDate;
 }
 
-export default function PullRequestsList({ pulls, state, enableNotifications = false }: PullRequestListProps) {
+export default function PullRequestsList({
+  pulls,
+  state,
+  enableNotifications = false,
+  fetchNextPage,
+  hasNextPage,
+  isFetchingNextPage,
+}: PullRequestListProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const { settings, isLoading } = useGeneralSettings();
   const breakpoint = useBreakpointValue<Breakpoint>({ base: "base", md: "md", lg: "lg" });
@@ -116,6 +127,13 @@ export default function PullRequestsList({ pulls, state, enableNotifications = f
             );
           })}
         </AnimatePresence>
+        {hasNextPage && (
+          <Box pt={4} textAlign="center">
+            <button onClick={() => fetchNextPage()} disabled={isFetchingNextPage}>
+              {isFetchingNextPage ? "Loading more..." : "Load More"}
+            </button>
+          </Box>
+        )}
       </List.Root>
       <ListFooter onSearch={setSearchTerm} />
     </>
