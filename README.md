@@ -4,6 +4,8 @@ A streamlined, single-page application designed to help developers manage their 
 
 ![Dashboard Screenshot](doc/screenshot.webp)
 
+![Metrics Screenshot](doc/metrics.webp)
+
 ## Capabilities
 
 This dashboard is built to simplify your daily workflow with the following features:

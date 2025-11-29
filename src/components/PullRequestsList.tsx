@@ -1,4 +1,4 @@
-import { Box, For, Heading, List, Separator, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Button, For, Heading, List, Separator, useBreakpointValue } from "@chakra-ui/react";
 import { AnimatePresence } from "framer-motion";
 import { useCallback, useMemo, useState } from "react";
 import Favicon from "react-favicon";
@@ -14,6 +14,9 @@ type PullRequestListProps = {
   pulls: PullRequest[];
   state: string;
   enableNotifications?: boolean;
+  fetchNextPage: () => void;
+  hasNextPage?: boolean;
+  isFetchingNextPage: boolean;
 };
 
 const selector: Record<ListViewBy, (pull: PullRequest) => string | null> = {
@@ -29,7 +32,14 @@ function isBefore(pull: PullRequest, cutoffDate?: number) {
   return new Date(pull.created_at).getTime() < cutoffDate;
 }
 
-export default function PullRequestsList({ pulls, state, enableNotifications = false }: PullRequestListProps) {
+export default function PullRequestsList({
+  pulls,
+  state,
+  enableNotifications = false,
+  fetchNextPage,
+  hasNextPage,
+  isFetchingNextPage,
+}: PullRequestListProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const { settings, isLoading } = useGeneralSettings();
   const breakpoint = useBreakpointValue<Breakpoint>({ base: "base", md: "md", lg: "lg" });
@@ -116,6 +126,21 @@ export default function PullRequestsList({ pulls, state, enableNotifications = f
             );
           })}
         </AnimatePresence>
+
+        {hasNextPage && (
+          <Box py={4} textAlign="center">
+            <Button
+              variant="surface"
+              colorPalette="blue"
+              size="sm"
+              loading={isFetchingNextPage}
+              loadingText="Fetching..."
+              onClick={fetchNextPage}
+            >
+              Load More
+            </Button>
+          </Box>
+        )}
       </List.Root>
       <ListFooter onSearch={setSearchTerm} />
     </>
