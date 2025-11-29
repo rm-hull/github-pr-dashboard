@@ -6,7 +6,7 @@ import { useApiClient } from "./useApiClient";
 import { useCurrentUser } from "./useCurrentUser";
 
 const RESULTS_PER_PAGE = 100;
-const MAX_GITHUB_SEARCH_RESULTS = 1000;
+const MAX_GITHUB_SEARCH_RESULTS = 200;
 
 interface PullRequestsPage {
   items: PullRequest[];

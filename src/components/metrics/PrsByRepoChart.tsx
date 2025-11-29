@@ -1,83 +1,83 @@
 import { Chart, useChart } from "@chakra-ui/charts";
-import { Heading, Text, Card } from "@chakra-ui/react";
 import { useMemo } from "react";
-import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
+import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import { PullRequest } from "../../utils/types";
+import { ChartPanel } from "./ChartPanel";
 
 interface PrsByRepoChartProps {
   pullRequests: PullRequest[];
   title?: string;
 }
 
-const COLOR_TOKENS = ["blue.solid", "green.solid", "yellow.solid", "orange.solid", "purple.solid", "teal.solid"];
+const COLOR_TOKENS = [
+  "blue.400",
+  "green.400",
+  "yellow.400",
+  "orange.400",
+  "red.400",
+  "purple.400",
+  "pink.400",
+  "teal.400",
+];
 
-const renderLabel = ({ name, percent }: { name: string; percent: number }) => {
-  return `${name} ${(percent * 100).toFixed(0)}%`;
-};
+export function mergeBottomX<T extends { value: number }>(data: T[], x: number, otherLabel = "Other") {
+  if (!data.length) return [];
+
+  // 1. Sort ascending (smallest → biggest)
+  const sorted = [...data].sort((a, b) => a.value - b.value);
+
+  // 2. Compute total and threshold cutoff
+  const total = sorted.reduce((sum, d) => sum + d.value, 0);
+  const threshold = (total * x) / 100;
+
+  // 3. Accumulate smallest values until they exceed the 25% threshold
+  let cumulative = 0;
+  const smallItems: T[] = [];
+  const largeItems: T[] = [];
+
+  for (const item of sorted) {
+    if (cumulative + item.value <= threshold) {
+      cumulative += item.value;
+      smallItems.push(item);
+    } else {
+      largeItems.push(item);
+    }
+  }
+
+  // 4. Combine the “bottom X%”
+  const otherValue = smallItems.reduce((sum, d) => sum + d.value, 0);
+  return otherValue > 0 ? [...largeItems, { name: otherLabel, value: otherValue } as unknown as T] : data;
+}
 
 export function PrsByRepoChart({ pullRequests, title = "Open PRs by Repository" }: PrsByRepoChartProps) {
   const data = useMemo(() => {
     const repoCounts: Record<string, number> = {};
     pullRequests.forEach((pr) => {
-      // repository_url: "https://api.github.com/repos/owner/repo"
       const repoName = pr.repository_url.split("/").pop() || "unknown";
       repoCounts[repoName] = (repoCounts[repoName] || 0) + 1;
     });
 
-    return Object.entries(repoCounts)
-      .map(([name, value], index) => ({
-        name,
-        value,
-        color: COLOR_TOKENS[index % COLOR_TOKENS.length],
-      }))
-      .sort((a, b) => b.value - a.value);
+    const data = Object.entries(repoCounts)
+      .map(([name, value]) => ({ name, value }))
+      .sort(({ value: a }, { value: b }) => b - a);
+
+    return mergeBottomX(data, 25);
   }, [pullRequests]);
 
-  const chart = useChart({
-    data,
-    series: [{ name: "value", label: "PRs" }],
-  });
-
-  if (pullRequests.length === 0) {
-    return (
-      <Card.Root variant="elevated">
-        <Card.Header>
-          <Heading size="md">{title}</Heading>
-        </Card.Header>
-        <Card.Body>
-          <Text color="gray.500">No data available</Text>
-        </Card.Body>
-      </Card.Root>
-    );
-  }
+  const chart = useChart({ data });
 
   return (
-    <Card.Root variant="elevated" height="100%">
-      <Card.Header>
-        <Heading size="md">{title}</Heading>
-      </Card.Header>
-      <Card.Body>
-        <Chart.Root chart={chart} height="300px">
-          <PieChart>
-            <Pie
-              data={chart.data}
-              dataKey={chart.key("value")}
-              nameKey="name"
-              cx="50%"
-              cy="50%"
-              labelLine={false}
-              outerRadius={80}
-              label={renderLabel}
-            >
-              {chart.data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={chart.color(entry.color) as string} />
-              ))}
-            </Pie>
-            <Tooltip content={<Chart.Tooltip />} />
-            <Legend content={<Chart.Legend />} />
-          </PieChart>
-        </Chart.Root>
-      </Card.Body>
-    </Card.Root>
+    <ChartPanel title={title} noData={pullRequests.length === 0}>
+      <Chart.Root chart={chart} height="300px">
+        <PieChart>
+          <Pie data={chart.data} dataKey={chart.key("value")} nameKey="name" cx="50%" cy="50%" labelLine={false}>
+            {chart.data.map((_, index) => (
+              <Cell key={`cell-${index}`} fill={chart.color(COLOR_TOKENS[index % COLOR_TOKENS.length]) as string} />
+            ))}
+          </Pie>
+          <Tooltip content={<Chart.Tooltip />} />
+        </PieChart>
+      </Chart.Root>
+    </ChartPanel>
   );
 }
