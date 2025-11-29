@@ -1,5 +1,5 @@
 import { Heading, Container, HStack, Text, IconButton, ButtonGroup, Link } from "@chakra-ui/react";
-import { Link as RouterLink, useRouterState } from "@tanstack/react-router";
+import { Link as RouterLink, useMatchRoute } from "@tanstack/react-router";
 import { MdLogin, MdLogout, MdOutlineSettings } from "react-icons/md";
 import { useAuth } from "@/hooks/useAuth";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
@@ -12,19 +12,19 @@ import { SettingsDialog } from "./SettingsDialog";
 import { ColorModeButton, useColorModeValue } from "./ui/color-mode";
 import { Tooltip } from "./ui/tooltip";
 
-const navItems = [
-  { label: "home", to: HomeRoute.to, tooltip: "Shows open pull requests" },
-  { label: "issues", to: IssuesRoute.to, tooltip: "List all open issues" },
-  { label: "history", to: HistoryRoute.to, tooltip: "Show recently merged pull requests" },
-  { label: "stats", to: StatsRoute.to, tooltip: "Aggregated metrics" },
-];
-
 export function NavBar() {
   const { login, logout, inProgress } = useAuth();
   const { data: user } = useCurrentUser();
-  const { location } = useRouterState();
+  const matchRoute = useMatchRoute();
 
-  const isActive = (path: string) => location.pathname === path || location.pathname + "/" === path;
+  const navItems = [
+    { label: "home", to: HomeRoute.to, tooltip: "Shows open pull requests" },
+    { label: "issues", to: IssuesRoute.to, tooltip: "List all open issues" },
+    { label: "history", to: HistoryRoute.to, tooltip: "Show recently merged pull requests" },
+    { label: "stats", to: StatsRoute.to, tooltip: "Aggregated metrics" },
+  ];
+
+  const isActive = (path: string) => !!matchRoute({ to: path });
 
   const bgColor = useColorModeValue(
     alpha("blue.50", 0.5), // light
