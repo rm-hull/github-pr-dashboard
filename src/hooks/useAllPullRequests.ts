@@ -1,4 +1,4 @@
-import OctokitRequestError from "@octokit/request-error";
+import { RequestError } from "@octokit/request-error";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { PullRequest } from "@/utils/types";
@@ -61,7 +61,7 @@ export function useAllPullRequests(state: string = "open") {
     }),
     enabled: !!user,
     retry: (failureCount, error) => {
-      if (error instanceof OctokitRequestError && error.status === 403) {
+      if (error instanceof RequestError && error.status === 403) {
         return false;
       }
       return failureCount < 3;

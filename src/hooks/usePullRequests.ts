@@ -1,4 +1,4 @@
-import OctokitRequestError from "@octokit/request-error";
+import { RequestError } from "@octokit/request-error";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { PullRequest } from "@/utils/types";
 import { useApiClient } from "./useApiClient";
@@ -55,7 +55,7 @@ export function usePullRequests(state: string = "open") {
     refetchIntervalInBackground: true,
     enabled: !!user,
     retry: (failureCount, error) => {
-      if (error instanceof OctokitRequestError && error.status === 403) {
+      if (error instanceof RequestError && error.status === 403) {
         return false;
       }
       return failureCount < 3;
