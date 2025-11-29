@@ -42,7 +42,7 @@ export function PullRequestPage({ prState, listState, bgOpacity = 0.85, enableNo
         </Progress.Root>
       )}
       {data && (
-        <Box minHeight="calc(100vh - 58px)" position="relative">
+        <Box minHeight="calc(100vh - 3rem)" position="relative">
           <Box position="absolute" inset={0} bg={bgColor} backdropFilter="saturate(180%) blur(5px)" />
           <Container py={2} maxW="full" position="relative">
             <PullRequestsList pulls={data} state={listState} enableNotifications={enableNotifications} />
