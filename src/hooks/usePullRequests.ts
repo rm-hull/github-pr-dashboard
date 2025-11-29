@@ -2,9 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useApiClient } from "./useApiClient";
 import { useCurrentUser } from "./useCurrentUser";
 
-export type PullRequestState = "open" | "closed" | "merged";
-
-export function usePullRequests(state: PullRequestState = "open") {
+export function usePullRequests(state: string = "open") {
   const { octokit } = useApiClient();
   const { data: user } = useCurrentUser();
 

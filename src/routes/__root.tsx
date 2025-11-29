@@ -7,8 +7,8 @@ export const Route = createRootRoute({
   component: () => {
     return (
       <CatchBoundary getResetKey={() => "reset"} errorComponent={ErrorFallback}>
-        <NavBar />
         <Backdrop />
+        <NavBar />
         <Outlet />
       </CatchBoundary>
     );
