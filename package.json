@@ -7,14 +7,16 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "test": "vitest",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "test:ci": "vitest run --coverage",
     "preview": "vite preview",
     "format": "prettier --write ./src",
     "lint": "eslint --cache --fix ./src"
   },
   "dependencies": {
-    "@chakra-ui/react": "~3.30.0",
+    "@chakra-ui/charts": "^3.30.0",
+    "@chakra-ui/react": "^3.30.0",
     "@emotion/react": "~11.14.0",
     "@emotion/styled": "~11.14.1",
     "@octokit/rest": "^22.0.1",
@@ -40,6 +42,7 @@
     "react-markdown": "^10.1.0",
     "react-time-ago": "^7.3.5",
     "react-use": "^17.6.0",
+    "recharts": "^3.5.1",
     "rehype-raw": "^7.0.0",
     "remark-gfm": "^4.0.1"
   },
