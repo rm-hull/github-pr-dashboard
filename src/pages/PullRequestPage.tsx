@@ -22,7 +22,7 @@ export function PullRequestPage({ prState, listState, enableNotifications }: Pul
     alpha("blue.900", bgOpacity) // dark
   );
 
-  const allPullRequests = data?.pages.flatMap((page) => page) || [];
+  const allPullRequests = data?.pages || [];
 
   return (
     <>
