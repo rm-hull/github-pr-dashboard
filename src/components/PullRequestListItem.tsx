@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import JavascriptTimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
 import TimeAgo from "react-time-ago";
+import { alpha } from "@/utils/alpha";
 import { PullRequest } from "@/utils/types";
 import { DependabotRebaseButton } from "./actions/DependabotRebaseButton";
 import { GeminiReviewButton } from "./actions/GeminiReviewButton";
@@ -39,8 +40,11 @@ export function PullRequestListItem({ pull, breakpoint, searchTerm }: PullReques
       transition={{ duration: 0.2 }}
       p={2}
       _hover={{
-        bg: "bg.subtle",
+        bg: alpha("bg.subtle", 0.4),
+        borderColor: "blackAlpha.200",
       }}
+      border="1px solid transparent"
+      borderRadius={5}
     >
       <Stack
         direction={breakpoint === "base" ? "column" : "row"}
@@ -85,7 +89,7 @@ export function PullRequestListItem({ pull, breakpoint, searchTerm }: PullReques
             </HStack>
           </Box>
         </InfoPopover>
-        <ButtonGroup variant="subtle" size="xs">
+        <ButtonGroup variant="surface" colorPalette="blue" size="xs">
           <IgnoreButton url={pull.url} disabled={pull.state === "closed"} />
           <MergeButton owner={owner} repo={repo} pull_number={pull.number} state={pull.state} />
           <DependabotRebaseButton

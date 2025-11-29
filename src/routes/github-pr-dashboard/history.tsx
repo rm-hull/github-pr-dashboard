@@ -1,41 +1,10 @@
-import { Container, Progress } from "@chakra-ui/react";
 import { createFileRoute } from "@tanstack/react-router";
-import PullRequestsList from "@/components/PullRequestsList";
-import { useErrorToast } from "@/hooks/useErrorToast";
-import { usePullRequests } from "@/hooks/usePullRequests";
+import { PullRequestPage } from "@/pages/PullRequestPage";
 
 export const Route = createFileRoute("/github-pr-dashboard/history")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { data, isFetching, isEnabled, error } = usePullRequests("merged");
-  useErrorToast("merged-prs", "Failed to load merged PRs", error);
-
-  return (
-    <>
-      {isEnabled && (
-        <Progress.Root
-          variant="subtle"
-          width="full"
-          value={null}
-          colorPalette="blue"
-          size="xs"
-          height="5px"
-          backgroundColor="bg.panel"
-        >
-          {isFetching && (
-            <Progress.Track>
-              <Progress.Range />
-            </Progress.Track>
-          )}
-        </Progress.Root>
-      )}
-      {data && (
-        <Container py={2} maxW="full" bg="bg.panel" minHeight="calc(100vh - 3rem)">
-          <PullRequestsList pulls={data} state="closed" />
-        </Container>
-      )}
-    </>
-  );
+  return <PullRequestPage prState="merged" listState="closed" />;
 }

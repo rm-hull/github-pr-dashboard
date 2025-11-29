@@ -35,7 +35,7 @@ export function SettingsDialog({ children }: PropsWithChildren) {
               </Dialog.Body>
               <Dialog.Footer>
                 <Dialog.ActionTrigger asChild>
-                  <Button variant="subtle">Close</Button>
+                  <Button variant="surface">Close</Button>
                 </Dialog.ActionTrigger>
               </Dialog.Footer>
               <Dialog.CloseTrigger asChild>

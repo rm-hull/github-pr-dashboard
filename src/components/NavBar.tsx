@@ -68,7 +68,7 @@ export function NavBar() {
           </HStack>
         </HStack>
 
-        <ButtonGroup variant="subtle" colorPalette="blue" size="sm">
+        <ButtonGroup variant="surface" colorPalette="blue" size="sm">
           <Tooltip content="Settings">
             <SettingsDialog>
               <IconButton>
@@ -77,7 +77,7 @@ export function NavBar() {
             </SettingsDialog>
           </Tooltip>
 
-          <ColorModeButton variant="subtle" />
+          <ColorModeButton variant="surface" />
 
           {!user && (
             <Tooltip content="Sign in with GitHub">
