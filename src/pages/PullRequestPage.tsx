@@ -52,7 +52,7 @@ export function PullRequestPage({ prState, listState, enableNotifications }: Pul
               pulls={allPullRequests}
               state={listState}
               enableNotifications={enableNotifications}
-              fetchNextPage={fetchNextPage}
+              fetchNextPage={() => void fetchNextPage()}
               hasNextPage={hasNextPage}
               isFetchingNextPage={isFetchingNextPage}
             />

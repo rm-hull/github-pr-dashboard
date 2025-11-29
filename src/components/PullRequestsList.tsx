@@ -1,5 +1,4 @@
 import { Box, Button, For, Heading, List, Separator, useBreakpointValue } from "@chakra-ui/react";
-import { UseInfiniteQueryResult } from "@tanstack/react-query";
 import { AnimatePresence } from "framer-motion";
 import { useCallback, useMemo, useState } from "react";
 import Favicon from "react-favicon";
@@ -15,9 +14,9 @@ type PullRequestListProps = {
   pulls: PullRequest[];
   state: string;
   enableNotifications?: boolean;
-  fetchNextPage: UseInfiniteQueryResult<PullRequest[]>["fetchNextPage"];
-  hasNextPage?: UseInfiniteQueryResult<PullRequest[]>["hasNextPage"];
-  isFetchingNextPage: UseInfiniteQueryResult<PullRequest[]>["isFetchingNextPage"];
+  fetchNextPage: () => void;
+  hasNextPage?: boolean;
+  isFetchingNextPage: boolean;
 };
 
 const selector: Record<ListViewBy, (pull: PullRequest) => string | null> = {
@@ -136,7 +135,7 @@ export default function PullRequestsList({
               size="sm"
               loading={isFetchingNextPage}
               loadingText="Fetching..."
-              onClick={() => void fetchNextPage()}
+              onClick={fetchNextPage}
             >
               Load More
             </Button>

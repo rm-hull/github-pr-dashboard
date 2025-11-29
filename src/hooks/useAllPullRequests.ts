@@ -1,30 +1,17 @@
 import { RequestError } from "@octokit/request-error";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
-import { PullRequest } from "@/utils/types";
 import { useApiClient } from "./useApiClient";
 import { useCurrentUser } from "./useCurrentUser";
 
 const RESULTS_PER_PAGE = 100;
 const MAX_GITHUB_SEARCH_RESULTS = 1000;
 
-interface PullRequestsPage {
-  items: PullRequest[];
-  totalCount: number;
-  nextPageParam: number | undefined;
-}
-
 export function useAllPullRequests(state: string = "open") {
   const { octokit } = useApiClient();
   const { data: user } = useCurrentUser();
 
-  const { data, fetchNextPage, hasNextPage, isFetching, isError, error, isLoading } = useInfiniteQuery<
-    PullRequestsPage,
-    Error,
-    PullRequest[],
-    string[],
-    number
-  >({
+  const { data, fetchNextPage, hasNextPage, isFetching, isError, error, isLoading } = useInfiniteQuery({
     queryKey: ["all-pull-requests", state, user?.login],
     queryFn: async ({ pageParam = 1 }) => {
       const q = `user:${user?.login} type:pr ${state === "merged" ? "is:merged" : `state:${state}`}`;
@@ -66,12 +53,11 @@ export function useAllPullRequests(state: string = "open") {
       }
       return failureCount < 3;
     },
-    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {
     if (hasNextPage && !isFetching) {
-      fetchNextPage();
+      void fetchNextPage();
     }
   }, [hasNextPage, isFetching, fetchNextPage]);
 

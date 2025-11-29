@@ -1,23 +1,16 @@
 import { RequestError } from "@octokit/request-error";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { PullRequest } from "@/utils/types";
 import { useApiClient } from "./useApiClient";
 import { useCurrentUser } from "./useCurrentUser";
 
 const RESULTS_PER_PAGE = 100;
 const MAX_GITHUB_SEARCH_RESULTS = 1000;
 
-interface PullRequestsPage {
-  items: PullRequest[];
-  totalCount: number;
-  nextPageParam: number | undefined;
-}
-
 export function usePullRequests(state: string = "open") {
   const { octokit } = useApiClient();
   const { data: user } = useCurrentUser();
 
-  return useInfiniteQuery<PullRequestsPage, Error, PullRequest[], string[], number>({
+  return useInfiniteQuery({
     queryKey: ["pull-requests", state, user?.login],
     queryFn: async ({ pageParam = 1 }) => {
       const q = `user:${user?.login} type:pr ${state === "merged" ? "is:merged" : `state:${state}`}`;
@@ -60,6 +53,5 @@ export function usePullRequests(state: string = "open") {
       }
       return failureCount < 3;
     },
-    refetchOnWindowFocus: false,
   });
 }
