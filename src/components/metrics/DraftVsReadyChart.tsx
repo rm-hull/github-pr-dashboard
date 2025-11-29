@@ -10,16 +10,17 @@ interface DraftVsReadyChartProps {
 
 export function DraftVsReadyChart({ pullRequests }: DraftVsReadyChartProps) {
   const data = useMemo(() => {
-    let draftCount = 0;
-    let readyCount = 0;
-
-    pullRequests.forEach((pr) => {
-      if (pr.draft) {
-        draftCount++;
-      } else {
-        readyCount++;
-      }
-    });
+    const { draftCount, readyCount } = pullRequests.reduce(
+      (acc, pr) => {
+        if (pr.draft) {
+          acc.draftCount++;
+        } else {
+          acc.readyCount++;
+        }
+        return acc;
+      },
+      { draftCount: 0, readyCount: 0 },
+    );
 
     return [
       { name: "Draft", value: draftCount, color: "gray.300" },
