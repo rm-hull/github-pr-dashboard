@@ -8,14 +8,15 @@ import { alpha } from "@/utils/alpha";
 interface PullRequestPageProps {
   prState: string;
   listState: string;
-  bgOpacity?: number;
   enableNotifications?: boolean;
 }
 
-export function PullRequestPage({ prState, listState, bgOpacity = 0.85, enableNotifications }: PullRequestPageProps) {
-  const { data, isFetching, isEnabled, error, fetchNextPage, hasNextPage, isFetchingNextPage } = usePullRequests(prState);
+export function PullRequestPage({ prState, listState, enableNotifications }: PullRequestPageProps) {
+  const { data, isFetching, isEnabled, error, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    usePullRequests(prState);
   useErrorToast("pull-requests", `Failed to fetch ${prState} pull requests`, error);
 
+  const bgOpacity = 0.85;
   const bgColor = useColorModeValue(
     alpha("blue.50", bgOpacity), // light
     alpha("blue.900", bgOpacity) // dark

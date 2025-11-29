@@ -33,7 +33,7 @@ export function MergedPrsOverTimeChart({ pullRequests, by }: MergedPrsOverTimeCh
     // Sort by date
     return Object.entries(countsByBucket)
       .sort(([dateA], [dateB]) => dateB.localeCompare(dateA))
-      .map(([date, value]) => ({ name: by == "day" ? format(parseISO(date), "MMM d") : date, count: value }));
+      .map(([date, value]) => ({ name: by == "day" ? format(parseISO(date), "MMM d") : date.slice(5), count: value }));
   }, [pullRequests, by]);
 
   const chart = useChart({

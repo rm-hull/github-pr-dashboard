@@ -1,4 +1,5 @@
-import { Box, For, Heading, List, Separator, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Button, For, Heading, List, Separator, useBreakpointValue } from "@chakra-ui/react";
+import { UseInfiniteQueryResult } from "@tanstack/react-query";
 import { AnimatePresence } from "framer-motion";
 import { useCallback, useMemo, useState } from "react";
 import Favicon from "react-favicon";
@@ -9,7 +10,6 @@ import { ListFooter } from "./ListFooter";
 import { NoSearchMatches } from "./NoSearchMatches";
 import { Notifications } from "./Notifications";
 import { Breakpoint, PullRequestListItem } from "./PullRequestListItem";
-import { UseInfiniteQueryResult } from "@tanstack/react-query";
 
 type PullRequestListProps = {
   pulls: PullRequest[];
@@ -127,11 +127,19 @@ export default function PullRequestsList({
             );
           })}
         </AnimatePresence>
+
         {hasNextPage && (
-          <Box pt={4} textAlign="center">
-            <button onClick={() => fetchNextPage()} disabled={isFetchingNextPage}>
-              {isFetchingNextPage ? "Loading more..." : "Load More"}
-            </button>
+          <Box py={4} textAlign="center">
+            <Button
+              variant="surface"
+              colorPalette="blue"
+              size="sm"
+              loading={isFetchingNextPage}
+              loadingText="Fetching..."
+              onClick={() => void fetchNextPage()}
+            >
+              Load More
+            </Button>
           </Box>
         )}
       </List.Root>

@@ -10,14 +10,14 @@ interface PrsByRepoChartProps {
 }
 
 const COLOR_TOKENS = [
+  "purple.400",
   "blue.400",
+  "teal.400",
   "green.400",
   "yellow.400",
   "orange.400",
   "red.400",
-  "purple.400",
   "pink.400",
-  "teal.400",
 ];
 
 export function mergeBottomX<T extends { value: number }>(data: T[], x: number, otherLabel = "Other") {
@@ -70,7 +70,7 @@ export function PrsByRepoChart({ pullRequests, title = "Open PRs by Repository" 
     <ChartPanel title={title} noData={pullRequests.length === 0}>
       <Chart.Root chart={chart} height="300px">
         <PieChart>
-          <Pie data={chart.data} dataKey={chart.key("value")} nameKey="name" cx="50%" cy="50%" labelLine={false}>
+          <Pie data={chart.data} dataKey={chart.key("value")} nameKey="name" cx="50%" cy="50%">
             {chart.data.map((_, index) => (
               <Cell key={`cell-${index}`} fill={chart.color(COLOR_TOKENS[index % COLOR_TOKENS.length]) as string} />
             ))}
