@@ -56,10 +56,10 @@ export function useAllPullRequests(state: string = "open") {
   });
 
   useEffect(() => {
-    if (hasNextPage && !isFetching) {
+    if (hasNextPage && !isFetching && !isError) {
       void fetchNextPage();
     }
-  }, [hasNextPage, isFetching, fetchNextPage]);
+  }, [hasNextPage, isFetching, fetchNextPage, isError]);
 
   const allPullRequests = data?.pages || [];
 
