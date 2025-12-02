@@ -2594,16 +2594,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rm-hull/use-local-storage@npm:^0.3.2":
-  version: 0.3.2
-  resolution: "@rm-hull/use-local-storage@npm:0.3.2"
+"@rm-hull/use-local-storage@npm:^0.3.3":
+  version: 0.3.3
+  resolution: "@rm-hull/use-local-storage@npm:0.3.3"
   dependencies:
-    jotai: "npm:^2.15.0"
+    jotai: "npm:^2.15.2"
     react: "npm:^19.2.0"
     react-dom: "npm:^19.2.0"
   peerDependencies:
     react: ">=19.0.0"
-  checksum: 10c0/51827eb681782ae122b94219fe31c3ef9a43fbbb543b4971b91d4357194f8d96c7e245665d6fb1fa04eaf4ad1d1c799d78ca40b11356978325f3711dd402c575
+  checksum: 10c0/a678b4f12f4bfcc1ad621643e35f5a29ef9659ce70037b50aa01f632a3ab39aa6815216473c971819da2d063af04a2a480b0d95f25f7eb9bff874206fbb8a766
   languageName: node
   linkType: hard
 
@@ -7602,7 +7602,7 @@ __metadata:
     "@eslint/js": "npm:^9.39.1"
     "@octokit/rest": "npm:^22.0.1"
     "@rm-hull/chakra-error-fallback": "npm:^0.0.12"
-    "@rm-hull/use-local-storage": "npm:^0.3.2"
+    "@rm-hull/use-local-storage": "npm:^0.3.3"
     "@sentry/react": "npm:^10.27.0"
     "@stylistic/eslint-plugin": "npm:^5.6.1"
     "@tanstack/eslint-plugin-query": "npm:^5.91.2"
@@ -8565,27 +8565,6 @@ __metadata:
   dependencies:
     relative-time-format: "npm:^1.1.7"
   checksum: 10c0/2c18070ca1481baae6ff1e58d60826d948efeb376d6fc77116481bc23713fbd6aa3bde343563b3d747325015683f41725c34e7b5c02331e914e3bf1c129ceb45
-  languageName: node
-  linkType: hard
-
-"jotai@npm:^2.15.0":
-  version: 2.15.1
-  resolution: "jotai@npm:2.15.1"
-  peerDependencies:
-    "@babel/core": ">=7.0.0"
-    "@babel/template": ">=7.0.0"
-    "@types/react": ">=17.0.0"
-    react: ">=17.0.0"
-  peerDependenciesMeta:
-    "@babel/core":
-      optional: true
-    "@babel/template":
-      optional: true
-    "@types/react":
-      optional: true
-    react:
-      optional: true
-  checksum: 10c0/8260ac9f36e14d2cedbc79f63bc1bcd82902d68a1ab1f3dfce6ffabccbedfd5fa54fffe93e53a09253d6b29a9c05fbc455108a280efc8d349fd5bfb965f7869b
   languageName: node
   linkType: hard
 
