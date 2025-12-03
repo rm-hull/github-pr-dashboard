@@ -8,15 +8,23 @@ import { useColorModeValue } from "@/components/ui/color-mode";
 import { useErrorToast } from "@/hooks/useErrorToast";
 import { alpha } from "@/utils/alpha";
 import { DraftVsReadyChart } from "../../components/metrics/DraftVsReadyChart";
-import { useAllPullRequests } from "../../hooks/useAllPullRequests";
+import { usePullRequests } from "@/hooks/usePullRequests";
 
 export const Route = createFileRoute("/github-pr-dashboard/stats")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { allPullRequests: openPRs, isLoading: isLoadingOpen, error: errorOpen } = useAllPullRequests("open");
-  const { allPullRequests: mergedPRs, isLoading: isLoadingMerged, error: errorMerged } = useAllPullRequests("merged");
+  const {
+    data: openPRs,
+    isLoading: isLoadingOpen,
+    error: errorOpen,
+  } = usePullRequests("open", { fetchAll: true });
+  const {
+    data: mergedPRs,
+    isLoading: isLoadingMerged,
+    error: errorMerged,
+  } = usePullRequests("merged", { fetchAll: true });
 
   useErrorToast("stats", "Failed to fetch pull request details", errorOpen || errorMerged);
 
@@ -50,12 +58,12 @@ function RouteComponent() {
       <Box position="absolute" inset={0} bg={bgColor} backdropFilter="saturate(180%) blur(5px)" />
       <Container py={6} maxW="full" position="relative">
         <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} gap={6}>
-          <PrsByRepoChart pullRequests={openPRs || []} title="Open PRs by Repository" />
-          <DraftVsReadyChart pullRequests={openPRs || []} />
-          <PrAgeDistributionChart pullRequests={openPRs || []} />
-          <PrsByRepoChart pullRequests={mergedPRs || []} title="Merged PRs by Repository" />
-          <MergeTimeDistributionChart pullRequests={mergedPRs || []} />
-          <MergedPrsOverTimeChart by="week" pullRequests={mergedPRs || []} />
+          <PrsByRepoChart pullRequests={openPRs?.pages || []} title="Open PRs by Repository" />
+          <DraftVsReadyChart pullRequests={openPRs?.pages || []} />
+          <PrAgeDistributionChart pullRequests={openPRs?.pages || []} />
+          <PrsByRepoChart pullRequests={mergedPRs?.pages || []} title="Merged PRs by Repository" />
+          <MergeTimeDistributionChart pullRequests={mergedPRs?.pages || []} />
+          <MergedPrsOverTimeChart by="week" pullRequests={mergedPRs?.pages || []} />
         </SimpleGrid>
       </Container>
     </Box>
