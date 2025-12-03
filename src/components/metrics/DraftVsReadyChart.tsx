@@ -19,7 +19,7 @@ export function DraftVsReadyChart({ pullRequests }: DraftVsReadyChartProps) {
         }
         return acc;
       },
-      { draftCount: 0, readyCount: 0 },
+      { draftCount: 0, readyCount: 0 }
     );
 
     return [

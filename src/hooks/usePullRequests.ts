@@ -2,15 +2,21 @@ import { RequestError } from "@octokit/request-error";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useApiClient } from "./useApiClient";
 import { useCurrentUser } from "./useCurrentUser";
+import { useEffect } from "react";
 
 const RESULTS_PER_PAGE = 100;
 const MAX_GITHUB_SEARCH_RESULTS = 1000;
 
-export function usePullRequests(state: string = "open") {
+type FetchOptions = {
+  fetchAll: boolean;
+  refetchInBackground: boolean;
+};
+
+export function usePullRequests(state: string = "open", options: Partial<FetchOptions> = {}) {
   const { octokit } = useApiClient();
   const { data: user } = useCurrentUser();
 
-  return useInfiniteQuery({
+  const query = useInfiniteQuery({
     queryKey: ["pull-requests", state, user?.login],
     queryFn: async ({ pageParam = 1 }) => {
       const q = `user:${user?.login} type:pr ${state === "merged" ? "is:merged" : `state:${state}`}`;
@@ -45,7 +51,7 @@ export function usePullRequests(state: string = "open") {
       pages: data.pages.flatMap((page) => page.items),
     }),
     refetchInterval: (query) => (query.state.dataUpdateCount > 0 && query.state.error ? false : 60000),
-    refetchIntervalInBackground: true,
+    refetchIntervalInBackground: options.refetchInBackground ?? false,
     enabled: !!user,
     retry: (failureCount, error) => {
       if (error instanceof RequestError && error.status === 403) {
@@ -54,4 +60,14 @@ export function usePullRequests(state: string = "open") {
       return failureCount < 3;
     },
   });
+
+  const { hasNextPage, isFetching, isError, fetchNextPage } = query;
+
+  useEffect(() => {
+    if (options.fetchAll && hasNextPage && !isFetching && !isError) {
+      void fetchNextPage();
+    }
+  }, [hasNextPage, isFetching, fetchNextPage, isError, options.fetchAll]);
+
+  return query;
 }

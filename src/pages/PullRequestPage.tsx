@@ -12,8 +12,10 @@ interface PullRequestPageProps {
 }
 
 export function PullRequestPage({ prState, listState, enableNotifications }: PullRequestPageProps) {
-  const { data, isFetching, isEnabled, error, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    usePullRequests(prState);
+  const { data, isFetching, isEnabled, error, fetchNextPage, hasNextPage, isFetchingNextPage } = usePullRequests(
+    prState,
+    { refetchInBackground: true }
+  );
   useErrorToast("pull-requests", `Failed to fetch ${prState} pull requests`, error);
 
   const bgOpacity = 0.85;
