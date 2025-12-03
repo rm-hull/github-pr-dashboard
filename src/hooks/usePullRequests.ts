@@ -17,7 +17,7 @@ export function usePullRequests(state: string = "open", options: Partial<FetchOp
   const { data: user } = useCurrentUser();
 
   const query = useInfiniteQuery({
-    queryKey: ["pull-requests", state, user?.login],
+    queryKey: ["pull-requests", state, user?.login, options.fetchAll ?? false],
     queryFn: async ({ pageParam = 1 }) => {
       const q = `user:${user?.login} type:pr ${state === "merged" ? "is:merged" : `state:${state}`}`;
       const resp = await octokit.rest.search.issuesAndPullRequests({
