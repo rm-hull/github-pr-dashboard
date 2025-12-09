@@ -81,7 +81,7 @@ export function PullRequestListItem({ pull, breakpoint, searchTerm }: PullReques
                   border="1px solid"
                   borderColor="fg.subtle"
                 />
-                {pull.user?.login}
+                <SearchHighlight query={searchTerm}>{pull.user?.login ?? "unknown"}</SearchHighlight>
               </Text>
               <Text as="span" fontSize="xs" color="fg.subtle">
                 <TimeAgo date={new Date(pull.created_at)} locale="en-US" />

@@ -67,7 +67,8 @@ export default function PullRequestsList({
         const lowerCaseSearchTerm = searchTerm.toLowerCase();
         return (
           pull.title.toLowerCase().includes(lowerCaseSearchTerm) ||
-          pull.repository_url.toLowerCase().includes(lowerCaseSearchTerm)
+          pull.repository_url.toLowerCase().includes(lowerCaseSearchTerm) ||
+          pull.user?.login.toLowerCase().includes(lowerCaseSearchTerm)
         );
       }
 
