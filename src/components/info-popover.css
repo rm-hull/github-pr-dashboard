@@ -23,6 +23,7 @@
   background-color: var(--chakra-colors-bg-muted);
   padding: 2px 4px;
   border-radius: 3px;
+  font-size: var(--chakra-font-sizes-xs);
 }
 .pr-body-markdown-container blockquote {
   border-left: 4px solid var(--chakra-colors-fg-subtle);
@@ -58,4 +59,9 @@
 .pr-body-markdown-container h5,
 .pr-body-markdown-container h6 {
   font-size: medium;
+}
+
+.pr-body-markdown-container a {
+  text-decoration: underline;
+  color: var(--chakra-colors-blue-solid);
 }
