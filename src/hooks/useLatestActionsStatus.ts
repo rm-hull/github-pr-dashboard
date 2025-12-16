@@ -20,7 +20,7 @@ export function useLatestActionsStatus(owner: string, repo: string, options: Par
         per_page: 1,
       });
 
-      if (runs.total_count === 0 || runs.workflow_runs.length === 0) {
+      if (runs.total_count === 0) {
         return null;
       }
 
