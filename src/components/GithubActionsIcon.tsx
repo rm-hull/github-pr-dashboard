@@ -28,7 +28,7 @@ export function GithubActionsIcon({ owner, repo }: GithubActionsProps) {
     <Box ref={ref}>
       <Tooltip content={tooltip}>
         <Link href={data?.htmlUrl} target="_blank">
-          {icon(isLoading, data?.conclusion)}
+          {icon(isLoading, data?.conclusion ?? null)}
         </Link>
       </Tooltip>
     </Box>
