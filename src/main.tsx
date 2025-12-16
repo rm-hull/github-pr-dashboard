@@ -1,8 +1,12 @@
 import * as Sentry from "@sentry/react";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en";
 import { createRoot, RootOptions } from "react-dom/client";
 import { AppProviders } from "./components/AppProviders";
 import { routeTree } from "./routeTree.gen";
+
+TimeAgo.addLocale(en);
 
 if (import.meta.env.VITE_SENTRY_DSN) {
   Sentry.init({

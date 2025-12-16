@@ -15,11 +15,7 @@ export const Route = createFileRoute("/github-pr-dashboard/stats")({
 });
 
 function RouteComponent() {
-  const {
-    data: openPRs,
-    isLoading: isLoadingOpen,
-    error: errorOpen,
-  } = usePullRequests("open", { fetchAll: true });
+  const { data: openPRs, isLoading: isLoadingOpen, error: errorOpen } = usePullRequests("open", { fetchAll: true });
   const {
     data: mergedPRs,
     isLoading: isLoadingMerged,

@@ -5,6 +5,7 @@ import Favicon from "react-favicon";
 import { FaGitAlt } from "react-icons/fa";
 import { ListViewBy, useGeneralSettings } from "@/hooks/useGeneralSettings";
 import { PullRequest } from "@/utils/types";
+import { GithubActionsIcon } from "./GithubActionsIcon";
 import { ListFooter } from "./ListFooter";
 import { NoSearchMatches } from "./NoSearchMatches";
 import { Notifications } from "./Notifications";
@@ -108,6 +109,7 @@ export default function PullRequestsList({
         <AnimatePresence>
           {Object.entries(pullsBySelector).flatMap(([groupBy, pulls], index, array) => {
             const repoFullName = groupBy.split("/repos/")[1];
+            const [owner, repo] = repoFullName.split("/");
             const isLast = index === array.length - 1;
             return (
               <Box key={repoFullName}>
@@ -115,6 +117,7 @@ export default function PullRequestsList({
                   <Heading fontSize="2xl" py={1} mb={1} color="fg.info" display="flex" alignItems="center" gap={2}>
                     <FaGitAlt size={24} />
                     {repoFullName}
+                    <GithubActionsIcon owner={owner} repo={repo} />
                   </Heading>
                 )}
                 <For each={pulls}>

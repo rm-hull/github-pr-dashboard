@@ -1,8 +1,8 @@
 import { RequestError } from "@octokit/request-error";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 import { useApiClient } from "./useApiClient";
 import { useCurrentUser } from "./useCurrentUser";
-import { useEffect } from "react";
 
 const RESULTS_PER_PAGE = 100;
 const MAX_GITHUB_SEARCH_RESULTS = 1000;
