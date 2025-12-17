@@ -109,7 +109,7 @@ export default function PullRequestsList({
         <AnimatePresence>
           {Object.entries(pullsBySelector).flatMap(([groupBy, pulls], index, array) => {
             const repoFullName = groupBy.split("/repos/")[1];
-            const [owner, repo] = repoFullName.split("/");
+            const [owner, repo] = repoFullName?.split("/") ?? [];
             const isLast = index === array.length - 1;
             return (
               <Box key={repoFullName}>
