@@ -42,7 +42,7 @@ export function InfoPopover({ title, descr, width, children }: PropsWithChildren
                       const match = /language-(\w+)/.exec(className || "");
                       const content = typeof children === "string" ? children : "";
                       return match && match[1] === "mermaid" ? (
-                        <Mermaid chart={content.replace(/\n$/, "")} />
+                        <Mermaid chart={content.trimEnd()} />
                       ) : (
                         <code {...rest} className={className}>
                           {children}
