@@ -18,6 +18,7 @@
   padding: 10px;
   border-radius: 5px;
   overflow-x: auto;
+  font-size: var(--chakra-font-sizes-xs);
 }
 .pr-body-markdown-container code:not(pre *) {
   background-color: var(--chakra-colors-bg-muted);
