@@ -40,7 +40,7 @@ export function InfoPopover({ title, descr, width, children }: PropsWithChildren
                   components={{
                     code({ children, className, ...rest }) {
                       const match = /language-(\w+)/.exec(className || "");
-                      const content = typeof children === "string" ? children : "";
+                      const content = String(children);
                       return match && match[1] === "mermaid" ? (
                         <Mermaid chart={content.trimEnd()} />
                       ) : (
