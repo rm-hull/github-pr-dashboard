@@ -20,6 +20,21 @@
   overflow-x: auto;
   font-size: var(--chakra-font-sizes-xs);
 }
+.pr-body-markdown-container pre:has(.mermaid) {
+  background-color: transparent;
+  padding: 0;
+}
+.mermaid {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+  width: 100%;
+}
+.mermaid svg {
+  max-width: 100%;
+  height: auto;
+  background-color: transparent !important;
+}
 .pr-body-markdown-container code:not(pre *) {
   background-color: var(--chakra-colors-bg-muted);
   padding: 2px 4px;

@@ -6,9 +6,9 @@ import { PrAgeDistributionChart } from "@/components/metrics/PrAgeDistributionCh
 import { PrsByRepoChart } from "@/components/metrics/PrsByRepoChart";
 import { useColorModeValue } from "@/components/ui/color-mode";
 import { useErrorToast } from "@/hooks/useErrorToast";
+import { usePullRequests } from "@/hooks/usePullRequests";
 import { alpha } from "@/utils/alpha";
 import { DraftVsReadyChart } from "../../components/metrics/DraftVsReadyChart";
-import { usePullRequests } from "@/hooks/usePullRequests";
 
 export const Route = createFileRoute("/github-pr-dashboard/stats")({
   component: RouteComponent,

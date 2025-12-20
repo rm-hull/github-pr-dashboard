@@ -58,7 +58,7 @@ export function RepoListbox({ value, onChange }: RepoListboxProps) {
               <div ref={ref} />
               {(isLoading || isFetchingNextPage) && (
                 <Center gap={2}>
-                  <Spinner size="xs" color="blue" />
+                  <Spinner size="xs" color="fg.info" />
                   <Text textStyle="sm" color="fg.muted">
                     Loading...
                   </Text>

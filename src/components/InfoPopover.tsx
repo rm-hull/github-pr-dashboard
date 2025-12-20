@@ -3,6 +3,7 @@ import { PropsWithChildren } from "react";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
+import { Mermaid } from "./Mermaid";
 import "./info-popover.css";
 
 interface InfoPopoverProps {
@@ -23,7 +24,7 @@ export function InfoPopover({ title, descr, width, children }: PropsWithChildren
         <Popover.Positioner>
           <Popover.Content width={width}>
             <Popover.Arrow />
-            <Popover.Body maxHeight="70%" overflowY="scroll">
+            <Popover.Body maxHeight="70%" overflowY="scroll" my={4} py={0}>
               {title && (
                 <>
                   <Popover.Title fontSize="lg" fontWeight="bold" py={2}>
@@ -33,7 +34,23 @@ export function InfoPopover({ title, descr, width, children }: PropsWithChildren
                 </>
               )}
               <Box className="pr-body-markdown-container">
-                <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+                <Markdown
+                  remarkPlugins={[remarkGfm]}
+                  rehypePlugins={[rehypeRaw]}
+                  components={{
+                    code({ children, className, ...rest }) {
+                      const match = /language-(\w+)/.exec(className || "");
+                      const content = String(children);
+                      return match && match[1] === "mermaid" ? (
+                        <Mermaid chart={content.trimEnd()} />
+                      ) : (
+                        <code {...rest} className={className}>
+                          {children}
+                        </code>
+                      );
+                    },
+                  }}
+                >
                   {descr}
                 </Markdown>
               </Box>
