@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useApiClient } from "./useApiClient";
 
-const GEMINI_USER_LOGIN = "gemini-code-assist";
+const GEMINI_USER_LOGIN = "gemini-code-assist[bot]";
 const GEMINI_REVIEW_COMMAND = "/gemini review";
 
 type MutationProps = {
@@ -24,7 +24,6 @@ export function useGeminiReview() {
       });
 
       const geminiComments = comments.filter((c) => c.user?.login === GEMINI_USER_LOGIN);
-
       for (const comment of geminiComments) {
         try {
           await octokit.issues.deleteComment({
