@@ -13,7 +13,7 @@ export function GeminiReviewButton({ owner, repo, pull_number, state }: GeminiRe
   const { mutate, isPending, error } = useGeminiReview();
   const disabled = isPending || state === "closed";
 
-  useErrorToast("gemini-review-error", "Failed to post a comment", error);
+  useErrorToast("gemini-review-error", "Failed to request Gemini review", error);
 
   return (
     <Button onClick={() => mutate({ owner, repo, pull_number })} disabled={disabled}>
