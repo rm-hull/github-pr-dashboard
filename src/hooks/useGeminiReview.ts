@@ -24,15 +24,29 @@ export function useGeminiReview() {
       });
 
       const geminiComments = comments.filter((c) => c.user?.login === GEMINI_USER_LOGIN);
+
+      const reviewComments = await octokit.paginate(octokit.pulls.listReviewComments, {
+        owner,
+        repo,
+        pull_number,
+        per_page: 100,
+      });
+
+      const geminiReviewComments = reviewComments.filter((c) => c.user?.login === GEMINI_USER_LOGIN);
+
       for (const comment of geminiComments) {
         try {
-          await octokit.issues.deleteComment({
-            owner,
-            repo,
-            comment_id: comment.id,
-          });
+          await octokit.issues.deleteComment({ owner, repo, comment_id: comment.id });
         } catch (e) {
-          console.error(`Failed to delete comment ${comment.id}`, e);
+          console.error(`Failed to delete issue comment ${comment.id}`, e);
+        }
+      }
+
+      for (const comment of geminiReviewComments) {
+        try {
+          await octokit.pulls.deleteReviewComment({ owner, repo, comment_id: comment.id });
+        } catch (e) {
+          console.error(`Failed to delete review comment ${comment.id}`, e);
         }
       }
 
