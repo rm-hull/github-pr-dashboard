@@ -1,6 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useApiClient } from "./useApiClient";
 
+const GEMINI_USER_LOGIN = "gemini-code-assist";
+const GEMINI_REVIEW_COMMAND = "/gemini review";
+
 type MutationProps = {
   owner: string;
   repo: string;
@@ -20,7 +23,7 @@ export function useGeminiReview() {
         per_page: 100,
       });
 
-      const geminiComments = comments.filter((c) => c.user?.login === "gemini-code-assist");
+      const geminiComments = comments.filter((c) => c.user?.login === GEMINI_USER_LOGIN);
 
       for (const comment of geminiComments) {
         try {
@@ -38,7 +41,7 @@ export function useGeminiReview() {
         owner,
         repo,
         issue_number: pull_number,
-        body: "/gemini review",
+        body: GEMINI_REVIEW_COMMAND,
       });
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: ["open-prs"] }),
