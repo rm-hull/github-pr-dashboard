@@ -2,6 +2,7 @@ import { Box, ButtonGroup, HStack, Image, Link, List, Stack, Text } from "@chakr
 import { motion } from "framer-motion";
 import JavascriptTimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
+import { IoChatboxOutline } from "react-icons/io5";
 import TimeAgo from "react-time-ago";
 import { alpha } from "@/utils/alpha";
 import { PullRequest } from "@/utils/types";
@@ -65,7 +66,7 @@ export function PullRequestListItem({ pull, breakpoint, searchTerm }: PullReques
               <StatusIcon owner={owner} repo={repo} pull_number={pull.number} />
             </HStack>
 
-            <HStack gapX={3} gapY={0} flexWrap="wrap">
+            <HStack gapX={4} gapY={0} flexWrap="wrap">
               <Text as="span" fontSize="sm">
                 <SearchHighlight query={searchTerm}>
                   {repoFullName} — #{pull.number}
@@ -86,6 +87,12 @@ export function PullRequestListItem({ pull, breakpoint, searchTerm }: PullReques
               <Text as="span" fontSize="xs" color="fg.subtle">
                 <TimeAgo date={new Date(pull.created_at)} locale="en-US" />
               </Text>
+              {pull.comments > 0 && (
+                <HStack fontSize="xs" color="fg.subtle" gap={0.5}>
+                  <IoChatboxOutline />
+                  {pull.comments}
+                </HStack>
+              )}
             </HStack>
           </Box>
         </InfoPopover>
