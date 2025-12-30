@@ -13,7 +13,7 @@ export function useGeminiReview() {
 
   return useMutation({
     mutationFn: async ({ owner, repo, pull_number }: MutationProps) => {
-      const { data: comments } = await octokit.issues.listComments({
+      const comments = await octokit.paginate(octokit.issues.listComments, {
         owner,
         repo,
         issue_number: pull_number,
