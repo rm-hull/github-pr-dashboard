@@ -2,7 +2,7 @@ import { Box, Link, Spinner } from "@chakra-ui/react";
 import { useInView } from "framer-motion";
 import TimeAgo from "javascript-time-ago";
 import { useRef } from "react";
-import { RxCheck, RxCross2, RxQuestionMark } from "react-icons/rx";
+import { IoAlertCircle, IoCheckmarkCircle, IoCloseCircle } from "react-icons/io5";
 import { useLatestActionsStatus } from "@/hooks/useLatestActionsStatus";
 import { Tooltip } from "./ui/tooltip";
 
@@ -42,11 +42,11 @@ function icon(isLoading: boolean, conclusion: string | null) {
 
   switch (conclusion) {
     case "success":
-      return <RxCheck size={16} color="green" />;
+      return <IoCheckmarkCircle size={16} color="green" />;
     case "failure":
-      return <RxCross2 size={16} color="red" />;
+      return <IoCloseCircle size={16} color="red" />;
     case "unknown":
     default:
-      return <RxQuestionMark size={16} color="purple" />;
+      return <IoAlertCircle size={16} color="purple" />;
   }
 }
