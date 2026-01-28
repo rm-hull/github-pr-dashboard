@@ -8787,7 +8787,7 @@ __metadata:
     eslint-plugin-unused-imports: "npm:^4.3.0"
     framer-motion: "npm:~12.29.2"
     globals: "npm:^17.1.0"
-    javascript-time-ago: "npm:^2.5.12"
+    javascript-time-ago: "npm:^2.6.2"
     jotai: "npm:^2.16.2"
     js-sha256: "npm:^0.11.1"
     jsdom: "npm:^27.4.0"
@@ -9703,12 +9703,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"javascript-time-ago@npm:^2.5.12":
-  version: 2.5.12
-  resolution: "javascript-time-ago@npm:2.5.12"
+"javascript-time-ago@npm:^2.6.2":
+  version: 2.6.2
+  resolution: "javascript-time-ago@npm:2.6.2"
   dependencies:
-    relative-time-format: "npm:^1.1.7"
-  checksum: 10c0/2c18070ca1481baae6ff1e58d60826d948efeb376d6fc77116481bc23713fbd6aa3bde343563b3d747325015683f41725c34e7b5c02331e914e3bf1c129ceb45
+    relative-time-format: "npm:^1.1.11"
+  checksum: 10c0/59ec3c59fc773cdf415cb63eb943357eb3075a6bbb15580f2f312407e32f222a6751cfa468c20729959f3d400684a96f42cdb2b5189a45a98d2cd9be014d38bf
   languageName: node
   linkType: hard
 
@@ -11946,7 +11946,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"relative-time-format@npm:^1.1.7":
+"relative-time-format@npm:^1.1.11":
   version: 1.1.11
   resolution: "relative-time-format@npm:1.1.11"
   checksum: 10c0/b7aaa2783e32e6043245785325a423c611e3330e5ffd753223ff5419d3e3307b726ac07119cef883042f2592ff311b4dddbb870b6b33da6d1cacc86d857f846d
