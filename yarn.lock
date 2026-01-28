@@ -8800,7 +8800,7 @@ __metadata:
     react-favicon: "npm:^2.0.7"
     react-icons: "npm:^5.5.0"
     react-markdown: "npm:^10.1.0"
-    react-time-ago: "npm:^7.3.5"
+    react-time-ago: "npm:^7.4.1"
     react-use: "npm:^17.6.0"
     recharts: "npm:^3.7.0"
     rehype-raw: "npm:^7.0.0"
@@ -9703,7 +9703,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"javascript-time-ago@npm:^2.6.2":
+"javascript-time-ago@npm:^2.3.7, javascript-time-ago@npm:^2.6.2":
   version: 2.6.2
   resolution: "javascript-time-ago@npm:2.6.2"
   dependencies:
@@ -11358,13 +11358,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"performance-now@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "performance-now@npm:2.1.0"
-  checksum: 10c0/22c54de06f269e29f640e0e075207af57de5052a3d15e360c09b9a8663f393f6f45902006c1e71aa8a5a1cdfb1a47fe268826f8496d6425c362f00f5bc3e85d9
-  languageName: node
-  linkType: hard
-
 "picocolors@npm:1.1.1, picocolors@npm:^1.0.0, picocolors@npm:^1.1.1":
   version: 1.1.1
   resolution: "picocolors@npm:1.1.1"
@@ -11556,15 +11549,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"raf@npm:^3.4.1":
-  version: 3.4.1
-  resolution: "raf@npm:3.4.1"
-  dependencies:
-    performance-now: "npm:^2.1.0"
-  checksum: 10c0/337f0853c9e6a77647b0f499beedafea5d6facfb9f2d488a624f88b03df2be72b8a0e7f9118a3ff811377d534912039a3311815700d2b6d2313f82f736f9eb6e
-  languageName: node
-  linkType: hard
-
 "react-clientside-effect@npm:^1.2.7":
   version: 1.2.8
   resolution: "react-clientside-effect@npm:1.2.8"
@@ -11700,18 +11684,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-time-ago@npm:^7.3.5":
-  version: 7.3.5
-  resolution: "react-time-ago@npm:7.3.5"
+"react-time-ago@npm:^7.4.1":
+  version: 7.4.1
+  resolution: "react-time-ago@npm:7.4.1"
   dependencies:
+    javascript-time-ago: "npm:^2.3.7"
     memoize-one: "npm:^6.0.0"
     prop-types: "npm:^15.8.1"
-    raf: "npm:^3.4.1"
   peerDependencies:
-    javascript-time-ago: ^2.3.7
     react: ">=0.16.8"
     react-dom: ">=0.16.8"
-  checksum: 10c0/421c00536af1c4085fa390fb386fec148346194b463434f0724ae9d4df549bb67de3607e2e0d137fa09cc2a558b073beb8a98857951fb21f420e8e14ece4187f
+  checksum: 10c0/387fca84ef2a6a25d1158753e4ecd1e46e1f22ad1375587c782c33e1d83412bc1f4a177f59be34d925e24b67893df176782978e202023762fd3497d68563c421
   languageName: node
   linkType: hard
 
