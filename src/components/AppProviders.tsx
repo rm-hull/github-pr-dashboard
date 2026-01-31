@@ -37,7 +37,7 @@ export function AppProviders({ children }: PropsWithChildren) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
+      <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-right" />
       <ChakraProvider>
         <Toaster />
         {isExpired && <GithubTokeExpiredDialog />}
