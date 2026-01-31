@@ -3,6 +3,7 @@ import { useInView } from "framer-motion";
 import TimeAgo from "javascript-time-ago";
 import { useRef } from "react";
 import { IoAlertCircle, IoCheckmarkCircle, IoCloseCircle } from "react-icons/io5";
+import { RiProgress6Line } from "react-icons/ri";
 import { useLatestActionsStatus } from "@/hooks/useLatestActionsStatus";
 import { Tooltip } from "./ui/tooltip";
 
@@ -21,14 +22,14 @@ export function GithubActionsIcon({ owner, repo }: GithubActionsProps) {
   let tooltip = "unknown";
   if (data) {
     const age = timeAgo.format(new Date(data.createdAt));
-    tooltip = `Last ${data.branch} run: ${data.conclusion} (${age})`;
+    tooltip = `Last ${data.branch} run: ${data.conclusion ?? data.status} (${age})`;
   }
 
   return (
     <Box ref={ref}>
       <Tooltip content={tooltip}>
         <Link href={data?.htmlUrl} target="_blank">
-          {icon(isLoading, data?.conclusion ?? null)}
+          {icon(isLoading, data?.conclusion ?? data?.status ?? null)}
         </Link>
       </Tooltip>
     </Box>
@@ -42,11 +43,14 @@ function icon(isLoading: boolean, conclusion: string | null) {
 
   switch (conclusion) {
     case "success":
-      return <IoCheckmarkCircle size={16} color="green" />;
+      return <IoCheckmarkCircle size={18} color="green" />;
     case "failure":
-      return <IoCloseCircle size={16} color="red" />;
+      return <IoCloseCircle size={18} color="red" />;
+    case "in_progress":
+    case "queued":
+      return <RiProgress6Line size={18} color="grey" />;
     case "unknown":
     default:
-      return <IoAlertCircle size={16} color="purple" />;
+      return <IoAlertCircle size={18} color="purple" />;
   }
 }
