@@ -1,8 +1,9 @@
 import { Box, Button, For, Heading, List, Separator, useBreakpointValue } from "@chakra-ui/react";
+import { compareDesc, format, parseISO } from "date-fns";
 import { AnimatePresence } from "framer-motion";
 import { useCallback, useMemo, useState } from "react";
 import Favicon from "react-favicon";
-import { FaGitAlt } from "react-icons/fa";
+import { FaRegCalendarAlt, FaGitAlt } from "react-icons/fa";
 import { ListViewBy, useGeneralSettings } from "@/hooks/useGeneralSettings";
 import { PullRequest } from "@/utils/types";
 import { GithubActionsIcon } from "./GithubActionsIcon";
@@ -21,7 +22,7 @@ type PullRequestListProps = {
 };
 
 const selector: Record<ListViewBy, (pull: PullRequest) => string | null> = {
-  recent: () => null,
+  recent: (pull: PullRequest) => format(parseISO(pull.created_at), "MMM yyyy"),
   repo: (pull: PullRequest) => pull.repository_url,
 };
 
@@ -79,12 +80,15 @@ export default function PullRequestsList({
   );
 
   const pullsBySelector = useMemo(() => {
-    return pulls.filter(isSelected).reduce<Record<string, PullRequest[]>>((acc, pr) => {
-      const key = selector[listViewBy](pr) ?? "";
-      if (!acc[key]) acc[key] = [];
-      acc[key].push(pr);
-      return acc;
-    }, {});
+    return pulls
+      .filter(isSelected)
+      .sort((a, b) => compareDesc(parseISO(a.created_at), parseISO(b.created_at)))
+      .reduce<Record<string, PullRequest[]>>((acc, pr) => {
+        const key = selector[listViewBy](pr) ?? "";
+        if (!acc[key]) acc[key] = [];
+        acc[key].push(pr);
+        return acc;
+      }, {});
   }, [pulls, isSelected, listViewBy]);
 
   const count = useMemo(() => Object.values(pullsBySelector).flat().length, [pullsBySelector]);
@@ -108,16 +112,17 @@ export default function PullRequestsList({
       <List.Root gap={2} listStyleType="none" pb={12}>
         <AnimatePresence>
           {Object.entries(pullsBySelector).flatMap(([groupBy, pulls], index, array) => {
-            const repoFullName = groupBy.split("/repos/")[1];
+            const isRepoGroup = groupBy.includes("/repos/");
+            const repoFullName = isRepoGroup ? groupBy.split("/repos/")[1] : undefined;
             const [owner, repo] = repoFullName?.split("/") ?? [];
             const isLast = index === array.length - 1;
             return (
-              <Box key={repoFullName}>
-                {!!repoFullName && (
+              <Box key={groupBy}>
+                {(!!repoFullName || !isRepoGroup) && (
                   <Heading fontSize="2xl" py={1} mb={1} color="fg.info" display="flex" alignItems="center" gap={2}>
-                    <FaGitAlt size={24} />
-                    {repoFullName}
-                    <GithubActionsIcon owner={owner} repo={repo} />
+                    {isRepoGroup ? <FaGitAlt size={24} /> : <FaRegCalendarAlt size={24} />}
+                    {repoFullName ?? groupBy}
+                    {isRepoGroup && <GithubActionsIcon owner={owner} repo={repo} />}
                   </Heading>
                 )}
                 <For each={pulls}>
