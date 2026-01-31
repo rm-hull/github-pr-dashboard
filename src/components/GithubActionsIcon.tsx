@@ -29,28 +29,37 @@ export function GithubActionsIcon({ owner, repo }: GithubActionsProps) {
     <Box ref={ref}>
       <Tooltip content={tooltip}>
         <Link href={data?.htmlUrl} target="_blank">
-          {icon(isLoading, data?.conclusion ?? data?.status ?? null)}
+          {icon(isLoading, data?.conclusion ?? data?.status ?? "unknown")}
         </Link>
       </Tooltip>
     </Box>
   );
 }
 
-function icon(isLoading: boolean, conclusion: string | null) {
+function icon(isLoading: boolean, conclusion: string) {
   if (isLoading) {
     return <Spinner size="xs" color="fg.info" />;
   }
 
+  return (
+    <Box display="inline-flex" alignItems="center" justifyContent="center" position="relative">
+      <Box bg="white" w="12px" h="12px" borderRadius="full" position="absolute" />
+      {getIcon(conclusion)}
+    </Box>
+  );
+}
+
+function getIcon(conclusion: string) {
   switch (conclusion) {
     case "success":
-      return <IoCheckmarkCircle size={18} color="green" />;
+      return <IoCheckmarkCircle size={18} color="green" style={{ position: "relative" }} />;
     case "failure":
-      return <IoCloseCircle size={18} color="red" />;
+      return <IoCloseCircle size={18} color="red" style={{ position: "relative" }} />;
     case "in_progress":
     case "queued":
-      return <RiProgress6Line size={18} color="grey" />;
+      return <RiProgress6Line size={18} color="grey" style={{ position: "relative" }} />;
     case "unknown":
     default:
-      return <IoAlertCircle size={18} color="purple" />;
+      return <IoAlertCircle size={18} color="purple" style={{ position: "relative" }} />;
   }
 }
