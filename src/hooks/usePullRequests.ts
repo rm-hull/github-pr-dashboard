@@ -3,6 +3,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useApiClient } from "./useApiClient";
 import { useCurrentUser } from "./useCurrentUser";
+import { useOrgs } from "./useOrgs";
 
 const RESULTS_PER_PAGE = 100;
 const MAX_GITHUB_SEARCH_RESULTS = 1000;
@@ -15,12 +16,14 @@ type FetchOptions = {
 export function usePullRequests(state: string = "open", options: Partial<FetchOptions> = {}) {
   const { octokit } = useApiClient();
   const { data: user } = useCurrentUser();
+  const { data: orgs, isSuccess: isOrgsSuccess } = useOrgs();
 
   const query = useInfiniteQuery({
-    queryKey: ["pull-requests", state, user?.login, options.fetchAll ?? false],
+    queryKey: ["pull-requests", state, user?.login, orgs?.map((o) => o.login).sort(), options.fetchAll ?? false],
     queryFn: async ({ pageParam = 1 }) => {
-      // use 'author' to find PRs created by the user across all repos (personal + orgs).
-      const q = `author:${user?.login} type:pr ${state === "merged" ? "is:merged" : `state:${state}`}`;
+      const commonQualifiers = `type:pr ${state === "merged" ? "is:merged" : `state:${state}`}`;
+      const owners = [user?.login, ...(orgs?.map((o) => o.login) ?? [])].filter((o): o is string => !!o);
+      const q = owners.map((owner) => `user:${owner} ${commonQualifiers}`).join(" OR ");
       const resp = await octokit.rest.search.issuesAndPullRequests({
         q,
         sort: "created",
@@ -54,7 +57,7 @@ export function usePullRequests(state: string = "open", options: Partial<FetchOp
     }),
     refetchInterval: (query) => (query.state.dataUpdateCount > 0 && query.state.error ? false : 60000),
     refetchIntervalInBackground: options.refetchInBackground ?? false,
-    enabled: !!user,
+    enabled: !!user && isOrgsSuccess,
     retry: (failureCount, error) => {
       if (error instanceof RequestError && error.status === 403) {
         return false;
