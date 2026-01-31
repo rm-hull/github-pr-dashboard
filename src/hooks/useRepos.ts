@@ -9,10 +9,9 @@ export function useRepos() {
   return useInfiniteQuery({
     queryKey: ["repos"],
     queryFn: async ({ pageParam = 1 }) => {
-      const resp = await octokit.rest.repos.listForUser({
-        type: "all",
-        username: user!.login,
-        per_page: 30,
+      const resp = await octokit.rest.repos.listForAuthenticatedUser({
+        affiliation: "owner,collaborator,organization_member",
+        per_page: 100,
         page: pageParam,
       });
       return resp.data;

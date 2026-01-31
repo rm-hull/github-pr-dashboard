@@ -19,7 +19,8 @@ export function usePullRequests(state: string = "open", options: Partial<FetchOp
   const query = useInfiniteQuery({
     queryKey: ["pull-requests", state, user?.login, options.fetchAll ?? false],
     queryFn: async ({ pageParam = 1 }) => {
-      const q = `user:${user?.login} type:pr ${state === "merged" ? "is:merged" : `state:${state}`}`;
+      // use 'author' to find PRs created by the user across all repos (personal + orgs).
+      const q = `author:${user?.login} type:pr ${state === "merged" ? "is:merged" : `state:${state}`}`;
       const resp = await octokit.rest.search.issuesAndPullRequests({
         q,
         per_page: RESULTS_PER_PAGE,
