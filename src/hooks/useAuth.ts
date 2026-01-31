@@ -88,7 +88,7 @@ export function useAuth() {
       new URLSearchParams({
         client_id: CLIENT_ID,
         redirect_uri: REDIRECT_URI,
-        scope: "repo,workflow",
+        scope: "repo,workflow,read:org",
         response_type: "code",
         code_challenge: challenge,
         code_challenge_method: "S256",
