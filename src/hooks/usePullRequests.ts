@@ -26,6 +26,7 @@ export function usePullRequests(state: string = "open", options: Partial<FetchOp
       const q = owners.map((owner) => `user:${owner} ${commonQualifiers}`).join(" OR ");
       const resp = await octokit.rest.search.issuesAndPullRequests({
         q,
+        sort: "created",
         per_page: RESULTS_PER_PAGE,
         page: pageParam,
         advanced_search: "true",
