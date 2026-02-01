@@ -2,7 +2,7 @@ import { Box, Spinner } from "@chakra-ui/react";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { FaRegCircleCheck } from "react-icons/fa6";
-import { IoWarning } from "react-icons/io5";
+import { IoWarning, IoPlayForwardSharp } from "react-icons/io5";
 import { RxCheck, RxCross2, RxQuestionMark } from "react-icons/rx";
 import { usePullRequestDetail } from "@/hooks/usePullRequestDetail";
 import { Tooltip } from "./ui/tooltip";
@@ -35,6 +35,7 @@ function icon(isLoading: boolean, state?: string) {
     case "clean":
       return <RxCheck color="green" />;
     case "behind":
+      return <IoPlayForwardSharp color="orange" />;
     case "unstable":
       return <IoWarning color="orange" />;
     case "blocked":
