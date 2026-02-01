@@ -53,7 +53,13 @@ export function PullRequestListItem({ pull, breakpoint, searchTerm }: PullReques
         alignItems={breakpoint === "base" ? undefined : "center"}
         gap={2}
       >
-        <InfoPopover title={pull.title} descr={pull.body} width={breakpoint === "base" ? "md" : "lg"}>
+        <InfoPopover
+          title={pull.title}
+          descr={pull.body}
+          width={breakpoint === "base" ? "md" : "lg"}
+          owner={owner}
+          repo={repo}
+        >
           <Box cursor={pull.body ? "pointer" : undefined}>
             <HStack alignItems="center" gap={2}>
               <Link href={pull.html_url} fontWeight="bold" target="_blank" rel="noopener noreferrer">
