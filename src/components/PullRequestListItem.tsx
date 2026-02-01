@@ -69,7 +69,7 @@ export function PullRequestListItem({ pull, breakpoint, searchTerm }: PullReques
             <HStack gapX={4} gapY={0} flexWrap="wrap">
               <Text as="span" fontSize="sm">
                 <SearchHighlight query={searchTerm}>
-                  {repoFullName} — #{pull.number}
+                  {repoFullName} — {"#" + pull.number}
                 </SearchHighlight>
               </Text>
 
