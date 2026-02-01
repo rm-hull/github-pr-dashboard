@@ -1,5 +1,5 @@
 import { Box, Popover, Portal, Separator } from "@chakra-ui/react";
-import { PropsWithChildren, ReactNode } from "react";
+import { PropsWithChildren, Children, isValidElement } from "react";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
@@ -15,14 +15,16 @@ interface InfoPopoverProps {
   repo?: string;
 }
 
-const getChildrenText = (children: ReactNode): string => {
-  if (Array.isArray(children)) {
-    return children.join("");
-  }
-  if (typeof children === "string") {
-    return children;
-  }
-  return "";
+function getChildrenText(children: unknown): string {
+  let text = "";
+  Children.forEach(children, (child) => {
+    if (typeof child === "string" || typeof child === "number") {
+      text += child;
+    } else if (isValidElement<{ children?: unknown }>(child) && child.props.children) {
+      text += getChildrenText(child.props.children);
+    }
+  });
+  return text;
 };
 
 export function InfoPopover({ title, descr, width, owner, repo, children }: PropsWithChildren<InfoPopoverProps>) {
