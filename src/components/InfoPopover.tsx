@@ -1,8 +1,9 @@
 import { Box, Popover, Portal, Separator } from "@chakra-ui/react";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, Children, isValidElement } from "react";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
+import remarkGithub from "remark-github";
 import { Mermaid } from "./Mermaid";
 import "./info-popover.css";
 
@@ -10,9 +11,23 @@ interface InfoPopoverProps {
   title?: string;
   descr?: string;
   width?: string;
+  owner?: string;
+  repo?: string;
 }
 
-export function InfoPopover({ title, descr, width, children }: PropsWithChildren<InfoPopoverProps>) {
+function getChildrenText(children: unknown): string {
+  let text = "";
+  Children.forEach(children, (child) => {
+    if (typeof child === "string" || typeof child === "number") {
+      text += child;
+    } else if (isValidElement<{ children?: unknown }>(child) && child.props.children) {
+      text += getChildrenText(child.props.children);
+    }
+  });
+  return text;
+};
+
+export function InfoPopover({ title, descr, width, owner, repo, children }: PropsWithChildren<InfoPopoverProps>) {
   if (!descr) {
     return children;
   }
@@ -35,15 +50,24 @@ export function InfoPopover({ title, descr, width, children }: PropsWithChildren
               )}
               <Box className="pr-body-markdown-container">
                 <Markdown
-                  remarkPlugins={[remarkGfm]}
+                  remarkPlugins={[
+                    remarkGfm,
+                    [remarkGithub, { repository: owner && repo ? `${owner}/${repo}` : undefined }],
+                  ]}
                   rehypePlugins={[rehypeRaw]}
                   components={{
+                    a(props) {
+                      return <a {...props} target="_blank" rel="noopener noreferrer" />;
+                    },
                     code({ children, className, ...rest }) {
                       const match = /language-(\w+)/.exec(className || "");
-                      const content = String(children);
-                      return match && match[1] === "mermaid" ? (
-                        <Mermaid chart={content.trimEnd()} />
-                      ) : (
+                      const content = getChildrenText(children);
+
+                      if (match && match[1] === "mermaid") {
+                        return <Mermaid chart={content.trimEnd()} />;
+                      }
+
+                      return (
                         <code {...rest} className={className}>
                           {children}
                         </code>

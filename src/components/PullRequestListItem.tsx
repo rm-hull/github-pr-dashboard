@@ -53,7 +53,13 @@ export function PullRequestListItem({ pull, breakpoint, searchTerm }: PullReques
         alignItems={breakpoint === "base" ? undefined : "center"}
         gap={2}
       >
-        <InfoPopover title={pull.title} descr={pull.body} width={breakpoint === "base" ? "md" : "lg"}>
+        <InfoPopover
+          title={pull.title}
+          descr={pull.body}
+          width={breakpoint === "base" ? "md" : "lg"}
+          owner={owner}
+          repo={repo}
+        >
           <Box cursor={pull.body ? "pointer" : undefined}>
             <HStack alignItems="center" gap={2}>
               <Link href={pull.html_url} fontWeight="bold" target="_blank" rel="noopener noreferrer">
@@ -69,7 +75,7 @@ export function PullRequestListItem({ pull, breakpoint, searchTerm }: PullReques
             <HStack gapX={4} gapY={0} flexWrap="wrap">
               <Text as="span" fontSize="sm">
                 <SearchHighlight query={searchTerm}>
-                  {repoFullName} — #{pull.number}
+                  {repoFullName} — {"#" + pull.number}
                 </SearchHighlight>
               </Text>
 
