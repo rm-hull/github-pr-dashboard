@@ -15,6 +15,6 @@ export function useComment() {
   return useMutation({
     mutationFn: ({ owner, repo, pull_number, body }: MutationProps) =>
       octokit.issues.createComment({ owner, repo, issue_number: pull_number, body }),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["open-prs"] }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["pull-requests", "open"] }),
   });
 }
