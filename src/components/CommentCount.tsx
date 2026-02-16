@@ -19,11 +19,7 @@ export function CommentCount({ owner, repo, pull_number }: CommentCountProps) {
     return null;
   }
 
-  let comments = 0;
-  if (data.body?.trim()?.length ?? 0 > 0) {
-    comments++;
-  }
-  comments += data.comments + data.review_comments;
+  const comments = (data.body?.trim() ? 1 : 0) + data.comments + data.review_comments;
   if (comments === 0) {
     return null;
   }
