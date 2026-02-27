@@ -49,7 +49,7 @@ jobs:
           file: coverage/clover.xml
 
       - name: Store dist files
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: dist-files
           path: ./dist/
