@@ -30,7 +30,7 @@
     "date-fns": "^4.1.0",
     "dayzed": "^3.2.3",
     "framer-motion": "~12.34.3",
-    "javascript-time-ago": "^2.6.2",
+    "javascript-time-ago": "^2.6.4",
     "jotai": "^2.18.0",
     "js-sha256": "^0.11.1",
     "mermaid": "^11.12.3",
