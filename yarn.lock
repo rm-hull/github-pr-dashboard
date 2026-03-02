@@ -8998,7 +8998,7 @@ __metadata:
     react-favicon: "npm:^2.0.7"
     react-icons: "npm:^5.5.0"
     react-markdown: "npm:^10.1.0"
-    react-time-ago: "npm:^7.4.1"
+    react-time-ago: "npm:^7.4.4"
     react-use: "npm:^17.6.0"
     recharts: "npm:^3.7.0"
     rehype-raw: "npm:^7.0.0"
@@ -11833,9 +11833,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-time-ago@npm:^7.4.1":
-  version: 7.4.1
-  resolution: "react-time-ago@npm:7.4.1"
+"react-time-ago@npm:^7.4.4":
+  version: 7.4.4
+  resolution: "react-time-ago@npm:7.4.4"
   dependencies:
     javascript-time-ago: "npm:^2.3.7"
     memoize-one: "npm:^6.0.0"
@@ -11843,7 +11843,7 @@ __metadata:
   peerDependencies:
     react: ">=0.16.8"
     react-dom: ">=0.16.8"
-  checksum: 10c0/387fca84ef2a6a25d1158753e4ecd1e46e1f22ad1375587c782c33e1d83412bc1f4a177f59be34d925e24b67893df176782978e202023762fd3497d68563c421
+  checksum: 10c0/e7d485bba6b67eb5995b59be9b9faf02e440321bb3f6b8ef57934a1eb2a583cc4ca15398a5a111dd7d69a6008208bbf0a14756a787870dbeeb24a6c53d0f165a
   languageName: node
   linkType: hard
 
