@@ -14,6 +14,7 @@ import { InfoPopover } from "./InfoPopover";
 import { InlineCodeText } from "./InlineCodeText";
 import { SearchHighlight } from "./SearchHighlight";
 import { StatusIcon } from "./StatusIcon";
+import { CommentCount } from "./CommentCount";
 
 export type Breakpoint = "base" | "md" | "lg";
 
@@ -93,12 +94,7 @@ export function PullRequestListItem({ pull, breakpoint, searchTerm }: PullReques
               <Text as="span" fontSize="xs" color="fg.subtle">
                 <TimeAgo date={new Date(pull.created_at)} locale="en-US" />
               </Text>
-              {pull.comments > 0 && (
-                <HStack fontSize="xs" color="fg.subtle" gap={0.5}>
-                  <IoChatboxOutline />
-                  {pull.comments}
-                </HStack>
-              )}
+              <CommentCount owner={owner} repo={repo} pull_number={pull.number}/>
             </HStack>
           </Box>
         </InfoPopover>
