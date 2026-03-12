@@ -69,7 +69,7 @@ export function PrsByRepoChart({ pullRequests, title = "Open PRs by Repository" 
   return (
     <ChartPanel title={title} noData={pullRequests.length === 0}>
       <Chart.Root chart={chart} height="300px">
-        <PieChart>
+        <PieChart responsive>
           <Pie data={chart.data} dataKey={chart.key("value")} nameKey="name" cx="50%" cy="50%">
             {chart.data.map((_, index) => (
               <Cell key={`cell-${index}`} fill={chart.color(COLOR_TOKENS[index % COLOR_TOKENS.length]) as string} />

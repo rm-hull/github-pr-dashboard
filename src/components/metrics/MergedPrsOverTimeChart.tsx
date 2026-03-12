@@ -58,7 +58,7 @@ export function MergedPrsOverTimeChart({ pullRequests, by }: MergedPrsOverTimeCh
   return (
     <ChartPanel title={`Merged PRs Over Time (by ${by})`} noData={pullRequests.length === 0}>
       <Chart.Root chart={chart} height="300px">
-        <BarChart data={chart.data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+        <BarChart data={chart.data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }} responsive>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis allowDecimals={false} />
