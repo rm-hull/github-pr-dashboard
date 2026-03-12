@@ -1,20 +1,27 @@
 import { Badge, Button, Field, HStack, Switch, VStack } from "@chakra-ui/react";
-import { SingleDatepicker } from "chakra-dayzed-datepicker";
-import { useCallback } from "react";
+import { getLocalTimeZone, parseDate, today } from "@internationalized/date";
+import { useCallback, useMemo } from "react";
 import { IoWarning } from "react-icons/io5";
 import { useGeneralSettings } from "@/hooks/useGeneralSettings";
 import { RepoListbox } from "./RepoListbox";
+import { DatePicker } from "../ui/date-picker";
 
 export function SettingsForm() {
   const { settings, updateSettings } = useGeneralSettings();
   const isNotificationsSupported = "Notification" in window;
 
   const handleCutoffDateChange = useCallback(
-    (dt?: Date) => void updateSettings({ ...(settings ?? {}), cutoffDate: dt?.getTime() }),
+    (details: { value: any[] }) => {
+      const dt = details.value[0]?.toDate(getLocalTimeZone());
+      void updateSettings({ ...(settings ?? {}), cutoffDate: dt?.getTime() });
+    },
     [settings, updateSettings]
   );
 
-  const handleClearCutoffDate = useCallback(() => handleCutoffDateChange(undefined), [handleCutoffDateChange]);
+  const handleClearCutoffDate = useCallback(
+    () => void updateSettings({ ...(settings ?? {}), cutoffDate: undefined }),
+    [settings, updateSettings]
+  );
 
   const handleToggleEnableNotifications = useCallback(() => {
     void updateSettings({ ...(settings ?? {}), enableNotifications: !(settings?.enableNotifications ?? false) });
@@ -26,6 +33,15 @@ export function SettingsForm() {
     [settings, updateSettings]
   );
 
+  const cutoffDateValue = useMemo(() => {
+    if (!settings?.cutoffDate) return [];
+    try {
+      return [parseDate(new Date(settings.cutoffDate).toISOString().split("T")[0])];
+    } catch {
+      return [];
+    }
+  }, [settings?.cutoffDate]);
+
   return (
     <VStack>
       <Field.Root>
@@ -35,18 +51,13 @@ export function SettingsForm() {
           </Field.Label>
           <VStack alignItems="start" gap={1}>
             <HStack>
-              <SingleDatepicker
-                propsConfigs={{
-                  triggerBtnProps: {
-                    width: "116px",
-                  },
-                }}
-                configs={{}}
+              <DatePicker
                 name="date-input"
-                usePortal
-                date={settings?.cutoffDate ? new Date(settings.cutoffDate) : undefined}
-                onDateChange={handleCutoffDateChange}
-                maxDate={new Date()}
+                value={cutoffDateValue}
+                onValueChange={handleCutoffDateChange}
+                max={today(getLocalTimeZone())}
+                maxWidth="130px"
+                colorPalette="blue"
               />
               <Button variant="ghost" onClick={handleClearCutoffDate} disabled={!settings?.cutoffDate}>
                 Clear
