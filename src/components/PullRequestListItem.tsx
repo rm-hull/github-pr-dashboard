@@ -2,7 +2,6 @@ import { Box, ButtonGroup, HStack, Image, Link, List, Stack, Text } from "@chakr
 import { motion } from "framer-motion";
 import JavascriptTimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
-import { IoChatboxOutline } from "react-icons/io5";
 import TimeAgo from "react-time-ago";
 import { alpha } from "@/utils/alpha";
 import { PullRequest } from "@/utils/types";
