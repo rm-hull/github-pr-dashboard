@@ -22,7 +22,8 @@ export function InlineCodeText({ children }: PropsWithChildren) {
 
     // Special handling for Highlight component
     if (isValidElement(node) && node.type === SearchHighlight) {
-      const { children: highlightChildren, ...highlightProps } = node.props;
+      const props = node.props as any;
+      const { children: highlightChildren, ...highlightProps } = props;
 
       // Extract the string from Highlight's children
       const text = String(highlightChildren);
@@ -55,10 +56,11 @@ export function InlineCodeText({ children }: PropsWithChildren) {
 
     // Handle React elements - recursively process their children
     if (isValidElement(node)) {
+      const props = node.props as any;
       return cloneElement(
-        node as ReactElement<unknown>,
-        node.props,
-        ...Children.toArray(node.props.children as ReactElement[]).map(processNode)
+        node as ReactElement<any>,
+        props,
+        ...Children.toArray(props.children).map(processNode)
       );
     }
 

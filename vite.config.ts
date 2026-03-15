@@ -2,7 +2,6 @@
 import { execSync } from "child_process";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react";
-import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig } from "vitest/config";
 
 // https://vitejs.dev/config/
@@ -17,7 +16,6 @@ export default defineConfig(() => {
         autoCodeSplitting: true,
       }),
       react({ babel: { plugins: ["babel-plugin-react-compiler"] } }),
-      tsconfigPaths(),
     ],
     base: "/github-pr-dashboard",
     build: {
@@ -26,5 +24,8 @@ export default defineConfig(() => {
     test: {
       environment: "jsdom",
     },
+    resolve: {
+      tsconfigPaths: true
+    }
   };
 });

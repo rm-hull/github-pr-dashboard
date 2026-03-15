@@ -33,7 +33,7 @@ export function DraftVsReadyChart({ pullRequests }: DraftVsReadyChartProps) {
   return (
     <ChartPanel title="Draft vs. Ready" noData={pullRequests.length === 0}>
       <Chart.Root chart={chart} height="300px">
-        <PieChart>
+        <PieChart responsive>
           <Pie data={chart.data} dataKey={chart.key("value")} nameKey="name" cx="50%" cy="50%" innerRadius={60}>
             {chart.data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={chart.color(entry.color) as string} />
