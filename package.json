@@ -21,7 +21,7 @@
     "@emotion/styled": "~11.14.1",
     "@internationalized/date": "3.12.0",
     "@octokit/rest": "^22.0.1",
-    "@rm-hull/chakra-error-fallback": "^0.1.0",
+    "@rm-hull/chakra-error-fallback": "^0.1.3",
     "@rm-hull/use-local-storage": "^0.3.4",
     "@sentry/react": "^10.46.0",
     "@tanstack/react-query": "~5.95.2",
