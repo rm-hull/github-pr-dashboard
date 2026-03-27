@@ -2785,16 +2785,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rm-hull/use-local-storage@npm:^0.3.3":
-  version: 0.3.3
-  resolution: "@rm-hull/use-local-storage@npm:0.3.3"
+"@rm-hull/use-local-storage@npm:^0.3.4":
+  version: 0.3.4
+  resolution: "@rm-hull/use-local-storage@npm:0.3.4"
   dependencies:
-    jotai: "npm:^2.15.2"
-    react: "npm:^19.2.0"
-    react-dom: "npm:^19.2.0"
+    jotai: "npm:^2.19.0"
+    react: "npm:^19.2.4"
+    react-dom: "npm:^19.2.4"
   peerDependencies:
     react: ">=19.0.0"
-  checksum: 10c0/a678b4f12f4bfcc1ad621643e35f5a29ef9659ce70037b50aa01f632a3ab39aa6815216473c971819da2d063af04a2a480b0d95f25f7eb9bff874206fbb8a766
+  checksum: 10c0/cb2a7486044cd70c93dbbeb2eaaf020852f37938abf933f2d060e1ec636ff939eaae40671f0e96a368b4e77f4a5574b7ee6977d741f8e46debfd2f4bce86e406
   languageName: node
   linkType: hard
 
@@ -8430,7 +8430,7 @@ __metadata:
     "@internationalized/date": "npm:3.12.0"
     "@octokit/rest": "npm:^22.0.1"
     "@rm-hull/chakra-error-fallback": "npm:^0.1.0"
-    "@rm-hull/use-local-storage": "npm:^0.3.3"
+    "@rm-hull/use-local-storage": "npm:^0.3.4"
     "@sentry/react": "npm:^10.46.0"
     "@stylistic/eslint-plugin": "npm:^5.10.0"
     "@tanstack/eslint-plugin-query": "npm:^5.95.2"
@@ -9383,27 +9383,6 @@ __metadata:
   dependencies:
     relative-time-format: "npm:^1.1.12"
   checksum: 10c0/7ca5b962d3d0831cbf744093b4fc27164408effeb1fa77e5daba0658bf9a60c9dbfe59e7ac0da1a3b6a353c0574ed6b774daa2837d6a9d9efb6243d268d333f8
-  languageName: node
-  linkType: hard
-
-"jotai@npm:^2.15.2":
-  version: 2.18.0
-  resolution: "jotai@npm:2.18.0"
-  peerDependencies:
-    "@babel/core": ">=7.0.0"
-    "@babel/template": ">=7.0.0"
-    "@types/react": ">=17.0.0"
-    react: ">=17.0.0"
-  peerDependenciesMeta:
-    "@babel/core":
-      optional: true
-    "@babel/template":
-      optional: true
-    "@types/react":
-      optional: true
-    react:
-      optional: true
-  checksum: 10c0/df40027ad6deef6b61e159ce311bc39bf7b3e5ee33b3289c94d3a6d55c552cc3bcf4fb2f7ad41d2f23f1ec10d3a511183bd3de6c89590e1391fa3e8d31610e41
   languageName: node
   linkType: hard
 
@@ -11299,7 +11278,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^19.2.0, react-dom@npm:^19.2.4":
+"react-dom@npm:^19.2.4":
   version: 19.2.4
   resolution: "react-dom@npm:19.2.4"
   dependencies:
@@ -11443,7 +11422,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^19.2.0, react@npm:~19.2.4":
+"react@npm:^19.2.4, react@npm:~19.2.4":
   version: 19.2.4
   resolution: "react@npm:19.2.4"
   checksum: 10c0/cd2c9ff67a720799cc3b38a516009986f7fc4cb8d3e15716c6211cf098d1357ee3e348ab05ad0600042bbb0fd888530ba92e329198c92eafa0994f5213396596
