@@ -2505,12 +2505,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mermaid-js/parser@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "@mermaid-js/parser@npm:1.0.1"
+"@mermaid-js/parser@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@mermaid-js/parser@npm:1.1.0"
   dependencies:
     langium: "npm:^4.0.0"
-  checksum: 10c0/34231cb63412ddbb3c8c6dba6366b958f98b66293b2e5748d3bd6c286acde47862a6ac86b2f6a33e7b5dee6a1895035af06ee48863c787bc20415b89fe77d705
+  checksum: 10c0/449e594a1f9ff1e24da7eb66b7d85694f1c48bdf1d27e798e0e182659e907fd3438a69bf30754807a8a8e286ab3173fa1b8e43ee102be31e30ee7632b9bc1d03
   languageName: node
   linkType: hard
 
@@ -3243,9 +3243,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/eslint-plugin-query@npm:^5.96.0":
-  version: 5.96.0
-  resolution: "@tanstack/eslint-plugin-query@npm:5.96.0"
+"@tanstack/eslint-plugin-query@npm:^5.96.1":
+  version: 5.96.1
+  resolution: "@tanstack/eslint-plugin-query@npm:5.96.1"
   dependencies:
     "@typescript-eslint/utils": "npm:^8.48.0"
   peerDependencies:
@@ -3254,7 +3254,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10c0/75e2d03f205c5126a3607b130ef78a425997cb63d86a17e177f8b128a3a2dbf38b12f5308b54704bced51f1f9d639e504e7165b04325f15c98329c89da9b6da8
+  checksum: 10c0/5fdcaeea1874f608a7ab6fbcc23bbdca01b3a34c73440bcfbb8d18873322ff7bfb2c719436d0f9539ecbdb3944d75493a1dc54ca0f733bd4a9e2d3b738935daa
   languageName: node
   linkType: hard
 
@@ -3265,40 +3265,40 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/query-core@npm:5.96.0":
-  version: 5.96.0
-  resolution: "@tanstack/query-core@npm:5.96.0"
-  checksum: 10c0/a23c96c36b4624fcda18afe98e1e17fa662e4001560b6a6535fab1cfca9caed00c40834f6eb785369aa8506092005cfd623440811c718d6f083e21a00837bc84
+"@tanstack/query-core@npm:5.96.1":
+  version: 5.96.1
+  resolution: "@tanstack/query-core@npm:5.96.1"
+  checksum: 10c0/8489d0c53438083a1b318a0d8c8cb3ff88cd89bfa576be56ea26b04e124bef32595ee877828e89c73d0f827cd71a18787f43410f7408058645d5beaf4ee8cb25
   languageName: node
   linkType: hard
 
-"@tanstack/query-devtools@npm:5.96.0":
-  version: 5.96.0
-  resolution: "@tanstack/query-devtools@npm:5.96.0"
-  checksum: 10c0/8172a629d9b22f6a2ffb485fdbd891302d78670f8d50c0ee9fbd2528b2ed0be36c4d892f1288be4226ed0dd63da08ce03d259beb6563b99235c556b551927beb
+"@tanstack/query-devtools@npm:5.96.1":
+  version: 5.96.1
+  resolution: "@tanstack/query-devtools@npm:5.96.1"
+  checksum: 10c0/9422d15497c73ee1325f02505cbcfc685d38e21ab1ea87f9e4f77f72cc97953875057160f6e4383d6a86a50d24edd692b77ea0d80d7e5325810359d2d03bcdbc
   languageName: node
   linkType: hard
 
-"@tanstack/react-query-devtools@npm:^5.96.0":
-  version: 5.96.0
-  resolution: "@tanstack/react-query-devtools@npm:5.96.0"
+"@tanstack/react-query-devtools@npm:^5.96.1":
+  version: 5.96.1
+  resolution: "@tanstack/react-query-devtools@npm:5.96.1"
   dependencies:
-    "@tanstack/query-devtools": "npm:5.96.0"
+    "@tanstack/query-devtools": "npm:5.96.1"
   peerDependencies:
-    "@tanstack/react-query": ^5.96.0
+    "@tanstack/react-query": ^5.96.1
     react: ^18 || ^19
-  checksum: 10c0/f37fc2767a3bbd7465b2c9c7517c02adbe5c07ea37923d49702fcf0c7135deb378f281bf0036ea56e8d321b24a21af3357e6c3179ba10ba1f3e45f74103b0fba
+  checksum: 10c0/d721dc12bdb846d0acf84e82519b0fc9fc923b4b1a28fcf1b49e36e7c86cdccc409e1fba48b3f3b29e973cee017771ceda47c3723224f191463dc357b494ecad
   languageName: node
   linkType: hard
 
-"@tanstack/react-query@npm:~5.96.0":
-  version: 5.96.0
-  resolution: "@tanstack/react-query@npm:5.96.0"
+"@tanstack/react-query@npm:~5.96.1":
+  version: 5.96.1
+  resolution: "@tanstack/react-query@npm:5.96.1"
   dependencies:
-    "@tanstack/query-core": "npm:5.96.0"
+    "@tanstack/query-core": "npm:5.96.1"
   peerDependencies:
     react: ^18 || ^19
-  checksum: 10c0/a83010fc5dd98af34dcc01912b6f5e5f71fa8fcf3f26b902f50978312c345074f5f431de2ce042059f52bed495ed6997bf5702aabf4bc5b10bbc9e37c5c18448
+  checksum: 10c0/69bd95d1d4242f0d863b02ff2dc785fac8a6008f59b1581ae9cac51ec9b87cccf4dc71628f4633bf7fe5f11a527a07520248d56a1e7f085cd41a6fb829484212
   languageName: node
   linkType: hard
 
@@ -8559,9 +8559,9 @@ __metadata:
     "@rm-hull/use-local-storage": "npm:^0.3.4"
     "@sentry/react": "npm:^10.47.0"
     "@stylistic/eslint-plugin": "npm:^5.10.0"
-    "@tanstack/eslint-plugin-query": "npm:^5.96.0"
-    "@tanstack/react-query": "npm:~5.96.0"
-    "@tanstack/react-query-devtools": "npm:^5.96.0"
+    "@tanstack/eslint-plugin-query": "npm:^5.96.1"
+    "@tanstack/react-query": "npm:~5.96.1"
+    "@tanstack/react-query-devtools": "npm:^5.96.1"
     "@tanstack/react-router": "npm:^1.168.10"
     "@tanstack/router-plugin": "npm:^1.167.12"
     "@testing-library/dom": "npm:^10.4.1"
@@ -8603,7 +8603,7 @@ __metadata:
     jotai: "npm:^2.19.0"
     js-sha256: "npm:^0.11.1"
     jsdom: "npm:^29.0.1"
-    mermaid: "npm:^11.13.0"
+    mermaid: "npm:^11.14.0"
     next-themes: "npm:^0.4.6"
     pluralize: "npm:^8.0.0"
     prettier: "npm:^3.8.1"
@@ -10299,13 +10299,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mermaid@npm:^11.13.0":
-  version: 11.13.0
-  resolution: "mermaid@npm:11.13.0"
+"mermaid@npm:^11.14.0":
+  version: 11.14.0
+  resolution: "mermaid@npm:11.14.0"
   dependencies:
     "@braintree/sanitize-url": "npm:^7.1.1"
     "@iconify/utils": "npm:^3.0.2"
-    "@mermaid-js/parser": "npm:^1.0.1"
+    "@mermaid-js/parser": "npm:^1.1.0"
     "@types/d3": "npm:^7.4.3"
     "@upsetjs/venn.js": "npm:^2.0.0"
     cytoscape: "npm:^3.33.1"
@@ -10324,7 +10324,7 @@ __metadata:
     stylis: "npm:^4.3.6"
     ts-dedent: "npm:^2.2.0"
     uuid: "npm:^11.1.0"
-  checksum: 10c0/9d908314d26cdb23d8fbb6a1183f3dc48440efa2cf25f31fd5f75ef3f72e973ef7c3b77768eb8399898035366d2b4a3a2bf0a0de9e35757848754935bf1288c0
+  checksum: 10c0/2075b72d4496418ec28aa7e7d8d1b4ddcd408209940fad1efa3dc5fe98b465f38d7b5d998dc0ba3c56de639df5cc73c6395e04a9e7b18a451e2633b57a74c019
   languageName: node
   linkType: hard
 
