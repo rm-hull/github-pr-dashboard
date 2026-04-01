@@ -16,12 +16,14 @@ export function useMergePullRequest() {
   return useMutation({
     mutationFn: ({ owner, repo, pull_number, merge_method = "squash" }: MutationProps) =>
       octokit.pulls.merge({ owner, repo, pull_number, merge_method }),
-    onSuccess: async (_, {owner, repo}) => {
-      await Promise.all([
-        qc.invalidateQueries({ queryKey: ["pull-requests"] }),
+    onSettled: (_, _2, { owner, repo }) =>
+      Promise.allSettled([
+        qc.invalidateQueries({ queryKey: ["pull-requests", "open"] }),
         qc.invalidateQueries({ queryKey: ["pr", `${owner}/${repo}`] }),
         qc.invalidateQueries({ queryKey: ["latest-action-status", `${owner}/${repo}`] }),
-      ]);
+      ]),
+    onError: (error) => {
+      console.error("Error merging pull request:", error);
     },
   });
 }
