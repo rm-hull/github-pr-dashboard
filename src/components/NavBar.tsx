@@ -11,6 +11,7 @@ import { alpha } from "@/utils/alpha";
 import { SettingsDialog } from "./SettingsDialog";
 import { ColorModeButton, useColorModeValue } from "./ui/color-mode";
 import { Tooltip } from "./ui/tooltip";
+import { RefreshDataButton } from "./actions/RefreshDataButton";
 
 export function NavBar() {
   const { login, logout, inProgress } = useAuth();
@@ -69,13 +70,16 @@ export function NavBar() {
         </HStack>
 
         <ButtonGroup variant="surface" colorPalette="blue" size="sm">
-          <Tooltip content="Settings">
-            <SettingsDialog>
-              <IconButton>
-                <MdOutlineSettings />
-              </IconButton>
-            </SettingsDialog>
+
+          <Tooltip content="Refresh data">
+            <RefreshDataButton />
           </Tooltip>
+
+          <SettingsDialog>
+            <IconButton>
+              <MdOutlineSettings />
+            </IconButton>
+          </SettingsDialog>
 
           <ColorModeButton variant="surface" />
 
