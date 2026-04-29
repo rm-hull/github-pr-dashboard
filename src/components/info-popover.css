@@ -24,6 +24,10 @@
   background-color: transparent;
   padding: 0;
 }
+.pr-body-markdown-container summary {
+  cursor: pointer;
+  font-weight: 600;
+}
 .mermaid {
   display: flex;
   justify-content: center;
