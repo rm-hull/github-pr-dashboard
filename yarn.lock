@@ -3400,25 +3400,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/router-generator@npm:1.166.41":
-  version: 1.166.41
-  resolution: "@tanstack/router-generator@npm:1.166.41"
+"@tanstack/router-generator@npm:1.166.42":
+  version: 1.166.42
+  resolution: "@tanstack/router-generator@npm:1.166.42"
   dependencies:
     "@babel/types": "npm:^7.28.5"
     "@tanstack/router-core": "npm:1.169.2"
     "@tanstack/router-utils": "npm:1.161.8"
     "@tanstack/virtual-file-routes": "npm:1.161.7"
-    jiti: "npm:^2.6.1"
+    jiti: "npm:^2.7.0"
     magic-string: "npm:^0.30.21"
     prettier: "npm:^3.5.0"
     zod: "npm:^3.24.2"
-  checksum: 10c0/7edadada005c81a9e306312e13a3bc34bd04c44dc473ff4c4d6fda988fe7a295c0cb7b9e66220d7fef5e0109927d1358613d886c9d19e439c2b8cedded09a8e7
+  checksum: 10c0/f087607abf376c376f2056d972a9bdbd737b6b413cf335475be3b52659b447b01cababa903ecda536434e0d2cd06ef9b5ca305f8465839298cc980a6c59e083b
   languageName: node
   linkType: hard
 
-"@tanstack/router-plugin@npm:^1.167.34":
-  version: 1.167.34
-  resolution: "@tanstack/router-plugin@npm:1.167.34"
+"@tanstack/router-plugin@npm:^1.167.35":
+  version: 1.167.35
+  resolution: "@tanstack/router-plugin@npm:1.167.35"
   dependencies:
     "@babel/core": "npm:^7.28.5"
     "@babel/plugin-syntax-jsx": "npm:^7.27.1"
@@ -3427,7 +3427,7 @@ __metadata:
     "@babel/traverse": "npm:^7.28.5"
     "@babel/types": "npm:^7.28.5"
     "@tanstack/router-core": "npm:1.169.2"
-    "@tanstack/router-generator": "npm:1.166.41"
+    "@tanstack/router-generator": "npm:1.166.42"
     "@tanstack/router-utils": "npm:1.161.8"
     "@tanstack/virtual-file-routes": "npm:1.161.7"
     chokidar: "npm:^3.6.0"
@@ -3450,7 +3450,7 @@ __metadata:
       optional: true
     webpack:
       optional: true
-  checksum: 10c0/23d2bc0f0ef72ae463682d39cdd16b785f463de18940ef5b87c50555f2f43748a294263900fdfe112cd8364852012f90b24ea9711967d9fee58ab7d8a4220038
+  checksum: 10c0/19d8a7bdd55618ca323d325dd4228a5fe59c0bf6104005e7506a01a96d2a7fc3f129a06d1c14104fb74cdd235a7911494be92ca73ccf88e5f7716d6084f9b7b8
   languageName: node
   linkType: hard
 
@@ -8730,7 +8730,7 @@ __metadata:
     "@tanstack/react-query": "npm:~5.100.9"
     "@tanstack/react-query-devtools": "npm:^5.100.9"
     "@tanstack/react-router": "npm:^1.169.2"
-    "@tanstack/router-plugin": "npm:^1.167.34"
+    "@tanstack/router-plugin": "npm:^1.167.35"
     "@testing-library/dom": "npm:^10.4.1"
     "@testing-library/react": "npm:^16.3.2"
     "@types/eslint-plugin-jsx-a11y": "npm:^6.10.1"
@@ -9686,12 +9686,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jiti@npm:^2.6.1":
-  version: 2.6.1
-  resolution: "jiti@npm:2.6.1"
+"jiti@npm:^2.7.0":
+  version: 2.7.0
+  resolution: "jiti@npm:2.7.0"
   bin:
     jiti: lib/jiti-cli.mjs
-  checksum: 10c0/79b2e96a8e623f66c1b703b98ec1b8be4500e1d217e09b09e343471bbb9c105381b83edbb979d01cef18318cc45ce6e153571b6c83122170eefa531c64b6789b
+  checksum: 10c0/1b1e2310a490dce1aeea3da5f5dfe18273516c20ce48be2e98eb8ea452d5f3dcc8fd0cfd6d28b4052a24c5dbab6e3089b2d7e79f0bce7915b10d750929563c42
   languageName: node
   linkType: hard
 
