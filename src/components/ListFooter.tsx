@@ -28,7 +28,8 @@ type RadioItem = {
 
 const items = [
   { label: "Recently created", value: "recent" },
-  { label: "By repo", value: "repo" },
+  { label: "Repo", value: "repo" },
+  { label: "Label", value: "label" },
 ] as const satisfies ReadonlyArray<RadioItem>;
 
 export function ListFooter({ onSearch }: ListFooterProps) {

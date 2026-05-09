@@ -1,9 +1,10 @@
 import { Box, Button, For, Heading, List, Separator, useBreakpointValue } from "@chakra-ui/react";
 import { compareDesc, format, parseISO } from "date-fns";
 import { AnimatePresence } from "framer-motion";
-import { useCallback, useMemo, useState } from "react";
+import { ReactNode, useCallback, useMemo, useState } from "react";
 import Favicon from "react-favicon";
 import { FaRegCalendarAlt, FaGitAlt } from "react-icons/fa";
+import { MdOutlineLabel } from "react-icons/md";
 import { ListViewBy, useGeneralSettings } from "@/hooks/useGeneralSettings";
 import { PullRequest } from "@/utils/types";
 import { GithubActionsIcon } from "./GithubActionsIcon";
@@ -11,6 +12,7 @@ import { ListFooter } from "./ListFooter";
 import { NoSearchMatches } from "./NoSearchMatches";
 import { Notifications } from "./Notifications";
 import { Breakpoint, PullRequestListItem } from "./PullRequestListItem";
+import { IconType } from "react-icons/lib";
 
 type PullRequestListProps = {
   pulls: PullRequest[];
@@ -21,9 +23,17 @@ type PullRequestListProps = {
   isFetchingNextPage: boolean;
 };
 
-const selector: Record<ListViewBy, (pull: PullRequest) => string | null> = {
-  recent: (pull: PullRequest) => format(parseISO(pull.created_at), "MMM yyyy"),
-  repo: (pull: PullRequest) => pull.repository_url,
+const selector: Record<ListViewBy, (pull: PullRequest) => string[]> = {
+  recent: (pull: PullRequest) => [format(parseISO(pull.created_at), "MMM yyyy")],
+  repo: (pull: PullRequest) => [pull.repository_url],
+  label: (pull: PullRequest) =>
+    !pull.labels?.length ? ["[unlabelled]"] : pull.labels.map((label) => label.name ?? "unknown"),
+};
+
+const selectorIcons: Record<ListViewBy, ReactNode> = {
+  recent: <FaRegCalendarAlt size={24} />,
+  repo: <FaGitAlt size={24} />,
+  label: <MdOutlineLabel size={24} />,
 };
 
 function isBefore(pull: PullRequest, cutoffDate?: number) {
@@ -84,9 +94,11 @@ export default function PullRequestsList({
       .filter(isSelected)
       .sort((a, b) => compareDesc(parseISO(a.created_at), parseISO(b.created_at)))
       .reduce<Record<string, PullRequest[]>>((acc, pr) => {
-        const key = selector[listViewBy](pr) ?? "";
-        if (!acc[key]) acc[key] = [];
-        acc[key].push(pr);
+        const keys = selector[listViewBy](pr);
+        for (const key of keys) {
+          if (!acc[key]) acc[key] = [];
+          acc[key].push(pr);
+        }
         return acc;
       }, {});
   }, [pulls, isSelected, listViewBy]);
@@ -120,7 +132,7 @@ export default function PullRequestsList({
               <Box key={groupBy}>
                 {(!!repoFullName || !isRepoGroup) && (
                   <Heading fontSize="2xl" py={1} mb={1} color="fg.info" display="flex" alignItems="center" gap={2}>
-                    {isRepoGroup ? <FaGitAlt size={24} /> : <FaRegCalendarAlt size={24} />}
+                    {selectorIcons[listViewBy]}
                     {repoFullName ?? groupBy}
                     {isRepoGroup && <GithubActionsIcon owner={owner} repo={repo} />}
                   </Heading>
