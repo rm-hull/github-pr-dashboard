@@ -27,7 +27,7 @@ const selector: Record<ListViewBy, (pull: PullRequest) => string[]> = {
   recent: (pull: PullRequest) => [format(parseISO(pull.created_at), "MMM yyyy")],
   repo: (pull: PullRequest) => [pull.repository_url],
   label: (pull: PullRequest) =>
-    pull.labels.length == 0 ? ["[unlabelled]"] : pull.labels?.map((label) => label.name ?? "unknown"),
+    !pull.labels?.length ? ["[unlabelled]"] : pull.labels.map((label) => label.name ?? "unknown"),
 };
 
 const selectorIcons: Record<ListViewBy, IconType> = {
