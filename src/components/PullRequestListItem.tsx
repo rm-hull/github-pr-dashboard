@@ -14,6 +14,7 @@ import { InlineCodeText } from "./InlineCodeText";
 import { SearchHighlight } from "./SearchHighlight";
 import { StatusIcon } from "./StatusIcon";
 import { CommentCount } from "./CommentCount";
+import { GithubLabels } from "./GithubLabels";
 
 export type Breakpoint = "base" | "md" | "lg";
 
@@ -93,7 +94,8 @@ export function PullRequestListItem({ pull, breakpoint, searchTerm }: PullReques
               <Text as="span" fontSize="xs" color="fg.subtle">
                 <TimeAgo date={new Date(pull.created_at)} locale="en-US" />
               </Text>
-              <CommentCount owner={owner} repo={repo} pull_number={pull.number}/>
+              <CommentCount owner={owner} repo={repo} pull_number={pull.number} />
+              <GithubLabels labels={pull.labels} />
             </HStack>
           </Box>
         </InfoPopover>

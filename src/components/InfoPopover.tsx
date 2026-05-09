@@ -26,7 +26,7 @@ function getChildrenText(children: unknown): string {
     }
   });
   return text;
-};
+}
 
 export function InfoPopover({ title, descr, width, owner, repo, children }: PropsWithChildren<InfoPopoverProps>) {
   if (!descr) {

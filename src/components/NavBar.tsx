@@ -70,7 +70,6 @@ export function NavBar() {
         </HStack>
 
         <ButtonGroup variant="surface" colorPalette="blue" size="sm">
-
           <Tooltip content="Refresh data">
             <RefreshDataButton />
           </Tooltip>
