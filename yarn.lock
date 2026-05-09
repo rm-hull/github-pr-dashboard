@@ -8785,6 +8785,7 @@ __metadata:
     rehype-raw: "npm:^7.0.0"
     remark-gfm: "npm:^4.0.1"
     remark-github: "npm:^12.0.0"
+    shiki: "npm:^4.0.2"
     typescript: "npm:~6.0.3"
     typescript-eslint: "npm:^8.59.2"
     vite: "npm:~8.0.11"

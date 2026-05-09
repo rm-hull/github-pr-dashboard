@@ -45,7 +45,8 @@
     "recharts": "^3.8.1",
     "rehype-raw": "^7.0.0",
     "remark-gfm": "^4.0.1",
-    "remark-github": "^12.0.0"
+    "remark-github": "^12.0.0",
+    "shiki": "^4.0.2"
   },
   "devDependencies": {
     "@chakra-ui/cli": "^3.35.0",

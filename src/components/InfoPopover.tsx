@@ -5,6 +5,7 @@ import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import remarkGithub from "remark-github";
 import { Mermaid } from "./Mermaid";
+import { CodeBlockRoot } from "./ui/code-block";
 import "./info-popover.css";
 
 interface InfoPopoverProps {
@@ -59,12 +60,26 @@ export function InfoPopover({ title, descr, width, owner, repo, children }: Prop
                     a(props) {
                       return <a {...props} target="_blank" rel="noopener noreferrer" />;
                     },
+                    pre(props) {
+                      return <>{props.children}</>;
+                    },
                     code({ children, className, ...rest }) {
                       const match = /language-(\w+)/.exec(className || "");
                       const content = getChildrenText(children);
 
                       if (match && match[1] === "mermaid") {
                         return <Mermaid chart={content.trimEnd()} />;
+                      }
+
+                      if (match) {
+                        return (
+                          <CodeBlockRoot
+                            code={content.trimEnd()}
+                            language={match[1]}
+                            size="sm"
+                            border="none"
+                          />
+                        );
                       }
 
                       return (
