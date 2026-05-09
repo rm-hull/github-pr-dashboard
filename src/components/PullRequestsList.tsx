@@ -1,7 +1,7 @@
 import { Box, Button, For, Heading, List, Separator, useBreakpointValue } from "@chakra-ui/react";
 import { compareDesc, format, parseISO } from "date-fns";
 import { AnimatePresence } from "framer-motion";
-import { useCallback, useMemo, useState } from "react";
+import { ReactNode, useCallback, useMemo, useState } from "react";
 import Favicon from "react-favicon";
 import { FaRegCalendarAlt, FaGitAlt } from "react-icons/fa";
 import { MdOutlineLabel } from "react-icons/md";
@@ -30,10 +30,10 @@ const selector: Record<ListViewBy, (pull: PullRequest) => string[]> = {
     !pull.labels?.length ? ["[unlabelled]"] : pull.labels.map((label) => label.name ?? "unknown"),
 };
 
-const selectorIcons: Record<ListViewBy, IconType> = {
-  recent: FaRegCalendarAlt,
-  repo: FaGitAlt,
-  label: MdOutlineLabel,
+const selectorIcons: Record<ListViewBy, ReactNode> = {
+  recent: <FaRegCalendarAlt size={24} />,
+  repo: <FaGitAlt size={24} />,
+  label: <MdOutlineLabel size={24} />,
 };
 
 function isBefore(pull: PullRequest, cutoffDate?: number) {
@@ -132,7 +132,7 @@ export default function PullRequestsList({
               <Box key={groupBy}>
                 {(!!repoFullName || !isRepoGroup) && (
                   <Heading fontSize="2xl" py={1} mb={1} color="fg.info" display="flex" alignItems="center" gap={2}>
-                    {selectorIcons[listViewBy] && selectorIcons[listViewBy]({ size: 24 })}
+                    {selectorIcons[listViewBy]}
                     {repoFullName ?? groupBy}
                     {isRepoGroup && <GithubActionsIcon owner={owner} repo={repo} />}
                   </Heading>

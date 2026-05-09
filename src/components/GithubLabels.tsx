@@ -19,7 +19,12 @@ export function GithubLabels({ labels }: GithubLabelsProps) {
   return (
     <HStack gap={1} flexWrap="wrap">
       {labels.map((label) => (
-        <Badge key={label.id} bg={`#${label.color}33`} color={`#${label.color}`} fontSize="xs">
+        <Badge
+          key={label.id ?? label.name}
+          bg={label.color ? `#${label.color}33` : "bg.muted"}
+          color={label.color ? `#${label.color}` : "fg"}
+          fontSize="xs"
+        >
           {label.name}
         </Badge>
       ))}
