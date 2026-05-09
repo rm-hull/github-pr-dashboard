@@ -1,7 +1,7 @@
 import { useLocalStorage } from "@rm-hull/use-local-storage";
 
 // Single source of truth for the allowed list view values at runtime.
-const LIST_VIEW_BY = ["repo", "recent"] as const;
+const LIST_VIEW_BY = ["repo", "recent", "label"] as const;
 export type ListViewBy = (typeof LIST_VIEW_BY)[number];
 
 export interface GeneralSettings {

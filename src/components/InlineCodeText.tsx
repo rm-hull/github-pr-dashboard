@@ -57,11 +57,7 @@ export function InlineCodeText({ children }: PropsWithChildren) {
     // Handle React elements - recursively process their children
     if (isValidElement(node)) {
       const props = node.props as any;
-      return cloneElement(
-        node as ReactElement<any>,
-        props,
-        ...Children.toArray(props.children).map(processNode)
-      );
+      return cloneElement(node as ReactElement<any>, props, ...Children.toArray(props.children).map(processNode));
     }
 
     if (Array.isArray(node)) {
