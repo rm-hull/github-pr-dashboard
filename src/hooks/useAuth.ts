@@ -31,7 +31,7 @@ export function useAuth() {
       setHasFetched(true);
       setInProgress(true);
 
-      fetch("https://api.destructuring-bind.org/v1/github/token", {
+      fetch("https://api.hz-nbg1.destructuring-bind.org/v1/github/token", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
