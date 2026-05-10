@@ -10,13 +10,12 @@ type UserDetailsProps = {
 };
 
 export function UserDetails({ user, searchTerm }: UserDetailsProps) {
-  console.log("Rendering UserDetails for", user?.login, user?.login.endsWith("[bot]"));
   return (
     <Text as="span" fontSize="xs" color="fg.muted" display="inline-flex" gap={1}>
       <Image
         src={user?.avatar_url}
         boxSize="18px"
-        borderRadius={user?.login.endsWith("[bot]") ? "3px" : "full"}
+        borderRadius={user?.login?.endsWith("[bot]") ? "3px" : "full"}
         fit="cover"
         border="0.5px solid"
         borderColor="fg.subtle"
