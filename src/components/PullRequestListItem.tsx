@@ -15,6 +15,7 @@ import { SearchHighlight } from "./SearchHighlight";
 import { StatusIcon } from "./StatusIcon";
 import { CommentCount } from "./CommentCount";
 import { GithubLabels } from "./GithubLabels";
+import { UserDetails } from "./UserDetails";
 
 export type Breakpoint = "base" | "md" | "lg";
 
@@ -80,17 +81,7 @@ export function PullRequestListItem({ pull, breakpoint, searchTerm }: PullReques
                 </SearchHighlight>
               </Text>
 
-              <Text as="span" fontSize="xs" color="fg.subtle" display="inline-flex" gap={1}>
-                <Image
-                  src={pull.user?.avatar_url}
-                  boxSize="18px"
-                  borderRadius="full"
-                  fit="cover"
-                  border="1px solid"
-                  borderColor="fg.subtle"
-                />
-                <SearchHighlight query={searchTerm}>{pull.user?.login ?? "unknown"}</SearchHighlight>
-              </Text>
+              <UserDetails user={pull.user} searchTerm={searchTerm} />
               <Text as="span" fontSize="xs" color="fg.subtle">
                 <TimeAgo date={new Date(pull.created_at)} locale="en-US" />
               </Text>
