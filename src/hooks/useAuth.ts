@@ -3,6 +3,7 @@ import { useCallback, useEffect } from "react";
 import { toaster } from "@/components/ui/toaster";
 import { generateCodeVerifier, generateCodeChallenge } from "../utils/pkce";
 
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL as string) || "https://api.hz-nbg1.destructuring-bind.org";
 const CLIENT_ID = import.meta.env.VITE_GITHUB_CLIENT_ID as string;
 const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI as string;
 
@@ -31,7 +32,7 @@ export function useAuth() {
       setHasFetched(true);
       setInProgress(true);
 
-      fetch("https://api.hz-nbg1.destructuring-bind.org/v1/github/token", {
+      fetch(`${API_BASE_URL}/v1/github/token`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
