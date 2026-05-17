@@ -79,8 +79,10 @@
 .pr-body-markdown-container h6 {
   font-size: medium;
 }
-
 .pr-body-markdown-container a {
   text-decoration: underline;
   color: var(--chakra-colors-blue-solid);
+}
+.pr-body-markdown-container em {
+  font-style: italic;
 }
