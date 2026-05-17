@@ -7,6 +7,10 @@ import remarkGithub from "remark-github";
 import { Mermaid } from "./Mermaid";
 import { CodeBlockRoot } from "./ui/code-block";
 import "./info-popover.css";
+import remarkGithubAlerts from "remark-github-alerts";
+import "remark-github-alerts/styles/github-colors-light.css";
+import "remark-github-alerts/styles/github-colors-dark-class.css";
+import "remark-github-alerts/styles/github-base.css";
 
 interface InfoPopoverProps {
   title?: string;
@@ -54,6 +58,7 @@ export function InfoPopover({ title, descr, width, owner, repo, children }: Prop
                   remarkPlugins={[
                     remarkGfm,
                     [remarkGithub, { repository: owner && repo ? `${owner}/${repo}` : undefined }],
+                    remarkGithubAlerts,
                   ]}
                   rehypePlugins={[rehypeRaw]}
                   components={{
@@ -72,14 +77,7 @@ export function InfoPopover({ title, descr, width, owner, repo, children }: Prop
                       }
 
                       if (match) {
-                        return (
-                          <CodeBlockRoot
-                            code={content.trimEnd()}
-                            language={match[1]}
-                            size="sm"
-                            border="none"
-                          />
-                        );
+                        return <CodeBlockRoot code={content.trimEnd()} language={match[1]} size="sm" border="none" />;
                       }
 
                       return (

@@ -8730,6 +8730,7 @@ __metadata:
     rehype-raw: "npm:^7.0.0"
     remark-gfm: "npm:^4.0.1"
     remark-github: "npm:^12.0.0"
+    remark-github-alerts: "npm:^0.1.1"
     shiki: "npm:^4.0.2"
     typescript: "npm:~6.0.3"
     typescript-eslint: "npm:^8.59.3"
@@ -11928,6 +11929,18 @@ __metadata:
     remark-stringify: "npm:^11.0.0"
     unified: "npm:^11.0.0"
   checksum: 10c0/427ecc6af3e76222662061a5f670a3e4e33ec5fffe2cabf04034da6a3f9a1bda1fc023e838a636385ba314e66e2bebbf017ca61ebea357eb0f5200fe0625a4b7
+  languageName: node
+  linkType: hard
+
+"remark-github-alerts@npm:^0.1.1":
+  version: 0.1.1
+  resolution: "remark-github-alerts@npm:0.1.1"
+  dependencies:
+    unist-util-visit: "npm:^5.0.0"
+  peerDependencies:
+    "@types/mdast": ^4.0.0
+    unified: ^11.0.0
+  checksum: 10c0/10f7ac0a55a6d250715037a42c7f9218966728d8db83ba969d7d5df108e4eb817b19de59a5759ceea0f1a3e1d9f34e82d5d12e3971d0e7af38ce69206c0d8f41
   languageName: node
   linkType: hard
 

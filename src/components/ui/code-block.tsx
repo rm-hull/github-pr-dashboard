@@ -7,7 +7,24 @@ const shikiAdapter = createShikiAdapter<HighlighterGeneric<any, any>>({
   async load() {
     const { createHighlighter } = await import("shiki");
     return createHighlighter({
-      langs: ["tsx", "typescript", "scss", "html", "bash", "json", "diff", "java", "python", "go", "ruby", "php", "csharp", "cpp", "yaml", "markdown"],
+      langs: [
+        "tsx",
+        "typescript",
+        "scss",
+        "html",
+        "bash",
+        "json",
+        "diff",
+        "java",
+        "python",
+        "go",
+        "ruby",
+        "php",
+        "csharp",
+        "cpp",
+        "yaml",
+        "markdown",
+      ],
       themes: ["github-dark", "github-light"],
     });
   },
@@ -26,10 +43,7 @@ export const CodeBlockRoot = ({ title, ...rest }: CodeBlockProps) => {
 
   return (
     <CodeBlock.AdapterProvider value={shikiAdapter}>
-      <CodeBlock.Root
-        {...rest}
-        meta={{ ...rest.meta, colorScheme: colorMode }}
-      >
+      <CodeBlock.Root {...rest} meta={{ ...rest.meta, colorScheme: colorMode }}>
         {title && (
           <CodeBlock.Header>
             <CodeBlock.Title>{title}</CodeBlock.Title>
