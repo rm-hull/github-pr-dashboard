@@ -10,6 +10,7 @@ const shikiAdapter = createShikiAdapter<HighlighterGeneric<any, any>>({
       langs: [
         "tsx",
         "typescript",
+        "css",
         "scss",
         "html",
         "bash",
@@ -24,6 +25,8 @@ const shikiAdapter = createShikiAdapter<HighlighterGeneric<any, any>>({
         "cpp",
         "yaml",
         "markdown",
+        "csv",
+        "xml"
       ],
       themes: ["github-dark", "github-light"],
     });
