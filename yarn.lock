@@ -3382,9 +3382,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-router@npm:^1.170.15":
-  version: 1.170.15
-  resolution: "@tanstack/react-router@npm:1.170.15"
+"@tanstack/react-router@npm:^1.170.16":
+  version: 1.170.16
+  resolution: "@tanstack/react-router@npm:1.170.16"
   dependencies:
     "@tanstack/history": "npm:1.162.0"
     "@tanstack/react-store": "npm:^0.9.3"
@@ -3393,7 +3393,7 @@ __metadata:
   peerDependencies:
     react: ">=18.0.0 || >=19.0.0"
     react-dom: ">=18.0.0 || >=19.0.0"
-  checksum: 10c0/779cd0278de657925797cf60091f2183eb8ad842a3dd9e98e814de82a67465fdb109422e1fa130a6658daeac4c5efcd5c48918b971665ca976af5be352aba094
+  checksum: 10c0/85d199fd9ae0d7d43d11d4b293d306c125e5c0f92db26d6105fcbf3997cca7fd25933d4144d0962a5b37e2e54e9d25cf98f5cd4f9bf6f986b40f6af3e3e60b7a
   languageName: node
   linkType: hard
 
@@ -8695,7 +8695,7 @@ __metadata:
     "@tanstack/eslint-plugin-query": "npm:^5.101.0"
     "@tanstack/react-query": "npm:~5.101.0"
     "@tanstack/react-query-devtools": "npm:^5.101.0"
-    "@tanstack/react-router": "npm:^1.170.15"
+    "@tanstack/react-router": "npm:^1.170.16"
     "@tanstack/router-plugin": "npm:^1.168.18"
     "@testing-library/dom": "npm:^10.4.1"
     "@testing-library/react": "npm:^16.3.2"
