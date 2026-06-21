@@ -1,6 +1,6 @@
 import { Code } from "@chakra-ui/react";
 import { Children, isValidElement, ReactNode, ReactElement, cloneElement, PropsWithChildren } from "react";
-import { SearchHighlight } from "./SearchHighlight";
+import { SearchHighlight, SearchHighlightProps } from "./SearchHighlight";
 
 export function InlineCodeText({ children }: PropsWithChildren) {
   const processNode = (node: ReactNode): ReactNode => {
@@ -22,7 +22,7 @@ export function InlineCodeText({ children }: PropsWithChildren) {
 
     // Special handling for Highlight component
     if (isValidElement(node) && node.type === SearchHighlight) {
-      const props = node.props as any;
+      const props = node.props as SearchHighlightProps;
       const { children: highlightChildren, ...highlightProps } = props;
 
       // Extract the string from Highlight's children
@@ -56,8 +56,8 @@ export function InlineCodeText({ children }: PropsWithChildren) {
 
     // Handle React elements - recursively process their children
     if (isValidElement(node)) {
-      const props = node.props as any;
-      return cloneElement(node as ReactElement<any>, props, ...Children.toArray(props.children).map(processNode));
+      const props = node.props as { children?: ReactNode };
+      return cloneElement(node as ReactElement, props, ...Children.toArray(props.children || []).map(processNode));
     }
 
     if (Array.isArray(node)) {

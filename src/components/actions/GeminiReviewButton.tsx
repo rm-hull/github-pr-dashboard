@@ -1,4 +1,5 @@
 import { Button } from "@chakra-ui/react";
+import { useCallback } from "react";
 import { useComment } from "@/hooks/useComment";
 import { useErrorToast } from "@/hooks/useErrorToast";
 
@@ -15,8 +16,11 @@ export function GeminiReviewButton({ owner, repo, pull_number, state }: GeminiRe
 
   useErrorToast("gemini-review-error", "Failed to post a comment", error);
 
+  const handleReview = useCallback(() => {
+    mutate({ owner, repo, pull_number, body: "/gemini review" });
+  }, [mutate, owner, repo, pull_number]);
   return (
-    <Button onClick={() => mutate({ owner, repo, pull_number, body: "/gemini review" })} disabled={disabled}>
+    <Button onClick={handleReview} disabled={disabled}>
       Gemini review
     </Button>
   );

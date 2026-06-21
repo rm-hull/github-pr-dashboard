@@ -8,10 +8,10 @@ import { Route as HomeRoute } from "@/routes/github-pr-dashboard/index";
 import { Route as IssuesRoute } from "@/routes/github-pr-dashboard/issues";
 import { Route as StatsRoute } from "@/routes/github-pr-dashboard/stats";
 import { alpha } from "@/utils/alpha";
+import { RefreshDataButton } from "./actions/RefreshDataButton";
 import { SettingsDialog } from "./SettingsDialog";
 import { ColorModeButton, useColorModeValue } from "./ui/color-mode";
 import { Tooltip } from "./ui/tooltip";
-import { RefreshDataButton } from "./actions/RefreshDataButton";
 
 export function NavBar() {
   const { login, logout, inProgress } = useAuth();

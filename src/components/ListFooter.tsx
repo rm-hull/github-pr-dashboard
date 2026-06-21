@@ -1,36 +1,38 @@
 import {
   CloseButton,
   Container,
+  createListCollection,
   For,
   HStack,
   Input,
   InputGroup,
-  RadioGroup,
-  RadioGroupValueChangeDetails,
+  Portal,
+  Select,
+  SelectValueChangeDetails,
   useBreakpointValue,
 } from "@chakra-ui/react";
 import { ChangeEvent, useCallback, useState } from "react";
+import { FaGitAlt, FaRegCalendarAlt, FaUser } from "react-icons/fa";
 import { LuSearch } from "react-icons/lu";
+import { MdOutlineLabel } from "react-icons/md";
 import { useDebounce, useKeyPressEvent } from "react-use";
 import useFocus from "@/hooks/useFocus";
-import { isListViewBy, ListViewBy, useGeneralSettings } from "@/hooks/useGeneralSettings";
+import { isListViewBy, useGeneralSettings } from "@/hooks/useGeneralSettings";
 import { alpha } from "@/utils/alpha";
 import { useColorModeValue } from "./ui/color-mode";
+
+const groupBy = createListCollection({
+  items: [
+    { label: "Recently created", value: "recent", icon: <FaRegCalendarAlt /> },
+    { label: "Repo", value: "repo", icon: <FaGitAlt /> },
+    { label: "Label", value: "label", icon: <MdOutlineLabel /> },
+    { label: "User", value: "user", icon: <FaUser /> },
+  ],
+});
 
 interface ListFooterProps {
   onSearch: (value: string) => void;
 }
-
-type RadioItem = {
-  label: string;
-  value: ListViewBy;
-};
-
-const items = [
-  { label: "Recently created", value: "recent" },
-  { label: "Repo", value: "repo" },
-  { label: "Label", value: "label" },
-] as const satisfies ReadonlyArray<RadioItem>;
 
 export function ListFooter({ onSearch }: ListFooterProps) {
   const [inputRef, setInputFocus] = useFocus();
@@ -44,10 +46,10 @@ export function ListFooter({ onSearch }: ListFooterProps) {
 
   const borderColor = useColorModeValue("blue.100", "blue.900");
 
-  const handleRadioValueChange = useCallback(
-    (details: RadioGroupValueChangeDetails) => {
-      if (isListViewBy(details.value)) {
-        void updateSettings({ ...settings, listViewBy: details.value });
+  const handleSelectValueChange = useCallback(
+    (details: SelectValueChangeDetails) => {
+      if (isListViewBy(details.value[0])) {
+        void updateSettings({ ...settings, listViewBy: details.value[0] });
       }
     },
     [settings, updateSettings]
@@ -103,25 +105,44 @@ export function ListFooter({ onSearch }: ListFooterProps) {
           </InputGroup>
         )}
 
-        <RadioGroup.Root
+        <Select.Root
           colorPalette="blue"
-          variant="subtle"
-          value={settings?.listViewBy ?? "recent"}
-          onValueChange={handleRadioValueChange}
+          variant="outline"
+          size="sm"
+          value={[settings?.listViewBy ?? "recent"]}
+          collection={groupBy}
+          onValueChange={handleSelectValueChange}
+          flexDirection="row"
+          alignItems="baseline"
         >
-          <HStack gap="6">
-            <RadioGroup.Label>Group by:</RadioGroup.Label>
-            <For each={items}>
-              {(item) => (
-                <RadioGroup.Item key={item.value} value={item.value} cursor="pointer">
-                  <RadioGroup.ItemHiddenInput />
-                  <RadioGroup.ItemIndicator cursor="pointer" />
-                  <RadioGroup.ItemText>{item.label}</RadioGroup.ItemText>
-                </RadioGroup.Item>
-              )}
-            </For>
-          </HStack>
-        </RadioGroup.Root>
+          <Select.Label width="70px">Group by:</Select.Label>
+          <Select.HiddenSelect />
+          <Select.Control width="180px" background="bg.muted">
+            <Select.Trigger>
+              <Select.ValueText placeholder="group by..." />
+            </Select.Trigger>
+            <Select.IndicatorGroup>
+              <Select.Indicator />
+            </Select.IndicatorGroup>
+          </Select.Control>
+          <Portal>
+            <Select.Positioner>
+              <Select.Content>
+                <For each={groupBy.items}>
+                  {(item) => (
+                    <Select.Item item={item} key={item.value}>
+                      <HStack>
+                        {item.icon}
+                        {item.label}
+                      </HStack>
+                      <Select.ItemIndicator />
+                    </Select.Item>
+                  )}
+                </For>
+              </Select.Content>
+            </Select.Positioner>
+          </Portal>
+        </Select.Root>
       </HStack>
     </Container>
   );

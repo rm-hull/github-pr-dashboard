@@ -3,9 +3,9 @@ import { CalendarDate } from "@internationalized/date";
 import { forwardRef } from "react";
 import { LuCalendar } from "react-icons/lu";
 
-export interface DatePickerProps extends ChakraDatePicker.RootProps {}
+export type DatePickerProps = ChakraDatePicker.RootProps;
 
-const formatDate = (date: any) => {
+const formatDate = (date: CalendarDate | undefined) => {
   if (!date) return "";
   return `${date.year}/${String(date.month).padStart(2, "0")}/${String(date.day).padStart(2, "0")}`;
 };

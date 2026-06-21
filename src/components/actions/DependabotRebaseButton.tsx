@@ -1,7 +1,7 @@
 import { Button, Menu, MenuSelectionDetails, Portal } from "@chakra-ui/react";
+import { useCallback } from "react";
 import { useComment } from "@/hooks/useComment";
 import { useErrorToast } from "@/hooks/useErrorToast";
-import { useCallback } from "react";
 
 interface DependabotRebaseButtonProps {
   owner: string;
@@ -20,7 +20,7 @@ export function DependabotRebaseButton({ owner, repo, pull_number, user, state }
     (details: MenuSelectionDetails) => {
       mutate({ owner, repo, pull_number, body: `@dependabot ${details.value}` });
     },
-    [owner, repo, pull_number]
+    [owner, repo, pull_number, mutate]
   );
 
   return (

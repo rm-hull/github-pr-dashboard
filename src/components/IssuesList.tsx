@@ -1,15 +1,15 @@
 import { Box, Button, For, Heading, List, Separator, useBreakpointValue } from "@chakra-ui/react";
-import { groupBySelector } from "@/utils/grouping";
 import { compareDesc, parseISO } from "date-fns";
 import { AnimatePresence } from "framer-motion";
 import { useCallback, useMemo, useState } from "react";
 import { useGeneralSettings } from "@/hooks/useGeneralSettings";
+import { groupBySelector } from "@/utils/grouping";
+import { listSelector, listSelectorIcons } from "@/utils/list-selectors";
 import { PullRequest } from "@/utils/types";
 import { GithubActionsIcon } from "./GithubActionsIcon";
+import { IssueListItem } from "./IssueListItem";
 import { ListFooter } from "./ListFooter";
 import { NoSearchMatches } from "./NoSearchMatches";
-import { IssueListItem } from "./IssueListItem";
-import { listSelector, listSelectorIcons } from "@/utils/list-selectors";
 import { Breakpoint } from "./PullRequestListItem";
 
 type IssuesListProps = {

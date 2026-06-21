@@ -1,4 +1,5 @@
 import { Box, Container, Progress } from "@chakra-ui/react";
+import { useCallback } from "react";
 import PullRequestsList from "@/components/PullRequestsList";
 import { useColorModeValue } from "@/components/ui/color-mode";
 import { useErrorToast } from "@/hooks/useErrorToast";
@@ -26,6 +27,9 @@ export function PullRequestPage({ prState, listState, enableNotifications }: Pul
 
   const allPullRequests = data?.pages || [];
 
+  const handleFetchNextPage = useCallback(() => {
+    void fetchNextPage();
+  }, [fetchNextPage]);
   return (
     <>
       {isEnabled && (
@@ -54,7 +58,7 @@ export function PullRequestPage({ prState, listState, enableNotifications }: Pul
               pulls={allPullRequests}
               state={listState}
               enableNotifications={enableNotifications}
-              fetchNextPage={() => void fetchNextPage()}
+              fetchNextPage={handleFetchNextPage}
               hasNextPage={hasNextPage}
               isFetchingNextPage={isFetchingNextPage}
             />

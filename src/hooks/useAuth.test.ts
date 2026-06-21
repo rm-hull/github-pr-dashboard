@@ -14,7 +14,7 @@ const mockLocation = new MockLocation("http://localhost");
 
 Object.defineProperty(global, "window", {
   value: {
-    ...global.window,
+    ...globalThis.window,
     location: mockLocation,
     dispatchEvent: vi.fn(),
     history: {
@@ -41,13 +41,12 @@ describe("useAuth", () => {
     sessionStorage.clear();
     mockLocation.search = "";
     mockLocation.replace.mockClear();
-    (global.window.dispatchEvent as ReturnType<typeof vi.fn>).mockClear();
-    (global.window.history.replaceState as ReturnType<typeof vi.fn>).mockClear();
+    (window.dispatchEvent as ReturnType<typeof vi.fn>).mockClear();
+    (window.history.replaceState as ReturnType<typeof vi.fn>).mockClear();
   });
 
   afterEach(() => {
     vi.restoreAllMocks();
-    replaceStateSpy.mockRestore();
   });
 
   it("should call fetch exactly once when code and verifier are present and ghToken is absent", async () => {
@@ -60,7 +59,7 @@ describe("useAuth", () => {
     expect(fetchSpy).toHaveBeenCalledTimes(1);
     expect(sessionStorage.getItem("gh_token")).toBe("mock_token");
     expect(replaceStateSpy).toHaveBeenCalledWith({}, document.title, "/github-pr-dashboard");
-    expect(global.window.dispatchEvent).toHaveBeenCalledWith(expect.any(CustomEvent));
+    expect(window.dispatchEvent).toHaveBeenCalledWith(expect.any(CustomEvent));
   });
 
   it("should not call fetch if ghToken is already present", async () => {

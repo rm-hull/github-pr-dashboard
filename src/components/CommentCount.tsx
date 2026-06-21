@@ -1,8 +1,8 @@
-import { usePullRequestDetail } from "@/hooks/usePullRequestDetail";
 import { HStack } from "@chakra-ui/react";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { IoChatboxOutline } from "react-icons/io5";
+import { usePullRequestDetail } from "@/hooks/usePullRequestDetail";
 
 type CommentCountProps = {
   owner: string;

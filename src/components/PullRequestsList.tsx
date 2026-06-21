@@ -1,18 +1,17 @@
 import { Box, Button, For, Heading, List, Separator, useBreakpointValue } from "@chakra-ui/react";
-import { groupBySelector } from "@/utils/grouping";
 import { compareDesc, parseISO } from "date-fns";
 import { AnimatePresence } from "framer-motion";
-import { ReactNode, useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import Favicon from "react-favicon";
+import { useGeneralSettings } from "@/hooks/useGeneralSettings";
+import { groupBySelector } from "@/utils/grouping";
 import { listSelector, listSelectorIcons } from "@/utils/list-selectors";
-import { ListViewBy, useGeneralSettings } from "@/hooks/useGeneralSettings";
 import { PullRequest } from "@/utils/types";
 import { GithubActionsIcon } from "./GithubActionsIcon";
 import { ListFooter } from "./ListFooter";
 import { NoSearchMatches } from "./NoSearchMatches";
 import { Notifications } from "./Notifications";
 import { Breakpoint, PullRequestListItem } from "./PullRequestListItem";
-import { IconType } from "react-icons/lib";
 
 type PullRequestListProps = {
   pulls: PullRequest[];

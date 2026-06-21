@@ -5,14 +5,13 @@ import en from "javascript-time-ago/locale/en.json";
 import TimeAgo from "react-time-ago";
 import { alpha } from "@/utils/alpha";
 import { PullRequest } from "@/utils/types";
-import { InfoPopover } from "./InfoPopover";
-import { InlineCodeText } from "./InlineCodeText";
-import { SearchHighlight } from "./SearchHighlight";
-import { StatusIcon } from "./StatusIcon";
 import { CommentCount } from "./CommentCount";
 import { GithubLabels } from "./GithubLabels";
-import { UserDetails } from "./UserDetails";
+import { InfoPopover } from "./InfoPopover";
+import { InlineCodeText } from "./InlineCodeText";
 import { Breakpoint } from "./PullRequestListItem";
+import { SearchHighlight } from "./SearchHighlight";
+import { UserDetails } from "./UserDetails";
 
 const MotionListItem = motion.create(List.Item);
 

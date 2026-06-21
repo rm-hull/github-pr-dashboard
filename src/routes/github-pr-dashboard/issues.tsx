@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-
 import { IssuesPage } from "@/pages/IssuesPage";
 
 export const Route = createFileRoute("/github-pr-dashboard/issues")({

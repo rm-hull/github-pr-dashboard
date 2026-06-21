@@ -1,4 +1,4 @@
-import { Box, ButtonGroup, HStack, Image, Link, List, Stack, Text } from "@chakra-ui/react";
+import { Box, ButtonGroup, HStack, Link, List, Stack, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import JavascriptTimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
@@ -9,12 +9,12 @@ import { DependabotRebaseButton } from "./actions/DependabotRebaseButton";
 import { GeminiReviewButton } from "./actions/GeminiReviewButton";
 import { IgnoreButton } from "./actions/IgnoreButton";
 import { MergeButton } from "./actions/MergeButton";
+import { CommentCount } from "./CommentCount";
+import { GithubLabels } from "./GithubLabels";
 import { InfoPopover } from "./InfoPopover";
 import { InlineCodeText } from "./InlineCodeText";
 import { SearchHighlight } from "./SearchHighlight";
 import { StatusIcon } from "./StatusIcon";
-import { CommentCount } from "./CommentCount";
-import { GithubLabels } from "./GithubLabels";
 import { UserDetails } from "./UserDetails";
 
 export type Breakpoint = "base" | "md" | "lg";

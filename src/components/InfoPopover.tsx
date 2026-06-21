@@ -4,13 +4,13 @@ import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import remarkGithub from "remark-github";
-import { Mermaid } from "./Mermaid";
-import { CodeBlockRoot } from "./ui/code-block";
-import "./info-popover.css";
 import remarkGithubAlerts from "remark-github-alerts";
 import "remark-github-alerts/styles/github-colors-light.css";
 import "remark-github-alerts/styles/github-colors-dark-class.css";
 import "remark-github-alerts/styles/github-base.css";
+import { Mermaid } from "./Mermaid";
+import { CodeBlockRoot } from "./ui/code-block";
+import "./info-popover.css";
 
 interface InfoPopoverProps {
   title?: string;
