@@ -3,7 +3,7 @@ import { compareDesc, format, parseISO } from "date-fns";
 import { AnimatePresence } from "framer-motion";
 import { ReactNode, useCallback, useMemo, useState } from "react";
 import Favicon from "react-favicon";
-import { FaRegCalendarAlt, FaGitAlt } from "react-icons/fa";
+import { FaRegCalendarAlt, FaGitAlt, FaUser } from "react-icons/fa";
 import { MdOutlineLabel } from "react-icons/md";
 import { ListViewBy, useGeneralSettings } from "@/hooks/useGeneralSettings";
 import { PullRequest } from "@/utils/types";
@@ -27,12 +27,14 @@ const selector: Record<ListViewBy, (pull: PullRequest) => string[]> = {
   repo: (pull: PullRequest) => [pull.repository_url],
   label: (pull: PullRequest) =>
     !pull.labels?.length ? ["[unlabelled]"] : pull.labels.map((label) => label.name ?? "unknown"),
+  user: (pull: PullRequest) => [pull.user?.login ?? "unknown"],
 };
 
 const selectorIcons: Record<ListViewBy, ReactNode> = {
   recent: <FaRegCalendarAlt size={24} />,
   repo: <FaGitAlt size={24} />,
   label: <MdOutlineLabel size={24} />,
+  user: <FaUser size={24} />,
 };
 
 function isBefore(pull: PullRequest, cutoffDate?: number) {
