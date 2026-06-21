@@ -12,8 +12,7 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 import { ChangeEvent, useCallback, useState } from "react";
-import { FaRegCalendarAlt } from "react-icons/fa";
-import { FaGitAlt, FaUser } from "react-icons/fa6";
+import { FaGitAlt, FaRegCalendarAlt, FaUser } from "react-icons/fa";
 import { LuSearch } from "react-icons/lu";
 import { MdOutlineLabel } from "react-icons/md";
 import { useDebounce, useKeyPressEvent } from "react-use";
