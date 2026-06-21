@@ -1,17 +1,17 @@
 import { Badge, Button, Field, HStack, Switch, VStack } from "@chakra-ui/react";
-import { getLocalTimeZone, parseDate, today } from "@internationalized/date";
+import { getLocalTimeZone, parseDate, today, CalendarDate } from "@internationalized/date";
 import { useCallback, useMemo } from "react";
 import { IoWarning } from "react-icons/io5";
 import { useGeneralSettings } from "@/hooks/useGeneralSettings";
-import { RepoListbox } from "./RepoListbox";
 import { DatePicker } from "../ui/date-picker";
+import { RepoListbox } from "./RepoListbox";
 
 export function SettingsForm() {
   const { settings, updateSettings } = useGeneralSettings();
   const isNotificationsSupported = "Notification" in window;
 
   const handleCutoffDateChange = useCallback(
-    (details: { value: any[] }) => {
+    (details: { value: CalendarDate[] }) => {
       const dt = details.value[0]?.toDate(getLocalTimeZone());
       void updateSettings({ ...(settings ?? {}), cutoffDate: dt?.getTime() });
     },
@@ -40,7 +40,7 @@ export function SettingsForm() {
     } catch {
       return [];
     }
-  }, [settings?.cutoffDate]);
+  }, [settings]);
 
   return (
     <VStack>

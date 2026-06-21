@@ -12,7 +12,6 @@ import { ListFooter } from "./ListFooter";
 import { NoSearchMatches } from "./NoSearchMatches";
 import { Notifications } from "./Notifications";
 import { Breakpoint, PullRequestListItem } from "./PullRequestListItem";
-import { IconType } from "react-icons/lib";
 
 type PullRequestListProps = {
   pulls: PullRequest[];

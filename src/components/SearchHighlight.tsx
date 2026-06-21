@@ -1,6 +1,6 @@
 import { Highlight } from "@chakra-ui/react";
 
-interface SearchHighlightProps {
+export interface SearchHighlightProps {
   query?: string;
   children: string | unknown[];
 }

@@ -1,4 +1,5 @@
 import { Button } from "@chakra-ui/react";
+import { useCallback } from "react";
 import { useErrorToast } from "@/hooks/useErrorToast";
 import { useMergePullRequest } from "@/hooks/useMergePullRequest";
 
@@ -15,8 +16,11 @@ export function MergeButton({ owner, repo, pull_number, state }: MergeButtonProp
 
   useErrorToast("merge-error", "Failed to merge pull request", error);
 
+  const handleMerge = useCallback(() => {
+    mutate({ owner, repo, pull_number });
+  }, [mutate, owner, repo, pull_number]);
   return (
-    <Button onClick={() => mutate({ owner, repo, pull_number })} disabled={disabled}>
+    <Button onClick={handleMerge} disabled={disabled}>
       Merge
     </Button>
   );
