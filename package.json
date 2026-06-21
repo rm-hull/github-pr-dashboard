@@ -112,5 +112,5 @@
   "resolutions": {
     "baseline-browser-mapping": "^2.9.19"
   },
-  "packageManager": "yarn@4.16.0"
+  "packageManager": "yarn@4.17.0"
 }
