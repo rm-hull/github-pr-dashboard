@@ -19,7 +19,7 @@ export function useIssues(state: string = "open", options: Partial<FetchOptions>
   const { data: orgs, isSuccess: isOrgsSuccess } = useOrgs();
 
   const query = useInfiniteQuery({
-    queryKey: ["issues", state, user?.login, orgs?.map((o) => o.login).sort(), options.fetchAll ?? false],
+    queryKey: ["issues", state, user?.login, orgs?.map((o) => o.login)?.sort(), options.fetchAll ?? false],
     queryFn: async ({ pageParam = 1 }) => {
       const commonQualifiers = `type:issue ${state === "merged" ? "is:merged" : `state:${state}`}`;
       const owners = [user?.login, ...(orgs?.map((o) => o.login) ?? [])].filter((o): o is string => !!o);
