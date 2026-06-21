@@ -2,43 +2,25 @@ import { Box, Button, For, Heading, List, Separator, useBreakpointValue } from "
 import { groupBySelector } from "@/utils/grouping";
 import { compareDesc, parseISO } from "date-fns";
 import { AnimatePresence } from "framer-motion";
-import { ReactNode, useCallback, useMemo, useState } from "react";
-import Favicon from "react-favicon";
-import { listSelector, listSelectorIcons } from "@/utils/list-selectors";
-import { ListViewBy, useGeneralSettings } from "@/hooks/useGeneralSettings";
+import { useCallback, useMemo, useState } from "react";
+import { useGeneralSettings } from "@/hooks/useGeneralSettings";
 import { PullRequest } from "@/utils/types";
 import { GithubActionsIcon } from "./GithubActionsIcon";
 import { ListFooter } from "./ListFooter";
 import { NoSearchMatches } from "./NoSearchMatches";
-import { Notifications } from "./Notifications";
-import { Breakpoint, PullRequestListItem } from "./PullRequestListItem";
-import { IconType } from "react-icons/lib";
+import { IssueListItem } from "./IssueListItem";
+import { listSelector, listSelectorIcons } from "@/utils/list-selectors";
+import { Breakpoint } from "./PullRequestListItem";
 
-type PullRequestListProps = {
-  pulls: PullRequest[];
+type IssuesListProps = {
+  issues: PullRequest[];
   state: string;
-  enableNotifications?: boolean;
   fetchNextPage: () => void;
   hasNextPage?: boolean;
   isFetchingNextPage: boolean;
 };
 
-function isBefore(pull: PullRequest, cutoffDate?: number) {
-  if (!cutoffDate) {
-    return false;
-  }
-
-  return new Date(pull.created_at).getTime() < cutoffDate;
-}
-
-export default function PullRequestsList({
-  pulls,
-  state,
-  enableNotifications = false,
-  fetchNextPage,
-  hasNextPage,
-  isFetchingNextPage,
-}: PullRequestListProps) {
+export default function IssuesList({ issues, state, fetchNextPage, hasNextPage, isFetchingNextPage }: IssuesListProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const { settings, isLoading } = useGeneralSettings();
   const breakpoint = useBreakpointValue<Breakpoint>({ base: "base", md: "md", lg: "lg" });
@@ -46,63 +28,50 @@ export default function PullRequestsList({
   const ignoredRepos = useMemo(() => new Set(settings?.ignored?.repos || []), [settings?.ignored?.repos]);
 
   const isSelected = useCallback(
-    (pull: PullRequest) => {
-      if (pull.state !== state || pull.draft || isBefore(pull, settings?.cutoffDate)) {
+    (issue: PullRequest) => {
+      if (issue.state !== state) {
         return false;
       }
 
-      const repoFullName = pull.repository_url.split("/repos/")[1];
+      const repoFullName = issue.repository_url.split("/repos/")[1];
       if (ignoredRepos.has(repoFullName)) {
-        return false;
-      }
-
-      const unignoreTime = settings?.ignored?.prs?.[pull.url];
-      const shouldIgnorePR = unignoreTime !== undefined && Date.now() <= unignoreTime;
-      if (shouldIgnorePR) {
         return false;
       }
 
       if (searchTerm?.length > 0) {
         const lowerCaseSearchTerm = searchTerm.toLowerCase();
         return (
-          pull.title.toLowerCase().includes(lowerCaseSearchTerm) ||
-          pull.repository_url.toLowerCase().includes(lowerCaseSearchTerm) ||
-          pull.user?.login.toLowerCase().includes(lowerCaseSearchTerm)
+          issue.title.toLowerCase().includes(lowerCaseSearchTerm) ||
+          issue.repository_url.toLowerCase().includes(lowerCaseSearchTerm) ||
+          issue.user?.login.toLowerCase().includes(lowerCaseSearchTerm)
         );
       }
 
       return true;
     },
-    [settings, searchTerm, ignoredRepos, state]
+    [searchTerm, ignoredRepos, state]
   );
-  const pullsBySelector = useMemo(() => {
-    return groupBySelector(
-      pulls.filter(isSelected).sort((a, b) => compareDesc(parseISO(a.created_at), parseISO(b.created_at))),
-      (pr) => listSelector[listViewBy](pr)
-    );
-  }, [pulls, isSelected, listViewBy]);
 
-  const count = useMemo(() => Object.values(pullsBySelector).flat().length, [pullsBySelector]);
+  const issuesBySelector = useMemo(() => {
+    return groupBySelector(
+      issues.filter(isSelected).sort((a, b) => compareDesc(parseISO(a.created_at), parseISO(b.created_at))),
+      (issue) => listSelector[listViewBy](issue)
+    );
+  }, [issues, isSelected, listViewBy]);
+
+  const count = useMemo(() => Object.values(issuesBySelector).flat().length, [issuesBySelector]);
 
   if (isLoading) {
     return null;
   }
 
-  const alertCount = count === 0 ? undefined : count > 9 ? "+" : count;
-
   return (
     <>
       {count === 0 && <NoSearchMatches />}
 
-      {enableNotifications && (
-        <>
-          <Notifications count={count} />
-          <Favicon url={`${import.meta.env.BASE_URL}/favicon.ico`} alertCount={alertCount} iconSize={32} />
-        </>
-      )}
       <List.Root gap={2} listStyleType="none" pb={12}>
         <AnimatePresence>
-          {Object.entries(pullsBySelector).flatMap(([groupBy, pulls], index, array) => {
+          {Object.entries(issuesBySelector).flatMap(([groupBy, issues], index, array) => {
             const isRepoGroup = groupBy.includes("/repos/");
             const repoFullName = isRepoGroup ? groupBy.split("/repos/")[1] : undefined;
             const [owner, repo] = repoFullName?.split("/") ?? [];
@@ -116,9 +85,9 @@ export default function PullRequestsList({
                     {isRepoGroup && <GithubActionsIcon owner={owner} repo={repo} />}
                   </Heading>
                 )}
-                <For each={pulls}>
-                  {(pull) => (
-                    <PullRequestListItem key={pull.id} pull={pull} breakpoint={breakpoint} searchTerm={searchTerm} />
+                <For each={issues}>
+                  {(issue) => (
+                    <IssueListItem key={issue.id} issue={issue} breakpoint={breakpoint} searchTerm={searchTerm} />
                   )}
                 </For>
                 {!isLast && <Separator mt={2} />}
@@ -126,7 +95,6 @@ export default function PullRequestsList({
             );
           })}
         </AnimatePresence>
-
         {hasNextPage && (
           <Box py={4} textAlign="center">
             <Button
