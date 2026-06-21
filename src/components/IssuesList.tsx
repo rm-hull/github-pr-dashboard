@@ -71,7 +71,7 @@ export default function IssuesList({ issues, state, fetchNextPage, hasNextPage, 
 
       <List.Root gap={2} listStyleType="none" pb={12}>
         <AnimatePresence>
-          {Object.entries(issuesBySelector).flatMap(([groupBy, issues], index, array) => {
+          {Object.entries(issuesBySelector).flatMap(([groupBy, groupedIssues], index, array) => {
             const isRepoGroup = groupBy.includes("/repos/");
             const repoFullName = isRepoGroup ? groupBy.split("/repos/")[1] : undefined;
             const [owner, repo] = repoFullName?.split("/") ?? [];
@@ -85,7 +85,7 @@ export default function IssuesList({ issues, state, fetchNextPage, hasNextPage, 
                     {isRepoGroup && <GithubActionsIcon owner={owner} repo={repo} />}
                   </Heading>
                 )}
-                <For each={issues}>
+                <For each={groupedIssues}>
                   {(issue) => (
                     <IssueListItem key={issue.id} issue={issue} breakpoint={breakpoint} searchTerm={searchTerm} />
                   )}
