@@ -4,6 +4,7 @@ import { AnimatePresence } from "framer-motion";
 import { useCallback, useMemo, useState } from "react";
 import Favicon from "react-favicon";
 import { useGeneralSettings } from "@/hooks/useGeneralSettings";
+import { isBefore } from "@/utils/date";
 import { groupBySelector } from "@/utils/grouping";
 import { listSelector, listSelectorIcons } from "@/utils/list-selectors";
 import { PullRequest } from "@/utils/types";
@@ -21,14 +22,6 @@ type PullRequestListProps = {
   hasNextPage?: boolean;
   isFetchingNextPage: boolean;
 };
-
-function isBefore(pull: PullRequest, cutoffDate?: number) {
-  if (!cutoffDate) {
-    return false;
-  }
-
-  return new Date(pull.created_at).getTime() < cutoffDate;
-}
 
 export default function PullRequestsList({
   pulls,

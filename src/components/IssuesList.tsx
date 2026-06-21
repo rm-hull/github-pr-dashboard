@@ -3,6 +3,7 @@ import { compareDesc, parseISO } from "date-fns";
 import { AnimatePresence } from "framer-motion";
 import { useCallback, useMemo, useState } from "react";
 import { useGeneralSettings } from "@/hooks/useGeneralSettings";
+import { isBefore } from "@/utils/date";
 import { groupBySelector } from "@/utils/grouping";
 import { listSelector, listSelectorIcons } from "@/utils/list-selectors";
 import { PullRequest } from "@/utils/types";
@@ -29,7 +30,7 @@ export default function IssuesList({ issues, state, fetchNextPage, hasNextPage, 
 
   const isSelected = useCallback(
     (issue: PullRequest) => {
-      if (issue.state !== state) {
+      if (issue.state !== state || isBefore(issue, settings?.cutoffDate)) {
         return false;
       }
 
@@ -49,7 +50,7 @@ export default function IssuesList({ issues, state, fetchNextPage, hasNextPage, 
 
       return true;
     },
-    [searchTerm, ignoredRepos, state]
+    [searchTerm, ignoredRepos, state, settings]
   );
 
   const issuesBySelector = useMemo(() => {
