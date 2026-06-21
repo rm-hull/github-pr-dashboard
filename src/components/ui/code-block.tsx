@@ -26,7 +26,7 @@ const shikiAdapter = createShikiAdapter<HighlighterGeneric<any, any>>({
         "yaml",
         "markdown",
         "csv",
-        "xml"
+        "xml",
       ],
       themes: ["github-dark", "github-light"],
     });
