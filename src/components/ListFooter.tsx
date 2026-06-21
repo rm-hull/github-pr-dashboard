@@ -107,7 +107,7 @@ export function ListFooter({ onSearch }: ListFooterProps) {
         )}
 
         <Select.Root
-          // colorPalette="blue"
+          colorPalette="blue"
           variant="outline"
           size="sm"
           value={[settings?.listViewBy ?? "recent"]}
@@ -118,7 +118,7 @@ export function ListFooter({ onSearch }: ListFooterProps) {
         >
           <Select.Label width="70px">Group by:</Select.Label>
           <Select.HiddenSelect />
-          <Select.Control width="180px">
+          <Select.Control width="180px" background="bg.muted">
             <Select.Trigger>
               <Select.ValueText placeholder="group by..." />
             </Select.Trigger>
