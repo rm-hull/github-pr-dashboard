@@ -1,4 +1,4 @@
-# GEMINI.md
+# AGENTS.md
 
 ## Project Overview
 
@@ -15,15 +15,15 @@ The project is scaffolded with **Vite** for a fast development experience and bu
 *   **Routing:** TanStack Router
 *   **Data Fetching & State:** TanStack Query
 *   **GitHub API:** Octokit.js
-*   **Package Manager:** Yarn 4
+*   **Package Manager:** pnpm
 
 ## Building and Running
 
 ### Prerequisites
 
-1.  Install dependencies using Yarn:
+1.  Install dependencies using pnpm:
     ```bash
-    yarn install
+    pnpm install
     ```
 2.  Create a `.env` file in the project root. Copy the contents of `.env.example` and add your GitHub OAuth App Client ID:
     ```
@@ -35,18 +35,18 @@ The project is scaffolded with **Vite** for a fast development experience and bu
 
 The following scripts are available in `package.json`:
 
-*   **`yarn dev`**: Starts the Vite development server for local development.
-*   **`yarn build`**: Builds the application for production.
-*   **`yarn test`**: Runs the test suite using Vitest.
-*   **`yarn lint`**: Lints the codebase using ESLint to enforce code quality.
-*   **`yarn format`**: Formats the code using Prettier.
+*   **`pnpm dev`**: Starts the Vite development server for local development.
+*   **`pnpm build`**: Builds the application for production.
+*   **`pnpm test`**: Runs the test suite using Vitest.
+*   **`pnpm lint`**: Lints the codebase using ESLint to enforce code quality.
+*   **`pnpm format`**: Formats the code using Prettier.
 
 ## Development Conventions
 
 ### Code Style
 
-*   **Formatting:** The project uses **Prettier** for consistent code formatting. Run `yarn format` before committing.
-*   **Linting:** A comprehensive **ESLint** setup is in place (`eslint.config.js`) to catch errors and enforce best practices for TypeScript and React. Run `yarn lint` to check your code.
+*   **Formatting:** The project uses **Prettier** for consistent code formatting. Run `pnpm format` before committing.
+*   **Linting:** A comprehensive **ESLint** setup is in place (`eslint.config.js`) to catch errors and enforce best practices for TypeScript and React. Run `pnpm lint` to check your code.
 *   **React:** The project uses the new React Compiler (`babel-plugin-react-compiler`), so there is no need for manual `useMemo` or `useCallback` optimizations in most cases.
 
 ### Architecture

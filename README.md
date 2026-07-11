@@ -40,9 +40,9 @@ We welcome contributions! This project is a modern React application leveraging 
     ```
 
 2.  **Install Dependencies:**
-    This project uses Yarn v4.
+    This project uses pnpm.
     ```bash
-    yarn install
+    pnpm install
     ```
 
 3.  **Configure Environment:**
@@ -60,17 +60,17 @@ We welcome contributions! This project is a modern React application leveraging 
 
 4.  **Start Development Server:**
     ```bash
-    yarn dev
+    pnpm dev
     ```
     Open `http://localhost:5173/` in your browser.
 
 ### Development Scripts
 
-*   `yarn dev`: Starts the local Vite development server.
-*   `yarn build`: Builds the application for production.
-*   `yarn test`: Runs the test suite using Vitest.
-*   `yarn lint`: Runs ESLint to ensure code quality.
-*   `yarn format`: Formats the codebase using Prettier.
+*   `pnpm dev`: Starts the local Vite development server.
+*   `pnpm build`: Builds the application for production.
+*   `pnpm test`: Runs the test suite using Vitest.
+*   `pnpm lint`: Runs ESLint to ensure code quality.
+*   `pnpm format`: Formats the codebase using Prettier.
 
 ### Architecture & Conventions
 
@@ -80,7 +80,7 @@ We welcome contributions! This project is a modern React application leveraging 
     *   `src/hooks`: Custom hooks, primarily for logic and data fetching.
     *   `src/utils`: Helper functions and type definitions.
 *   **Code Style:**
-    *   We enforce strict linting and formatting. Always run `yarn format` before committing.
+    *   We enforce strict linting and formatting. Always run `pnpm format` before committing.
     *   This project uses the **React Compiler**, so manual memoization (`useMemo`, `useCallback`) is generally unnecessary unless specifically required for optimization.
 
 ---
