@@ -98,7 +98,7 @@ const formatPlaceholder = (locale: string, timeZone: string): string => {
   const formatter = createDateFormatter({ locale, timeZone });
   return formatter
     .formatToParts(new Date(Date.UTC(2000, 0, 1)))
-    .map((part) => (part.type === "literal" ? part.value : PLACEHOLDER_TOKENS[part.type] ?? part.value))
+    .map((part) => (part.type === "literal" ? part.value : (PLACEHOLDER_TOKENS[part.type] ?? part.value)))
     .join("");
 };
 
