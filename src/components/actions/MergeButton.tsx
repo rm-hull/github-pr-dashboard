@@ -1,5 +1,5 @@
 import { Button, CloseButton, Dialog, Link, Portal, Text } from "@chakra-ui/react";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { useErrorToast } from "@/hooks/useErrorToast";
 import { useMergePullRequest } from "@/hooks/useMergePullRequest";
 import { usePullRequestDetail } from "@/hooks/usePullRequestDetail";
