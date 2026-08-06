@@ -1,5 +1,4 @@
 import { createListCollection, Listbox, Center, Spinner, Field, HStack, VStack, Text } from "@chakra-ui/react";
-import { ValueChangeDetails } from "@zag-js/listbox";
 import { useInView } from "framer-motion";
 import { useEffect, useCallback, useRef } from "react";
 import { useRepos } from "@/hooks/useRepos";
@@ -25,7 +24,7 @@ export function RepoListbox({ value, onChange }: RepoListboxProps) {
   });
 
   const handleRepoIgnoreDetailChange = useCallback(
-    (details: ValueChangeDetails) => {
+    (details: { value: string[] }) => {
       onChange(details.value);
     },
     [onChange]

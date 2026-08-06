@@ -1,5 +1,5 @@
 import { Badge, Button, Field, HStack, Switch, VStack } from "@chakra-ui/react";
-import { getLocalTimeZone, parseDate, today, CalendarDate } from "@internationalized/date";
+import { getLocalTimeZone, parseDate, today, DateValue } from "@internationalized/date";
 import { useCallback, useMemo } from "react";
 import { IoWarning } from "react-icons/io5";
 import { useGeneralSettings } from "@/hooks/useGeneralSettings";
@@ -11,7 +11,7 @@ export function SettingsForm() {
   const isNotificationsSupported = "Notification" in window;
 
   const handleCutoffDateChange = useCallback(
-    (details: { value: CalendarDate[] }) => {
+    (details: { value: DateValue[] }) => {
       const dt = details.value[0]?.toDate(getLocalTimeZone());
       void updateSettings({ ...(settings ?? {}), cutoffDate: dt?.getTime() });
     },

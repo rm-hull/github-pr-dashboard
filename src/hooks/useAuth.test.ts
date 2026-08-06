@@ -12,7 +12,7 @@ class MockLocation extends URL {
 
 const mockLocation = new MockLocation("http://localhost");
 
-Object.defineProperty(global, "window", {
+Object.defineProperty(globalThis, "window", {
   value: {
     ...globalThis.window,
     location: mockLocation,

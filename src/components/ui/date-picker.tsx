@@ -1,17 +1,22 @@
 import { DatePicker as ChakraDatePicker, Portal } from "@chakra-ui/react";
-import { CalendarDate } from "@internationalized/date";
+import { CalendarDate, DateValue } from "@internationalized/date";
 import { forwardRef } from "react";
 import { LuCalendar } from "react-icons/lu";
 
 export type DatePickerProps = ChakraDatePicker.RootProps;
 
-const formatDate = (date: CalendarDate | undefined) => {
+interface LocaleDetails {
+  locale: string;
+  timeZone: string;
+}
+
+const formatDate = (date: DateValue | undefined, _details: LocaleDetails) => {
   if (!date) return "";
-  return `${date.year}/${String(date.month).padStart(2, "0")}/${String(date.day).padStart(2, "0")}`;
+  return `${date.year}-${String(date.month).padStart(2, "0")}-${String(date.day).padStart(2, "0")}`;
 };
 
-const parseDate = (value: string) => {
-  const parts = value.split("/");
+const parseDate = (value: string, _details: LocaleDetails): DateValue | undefined => {
+  const parts = value.split("-");
   if (parts.length === 3) {
     const year = parseInt(parts[0], 10);
     const month = parseInt(parts[1], 10);

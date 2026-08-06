@@ -15,7 +15,7 @@ export default defineConfig(() => {
         target: "react",
         autoCodeSplitting: true,
       }),
-      react({ babel: { plugins: ["babel-plugin-react-compiler"] } }),
+      react(),
     ],
     base: "/github-pr-dashboard",
     build: {
