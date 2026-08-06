@@ -16,29 +16,31 @@ import tseslint from "typescript-eslint";
 import reactPerf from "eslint-plugin-react-perf";
 import unusedImports from "eslint-plugin-unused-imports";
 import reactCompiler from "eslint-plugin-react-compiler";
+import love from "eslint-config-love";
 
 export default tseslint.config(
   {
     ignores: ["dist", "coverage", ".yarn", ".pnp*", "node_modules", "build", "out"],
   },
   {
+    ...love,
+    files: ["**/*.{ts,tsx}"],
+    languageOptions: {
+      ...love.languageOptions,
+      ecmaVersion: "latest",
+      sourceType: "module",
+      globals: globals.browser,
+      parserOptions: {
+        ...love.languageOptions?.parserOptions,
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
+  {
     extends: [
       js.configs.recommended,
       importPlugin.flatConfigs.recommended,
-      ...tseslint.configs.recommended,
-      ...tseslint.configs.recommendedTypeChecked,
-      {
-        languageOptions: {
-          ecmaVersion: "latest",
-          sourceType: "module",
-          globals: globals.browser,
-          parser: tseslint.parser,
-          parserOptions: {
-            projectService: true,
-            tsconfigRootDir: import.meta.dirname,
-          },
-        },
-      },
       pluginPromise.configs["flat/recommended"],
       eslintConfigPrettier,
     ],
@@ -50,7 +52,6 @@ export default tseslint.config(
       "react-refresh": reactRefresh,
       "react-perf": reactPerf,
       "unused-imports": unusedImports,
-      import: importPlugin,
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
@@ -77,7 +78,6 @@ export default tseslint.config(
     settings: {
       react: { version: "detect" },
       "import-x/resolver": {
-        // TypeScript resolver: ensure eslint-import-resolver-typescript is installed
         typescript: {
           alwaysTryTypes: true,
           project: ["./tsconfig.json"],

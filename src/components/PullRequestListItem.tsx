@@ -92,7 +92,7 @@ export function PullRequestListItem({ pull, breakpoint, searchTerm }: PullReques
         </InfoPopover>
         <ButtonGroup variant="surface" colorPalette="blue" size="xs">
           <IgnoreButton url={pull.url} disabled={pull.state === "closed"} />
-          <MergeButton owner={owner} repo={repo} pull_number={pull.number} state={pull.state} />
+          <MergeButton owner={owner} repo={repo} pull_number={pull.number} state={pull.state} url={pull.html_url} />
           <DependabotRebaseButton
             owner={owner}
             repo={repo}

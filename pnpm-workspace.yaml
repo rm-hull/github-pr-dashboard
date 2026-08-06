@@ -1,0 +1,19 @@
+packages:
+  - "."
+
+allowBuilds:
+  esbuild: set this to true or false
+  unrs-resolver: set this to true or false
+
+minimumReleaseAgeExclude:
+  - "@tanstack/history@1.162.1"
+  - "@tanstack/react-router@1.170.21"
+  - "@tanstack/router-cli@1.167.24"
+  - "@tanstack/router-core@1.171.18"
+  - "@tanstack/router-generator@1.167.24"
+  - "@tanstack/router-plugin@1.168.26"
+  - vite@8.2.1
+
+overrides:
+  "baseline-browser-mapping": "^2.9.19"
+  "@internationalized/date": "3.12.3"
