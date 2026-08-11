@@ -34,8 +34,8 @@ importers:
         specifier: ^22.0.1
         version: 22.0.1
       '@rm-hull/chakra-error-fallback':
-        specifier: ^0.1.3
-        version: 0.1.3(@chakra-ui/react@3.36.1(@emotion/react@11.14.0(@types/react@19.2.18)(react@19.2.8)(supports-color@7.2.0))(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        specifier: ^0.1.4
+        version: 0.1.4(@chakra-ui/react@3.36.1(@emotion/react@11.14.0(@types/react@19.2.18)(react@19.2.8)(supports-color@7.2.0))(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@rm-hull/use-local-storage':
         specifier: ^0.3.4
         version: 0.3.4(@babel/core@7.29.7(supports-color@7.2.0))(@babel/template@7.29.7)(@types/react@19.2.18)(react@19.2.8)
@@ -1488,8 +1488,8 @@ packages:
       react-redux:
         optional: true
 
-  '@rm-hull/chakra-error-fallback@0.1.3':
-    resolution: {integrity: sha512-39MuqHkjcWElzY2KkQo0nAQVJq9LlS2ET0qGNefwYWLa9mkfniL4qWrpyXgIBNUNtM7qHiImfYtGv2P/tVtBjg==}
+  '@rm-hull/chakra-error-fallback@0.1.4':
+    resolution: {integrity: sha512-VP0S13QCxuzoHaV17O0aBL1vIfk1jvjzbheZzw5GVSBPR3D+zZmGDCttP4fmuXgPyT4C4lhSd/9LWgSL124mQg==}
     peerDependencies:
       '@chakra-ui/react': '>=3.28.0'
       react: '>=19.0.0'
@@ -7105,7 +7105,7 @@ snapshots:
       react: 19.2.8
       react-redux: 9.3.0(@types/react@19.2.18)(react@19.2.8)(redux@5.0.1)
 
-  '@rm-hull/chakra-error-fallback@0.1.3(@chakra-ui/react@3.36.1(@emotion/react@11.14.0(@types/react@19.2.18)(react@19.2.8)(supports-color@7.2.0))(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
+  '@rm-hull/chakra-error-fallback@0.1.4(@chakra-ui/react@3.36.1(@emotion/react@11.14.0(@types/react@19.2.18)(react@19.2.8)(supports-color@7.2.0))(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
     dependencies:
       '@chakra-ui/react': 3.36.1(@emotion/react@11.14.0(@types/react@19.2.18)(react@19.2.8)(supports-color@7.2.0))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       next-themes: 0.4.6(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
