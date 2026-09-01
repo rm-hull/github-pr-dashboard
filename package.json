@@ -15,8 +15,8 @@
     "lint": "eslint --cache --fix ./src"
   },
   "dependencies": {
-    "@chakra-ui/charts": "^3.36.1",
-    "@chakra-ui/react": "^3.36.1",
+    "@chakra-ui/charts": "^3.37.0",
+    "@chakra-ui/react": "^3.37.0",
     "@emotion/react": "~11.14.0",
     "@emotion/styled": "~11.14.1",
     "@internationalized/date": "3.12.3",
@@ -50,7 +50,7 @@
     "shiki": "^4.4.3"
   },
   "devDependencies": {
-    "@chakra-ui/cli": "^3.36.1",
+    "@chakra-ui/cli": "^3.37.0",
     "@eslint/compat": "^2.1.0",
     "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^10.0.1",
