@@ -19,7 +19,7 @@
     "@chakra-ui/react": "^3.37.0",
     "@emotion/react": "~11.14.0",
     "@emotion/styled": "~11.14.1",
-    "@internationalized/date": "3.12.3",
+    "@internationalized/date": "3.12.4",
     "@octokit/request-error": "^7.1.2",
     "@octokit/rest": "^22.0.1",
     "@rm-hull/chakra-error-fallback": "^0.1.4",
