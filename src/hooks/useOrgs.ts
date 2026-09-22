@@ -4,9 +4,10 @@ import { useCurrentUser } from "./useCurrentUser";
 
 export function useOrgs() {
   const { octokit, isAuthenticated } = useApiClient();
-  const { data: user } = useCurrentUser();
+  const currentUser = useCurrentUser();
+  const user = currentUser.data;
 
-  return useQuery({
+  const query = useQuery({
     queryKey: ["orgs", user?.login],
     queryFn: async () => {
       const resp = await octokit.rest.orgs.listForAuthenticatedUser({
@@ -17,4 +18,10 @@ export function useOrgs() {
     enabled: isAuthenticated && !!user,
     staleTime: 1000 * 60 * 60, // 1 hour
   });
+
+  return {
+    ...query,
+    error: currentUser.error || query.error,
+    isError: currentUser.isError || query.isError,
+  };
 }
