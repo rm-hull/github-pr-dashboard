@@ -20,7 +20,11 @@ export function MergeButton({ owner, repo, pull_number, state, url }: MergeButto
   const { data } = usePullRequestDetail(owner, repo, pull_number);
   const disabled = isPending || state === "closed";
 
-  useErrorToast("merge-error", "Failed to merge pull request", error);
+  useErrorToast(
+    `merge-error-${owner}-${repo}-${pull_number}`,
+    `Failed to merge pull request: ${owner}/${repo} #${pull_number}`,
+    error
+  );
 
   const hasDoNotMergeLabel = data?.labels?.some((label) => {
     const name = typeof label === "string" ? label : label.name;
