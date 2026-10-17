@@ -3,6 +3,7 @@ import { Link as RouterLink, useMatchRoute } from "@tanstack/react-router";
 import { MdLogin, MdLogout, MdOutlineSettings } from "react-icons/md";
 import { useAuth } from "@/hooks/useAuth";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useErrorToast } from "@/hooks/useErrorToast";
 import { Route as HistoryRoute } from "@/routes/github-pr-dashboard/history";
 import { Route as HomeRoute } from "@/routes/github-pr-dashboard/index";
 import { Route as IssuesRoute } from "@/routes/github-pr-dashboard/issues";
@@ -15,7 +16,8 @@ import { Tooltip } from "./ui/tooltip";
 
 export function NavBar() {
   const { login, logout, inProgress } = useAuth();
-  const { data: user } = useCurrentUser();
+  const { data: user, error } = useCurrentUser();
+  useErrorToast("user-error", "Failed to fetch current user", error);
   const matchRoute = useMatchRoute();
 
   const navItems = [
