@@ -9,7 +9,6 @@ export function useCurrentUser() {
     queryFn: async () => {
       const resp = await octokit.rest.users.getAuthenticated();
       // TODO: handle status != 200 ?
-      throw Error("Not implemented");
       return resp.data;
     },
     enabled: isAuthenticated,
