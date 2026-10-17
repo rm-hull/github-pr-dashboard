@@ -15,7 +15,7 @@ export function DependabotRebaseButton({ owner, repo, pull_number, user, state }
   const { mutate, isPending, error } = useComment();
   const disabled = user !== "dependabot[bot]" || isPending || state === "closed";
 
-  useErrorToast("gemini-review-error", "Failed to post a comment", error);
+  useErrorToast("dependabot-rebase-error", "Failed to post a comment", error);
   const handleSelect = useCallback(
     (details: MenuSelectionDetails) => {
       mutate({ owner, repo, pull_number, body: `@dependabot ${details.value}` });

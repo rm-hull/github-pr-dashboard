@@ -6,7 +6,6 @@ import TimeAgo from "react-time-ago";
 import { alpha } from "@/utils/alpha";
 import { PullRequest } from "@/utils/types";
 import { DependabotRebaseButton } from "./actions/DependabotRebaseButton";
-import { GeminiReviewButton } from "./actions/GeminiReviewButton";
 import { IgnoreButton } from "./actions/IgnoreButton";
 import { MergeButton } from "./actions/MergeButton";
 import { CommentCount } from "./CommentCount";
@@ -100,7 +99,6 @@ export function PullRequestListItem({ pull, breakpoint, searchTerm }: PullReques
             user={pull.user?.login}
             state={pull.state}
           />
-          <GeminiReviewButton owner={owner} repo={repo} pull_number={pull.number} state={pull.state} />
         </ButtonGroup>
       </Stack>
     </MotionListItem>
