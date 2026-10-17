@@ -19,9 +19,14 @@ export function useOrgs() {
     staleTime: 1000 * 60 * 60, // 1 hour
   });
 
+  const isError = currentUser.isError || query.isError;
+  const error = currentUser.error || query.error;
+
   return {
     ...query,
-    error: currentUser.error || query.error,
-    isError: currentUser.isError || query.isError,
+    error,
+    isError,
+    status: isError ? "error" : query.status,
+    isPending: isError ? false : query.isPending,
   };
 }
