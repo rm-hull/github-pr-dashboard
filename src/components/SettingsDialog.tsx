@@ -39,7 +39,7 @@ export function SettingsDialog({ children }: PropsWithChildren) {
                 </Dialog.ActionTrigger>
               </Dialog.Footer>
               <Dialog.CloseTrigger asChild>
-                <CloseButton size="sm" />
+                <CloseButton size="xs" variant="plain" />
               </Dialog.CloseTrigger>
             </Tabs.Root>
           </Dialog.Content>
