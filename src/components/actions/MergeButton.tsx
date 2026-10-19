@@ -22,7 +22,7 @@ export function MergeButton({ owner, repo, pull_number, state, url }: MergeButto
 
   useErrorToast(
     `merge-error-${owner}-${repo}-${pull_number}`,
-    `Failed to merge pull request: ${owner}/${repo} #${pull_number}`,
+    `Failed to merge: ${owner}/${repo} #${pull_number}`,
     error
   );
 
