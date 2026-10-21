@@ -1,39 +1,20 @@
-import { RequestError } from "@octokit/request-error";
-import { QueryCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
+import { queryClient } from "@/utils/queryClient";
 import { GithubTokeExpiredDialog } from "./GithubTokenExpiredDialog";
 import { Provider as ChakraProvider } from "./ui/provider";
 import { Toaster } from "./ui/toaster";
 
-function isRequestError(error: unknown): error is RequestError {
-  return error instanceof RequestError;
-}
-
 export function AppProviders({ children }: PropsWithChildren) {
   const { isExpired, setExpired } = useAuth();
 
-  const queryClient = new QueryClient({
-    queryCache: new QueryCache({
-      onError: (error: unknown) => {
-        if (isRequestError(error) && error.status === 401) {
-          sessionStorage.removeItem("gh_token");
-          setExpired(true);
-        }
-      },
-    }),
-    defaultOptions: {
-      queries: {
-        retry: (failureCount, error) => {
-          if (isRequestError(error) && error.status >= 400 && error.status < 500) {
-            return false;
-          }
-          return failureCount < 3; // Default retry behavior
-        },
-      },
-    },
-  });
+  useEffect(() => {
+    const handler = () => setExpired(true);
+    window.addEventListener("auth-token-expired", handler);
+    return () => window.removeEventListener("auth-token-expired", handler);
+  }, [setExpired]);
 
   return (
     <QueryClientProvider client={queryClient}>

@@ -63,7 +63,9 @@ export function SettingsForm() {
                 Clear
               </Button>
             </HStack>
-            <Field.HelperText>When set, any PRs created and last updated before this date will not be shown.</Field.HelperText>
+            <Field.HelperText>
+              When set, any PRs created and last updated before this date will not be shown.
+            </Field.HelperText>
           </VStack>
         </HStack>
       </Field.Root>

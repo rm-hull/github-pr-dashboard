@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { renderHook, act } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { useAuth } from "./useAuth";
@@ -28,6 +29,11 @@ describe("useAuth", () => {
   let fetchSpy: ReturnType<typeof vi.fn>;
   let replaceStateSpy: ReturnType<typeof vi.spyOn>;
 
+  const wrapper = ({ children }: { children: React.ReactNode }) => {
+    const queryClient = new QueryClient();
+    return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
+  };
+
   beforeEach(() => {
     fetchSpy = vi.fn(() =>
       Promise.resolve({
@@ -53,7 +59,7 @@ describe("useAuth", () => {
     mockLocation.search = "?code=mock_code";
     sessionStorage.setItem("pkce_verifier", "mock_verifier");
 
-    renderHook(() => useAuth());
+    renderHook(() => useAuth(), { wrapper });
 
     await act(() => Promise.resolve());
     expect(fetchSpy).toHaveBeenCalledTimes(1);
@@ -67,7 +73,7 @@ describe("useAuth", () => {
     sessionStorage.setItem("pkce_verifier", "mock_verifier");
     sessionStorage.setItem("gh_token", "existing_token");
 
-    renderHook(() => useAuth());
+    renderHook(() => useAuth(), { wrapper });
 
     await act(() => Promise.resolve());
     expect(fetchSpy).not.toHaveBeenCalled();
@@ -77,7 +83,7 @@ describe("useAuth", () => {
   it("should not call fetch if code is missing", async () => {
     sessionStorage.setItem("pkce_verifier", "mock_verifier");
 
-    renderHook(() => useAuth());
+    renderHook(() => useAuth(), { wrapper });
 
     await act(() => Promise.resolve());
     expect(fetchSpy).not.toHaveBeenCalled();
@@ -87,7 +93,7 @@ describe("useAuth", () => {
   it("should not call fetch if pkce_verifier is missing", async () => {
     mockLocation.search = "?code=mock_code";
 
-    renderHook(() => useAuth());
+    renderHook(() => useAuth(), { wrapper });
 
     await act(() => Promise.resolve());
     expect(fetchSpy).not.toHaveBeenCalled();

@@ -1,5 +1,6 @@
 import { atom, useAtom } from "jotai";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
+import { queryClient } from "@/utils/queryClient";
 import { toaster } from "@/components/ui/toaster";
 import { generateCodeVerifier, generateCodeChallenge } from "../utils/pkce";
 
@@ -24,6 +25,7 @@ export function useAuth() {
   const [isExpired, setExpired] = useAtom(expiredAtom);
   const [hasFetched, setHasFetched] = useAtom(fetchedAtom);
   const [inProgress, setInProgress] = useAtom(inProgressAtom);
+  const loginRef = useRef<() => void>(null);
 
   useEffect(() => {
     if (hasFetched) return;
@@ -99,16 +101,49 @@ export function useAuth() {
     window.location.href = authUrl;
   }, [setExpired, setHasFetched, setInProgress]);
 
+  // Store login in ref so the auto-login effect can access it
+  // eslint-disable-next-line react-compiler/react-compiler
+  loginRef.current = login;
+
+  // Auto-login on first load if no token is present
+  useEffect(() => {
+    if (code) return; // OAuth callback in progress, skip auto-login
+    if (sessionStorage.getItem("gh_token")) return; // Already authenticated
+    loginRef.current?.();
+  }, [code]);
+
   const logout = useCallback(() => {
     setInProgress(true);
+    const token = sessionStorage.getItem("gh_token");
+
+    // Revoke the token on the server side before clearing local state
+    if (token) {
+      fetch(`${API_BASE_URL}/v1/github/token/revoke`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          client_id: CLIENT_ID,
+          access_token: token,
+        }),
+      }).catch(() => {
+        // Silently ignore revocation errors - we still want to clear local state
+      });
+    }
+
     sessionStorage.removeItem("gh_token");
     sessionStorage.removeItem("pkce_verifier");
     window.dispatchEvent(new CustomEvent("auth-token-change", { detail: undefined }));
+    queryClient.clear();
     setHasFetched(false);
     setExpired(false);
     setInProgress(false);
-    window.location.reload();
-  }, [setExpired, setHasFetched, setInProgress]);
+    toaster.create({
+      id: "logout-toast",
+      title: "Logged out successfully",
+      type: "success",
+      duration: 3000,
+    });
+  }, [queryClient, setExpired, setHasFetched, setInProgress]);
 
   return { login, logout, isExpired, setExpired, inProgress };
 }
