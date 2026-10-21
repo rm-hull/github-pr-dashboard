@@ -68,8 +68,9 @@ export default function PullRequestsList({
     [settings, searchTerm, ignoredRepos, state]
   );
   const pullsBySelector = useMemo(() => {
+    const sortBy = listViewBy === "updated" ? "updated_at" : "created_at";
     return groupBySelector(
-      pulls.filter(isSelected).sort((a, b) => compareDesc(parseISO(a.created_at), parseISO(b.created_at))),
+      pulls.filter(isSelected).sort((a, b) => compareDesc(parseISO(a[sortBy] || a.created_at), parseISO(b[sortBy] || b.created_at))),
       (pr) => listSelector[listViewBy](pr)
     );
   }, [pulls, isSelected, listViewBy]);

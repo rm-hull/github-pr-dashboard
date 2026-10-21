@@ -77,6 +77,11 @@ export function IssueListItem({ issue, breakpoint, searchTerm }: IssueListItemPr
               <UserDetails user={issue.user} searchTerm={searchTerm} />
               <Text as="span" fontSize="xs" color="fg.subtle">
                 <TimeAgo date={new Date(issue.created_at)} locale="en-US" />
+                {issue.updated_at && issue.updated_at !== issue.created_at && (
+                  <Text as="span" fontSize="xs" color="fg.subtle" ml={1}>
+                    (updated <TimeAgo date={new Date(issue.updated_at)} locale="en-US" />)
+                  </Text>
+                )}
               </Text>
               <CommentCount owner={owner} repo={repo} pull_number={issue.number} />
               <GithubLabels labels={issue.labels} />

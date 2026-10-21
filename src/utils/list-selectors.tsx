@@ -7,6 +7,7 @@ import { PullRequest } from "@/utils/types";
 
 export const listSelector: Record<ListViewBy, (item: PullRequest) => string[]> = {
   recent: (item: PullRequest) => [format(parseISO(item.created_at), "MMM yyyy")],
+  updated: (item: PullRequest) => [format(parseISO(item.updated_at || item.created_at), "MMM yyyy")],
   repo: (item: PullRequest) => [item.repository_url],
   label: (item: PullRequest) =>
     !item.labels?.length ? ["[unlabelled]"] : item.labels.map((label) => label.name ?? "unknown"),
@@ -15,6 +16,7 @@ export const listSelector: Record<ListViewBy, (item: PullRequest) => string[]> =
 
 export const listSelectorIcons: Record<ListViewBy, ReactNode> = {
   recent: <FaRegCalendarAlt size={24} />,
+  updated: <FaRegCalendarAlt size={24} />,
   repo: <FaGitAlt size={24} />,
   label: <MdOutlineLabel size={24} />,
   user: <FaUser size={24} />,

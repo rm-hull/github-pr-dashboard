@@ -54,8 +54,9 @@ export default function IssuesList({ issues, state, fetchNextPage, hasNextPage, 
   );
 
   const issuesBySelector = useMemo(() => {
+    const sortBy = listViewBy === "updated" ? "updated_at" : "created_at";
     return groupBySelector(
-      issues.filter(isSelected).sort((a, b) => compareDesc(parseISO(a.created_at), parseISO(b.created_at))),
+      issues.filter(isSelected).sort((a, b) => compareDesc(parseISO(a[sortBy] || a.created_at), parseISO(b[sortBy] || b.created_at))),
       (issue) => listSelector[listViewBy](issue)
     );
   }, [issues, isSelected, listViewBy]);

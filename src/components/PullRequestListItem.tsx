@@ -83,6 +83,11 @@ export function PullRequestListItem({ pull, breakpoint, searchTerm }: PullReques
               <UserDetails user={pull.user} searchTerm={searchTerm} />
               <Text as="span" fontSize="xs" color="fg.subtle">
                 <TimeAgo date={new Date(pull.created_at)} locale="en-US" />
+                {pull.updated_at && pull.updated_at !== pull.created_at && (
+                  <Text as="span" fontSize="xs" color="fg.subtle" ml={1}>
+                    (updated <TimeAgo date={new Date(pull.updated_at)} locale="en-US" />)
+                  </Text>
+                )}
               </Text>
               <CommentCount owner={owner} repo={repo} pull_number={pull.number} />
               <GithubLabels labels={pull.labels} />

@@ -24,6 +24,7 @@ import { useColorModeValue } from "./ui/color-mode";
 const groupBy = createListCollection({
   items: [
     { label: "Recently created", value: "recent", icon: <FaRegCalendarAlt /> },
+    { label: "Recently updated", value: "updated", icon: <FaRegCalendarAlt /> },
     { label: "Repo", value: "repo", icon: <FaGitAlt /> },
     { label: "Label", value: "label", icon: <MdOutlineLabel /> },
     { label: "User", value: "user", icon: <FaUser /> },
@@ -117,7 +118,7 @@ export function ListFooter({ onSearch }: ListFooterProps) {
         >
           <Select.Label width="70px">Group by:</Select.Label>
           <Select.HiddenSelect />
-          <Select.Control width="180px" background="bg.muted">
+          <Select.Control width="182px" background="bg.muted">
             <Select.Trigger>
               <Select.ValueText placeholder="group by..." />
             </Select.Trigger>
