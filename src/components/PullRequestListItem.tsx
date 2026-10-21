@@ -1,4 +1,4 @@
-import { Box, ButtonGroup, HStack, Link, List, Stack, Text } from "@chakra-ui/react";
+import { Box, ButtonGroup, HStack, Link, List, Stack, Text, VStack } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import JavascriptTimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
@@ -49,7 +49,7 @@ export function PullRequestListItem({ pull, breakpoint, searchTerm }: PullReques
       borderRadius={5}
     >
       <Stack
-        direction={breakpoint === "base" ? "column" : "row"}
+        direction={"row"}
         justify="space-between"
         alignItems={breakpoint === "base" ? undefined : "center"}
         gap={2}
@@ -94,17 +94,33 @@ export function PullRequestListItem({ pull, breakpoint, searchTerm }: PullReques
             </HStack>
           </Box>
         </InfoPopover>
-        <ButtonGroup variant="surface" colorPalette="blue" size="xs">
-          <IgnoreButton url={pull.url} disabled={pull.state === "closed"} />
-          <MergeButton owner={owner} repo={repo} pull_number={pull.number} state={pull.state} url={pull.html_url} />
-          <DependabotRebaseButton
-            owner={owner}
-            repo={repo}
-            pull_number={pull.number}
-            user={pull.user?.login}
-            state={pull.state}
-          />
-        </ButtonGroup>
+        {breakpoint === "base" ? (
+          <HStack gap={1} justify="flex-end" mt={2} w="full" align="flex-end">
+            <IgnoreButton url={pull.url} disabled={pull.state === "closed"} iconOnly size="xs" />
+            <MergeButton owner={owner} repo={repo} pull_number={pull.number} state={pull.state} url={pull.html_url} iconOnly size="xs" />
+            <DependabotRebaseButton
+              owner={owner}
+              repo={repo}
+              pull_number={pull.number}
+              user={pull.user?.login}
+              state={pull.state}
+              iconOnly
+              size="xs"
+            />
+          </HStack>
+        ) : (
+          <ButtonGroup variant="surface" colorPalette="blue" size="xs">
+            <IgnoreButton url={pull.url} disabled={pull.state === "closed"} />
+            <MergeButton owner={owner} repo={repo} pull_number={pull.number} state={pull.state} url={pull.html_url} />
+            <DependabotRebaseButton
+              owner={owner}
+              repo={repo}
+              pull_number={pull.number}
+              user={pull.user?.login}
+              state={pull.state}
+            />
+          </ButtonGroup>
+        )}
       </Stack>
     </MotionListItem>
   );

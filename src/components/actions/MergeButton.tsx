@@ -1,5 +1,6 @@
-import { Badge, Button, CloseButton, Dialog, Link, Portal, Text } from "@chakra-ui/react";
+import { Badge, Button, IconButton, CloseButton, Dialog, Link, Portal, Text } from "@chakra-ui/react";
 import { useState } from "react";
+import { MdCallMerge } from "react-icons/md";
 import { useErrorToast } from "@/hooks/useErrorToast";
 import { useMergePullRequest } from "@/hooks/useMergePullRequest";
 import { usePullRequestDetail } from "@/hooks/usePullRequestDetail";
@@ -10,11 +11,13 @@ interface MergeButtonProps {
   pull_number: number;
   state: string;
   url: string;
+  iconOnly?: boolean;
+  size?: "xs" | "sm" | "md" | "lg";
 }
 
 const DO_NOT_MERGE_NORMALIZED = "DONOTMERGE";
 
-export function MergeButton({ owner, repo, pull_number, state, url }: MergeButtonProps) {
+export function MergeButton({ owner, repo, pull_number, state, url, iconOnly = false, size }: MergeButtonProps) {
   const [open, setOpen] = useState(false);
   const { mutate, isPending, error } = useMergePullRequest();
   const { data } = usePullRequestDetail(owner, repo, pull_number);
@@ -87,9 +90,15 @@ export function MergeButton({ owner, repo, pull_number, state, url }: MergeButto
           </Dialog.Positioner>
         </Portal>
       </Dialog.Root>
-      <Button onClick={handleMerge} disabled={disabled}>
-        Merge
-      </Button>
+      {iconOnly ? (
+        <IconButton onClick={handleMerge} disabled={disabled} aria-label="Merge" size={size} variant="ghost" colorPalette="blue">
+          <MdCallMerge />
+        </IconButton>
+      ) : (
+        <Button onClick={handleMerge} disabled={disabled}>
+          Merge
+        </Button>
+      )}
     </>
   );
 }

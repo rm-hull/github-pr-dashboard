@@ -1,15 +1,18 @@
-import { Button, Menu, MenuSelectionDetails, Portal } from "@chakra-ui/react";
+import { Button, IconButton, Menu, MenuSelectionDetails, Portal } from "@chakra-ui/react";
 import { useCallback } from "react";
+import { MdVisibilityOff } from "react-icons/md";
 import { useGeneralSettings } from "@/hooks/useGeneralSettings";
 
 interface IgnoreButtonProps {
   url: string;
   disabled?: boolean;
+  iconOnly?: boolean;
+  size?: "xs" | "sm" | "md" | "lg";
 }
 
 const ONE_DAY_IN_MILLIS = 24 * 60 * 60 * 1000;
 
-export function IgnoreButton({ url, disabled = false }: IgnoreButtonProps) {
+export function IgnoreButton({ url, disabled = false, iconOnly = false, size }: IgnoreButtonProps) {
   const { settings, updateSettings } = useGeneralSettings();
 
   const handleSelect = useCallback(
@@ -38,11 +41,17 @@ export function IgnoreButton({ url, disabled = false }: IgnoreButtonProps) {
     [settings, updateSettings, url]
   );
 
+  const trigger = iconOnly ? (
+    <IconButton disabled={disabled} aria-label="Ignore" size={size} variant="ghost" colorPalette="blue">
+      <MdVisibilityOff />
+    </IconButton>
+  ) : (
+    <Button disabled={disabled}>Ignore...</Button>
+  );
+
   return (
     <Menu.Root onSelect={handleSelect}>
-      <Menu.Trigger asChild>
-        <Button disabled={disabled}>Ignore...</Button>
-      </Menu.Trigger>
+      <Menu.Trigger asChild>{trigger}</Menu.Trigger>
       <Portal>
         <Menu.Positioner>
           <Menu.Content>

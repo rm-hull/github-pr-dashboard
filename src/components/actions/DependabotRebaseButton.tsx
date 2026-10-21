@@ -1,5 +1,6 @@
-import { Button, Menu, MenuSelectionDetails, Portal } from "@chakra-ui/react";
+import { Button, IconButton, Menu, MenuSelectionDetails, Portal } from "@chakra-ui/react";
 import { useCallback } from "react";
+import { MdBuild } from "react-icons/md";
 import { useComment } from "@/hooks/useComment";
 import { useErrorToast } from "@/hooks/useErrorToast";
 
@@ -9,9 +10,11 @@ interface DependabotRebaseButtonProps {
   pull_number: number;
   user?: string;
   state: string;
+  iconOnly?: boolean;
+  size?: "xs" | "sm" | "md" | "lg";
 }
 
-export function DependabotRebaseButton({ owner, repo, pull_number, user, state }: DependabotRebaseButtonProps) {
+export function DependabotRebaseButton({ owner, repo, pull_number, user, state, iconOnly = false, size }: DependabotRebaseButtonProps) {
   const { mutate, isPending, error } = useComment();
   const disabled = user !== "dependabot[bot]" || isPending || state === "closed";
 
@@ -23,11 +26,17 @@ export function DependabotRebaseButton({ owner, repo, pull_number, user, state }
     [owner, repo, pull_number, mutate]
   );
 
+  const trigger = iconOnly ? (
+    <IconButton disabled={disabled} aria-label="Dependabot" size={size} variant="ghost" colorPalette="blue">
+      <MdBuild />
+    </IconButton>
+  ) : (
+    <Button disabled={disabled}>Dependabot...</Button>
+  );
+
   return (
     <Menu.Root onSelect={handleSelect}>
-      <Menu.Trigger asChild>
-        <Button disabled={disabled}>Dependabot...</Button>
-      </Menu.Trigger>
+      <Menu.Trigger asChild>{trigger}</Menu.Trigger>
       <Portal>
         <Menu.Positioner>
           <Menu.Content>
