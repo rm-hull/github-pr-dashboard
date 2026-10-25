@@ -64,7 +64,7 @@ export function PullRequestListItem({ pull, breakpoint, searchTerm }: PullReques
           <Box cursor={pull.body ? "pointer" : undefined}>
             <HStack alignItems="center" gap={2}>
               <Link href={pull.html_url} fontWeight="bold" target="_blank" rel="noopener noreferrer">
-                <Text as="span" truncate maxW={breakpoint === "lg" ? undefined : "320px"}>
+                <Text as="span" truncate={breakpoint === "base"} maxW={breakpoint === "base" ? "320px" : undefined}>
                   <InlineCodeText>
                     <SearchHighlight query={searchTerm}>{pull.title}</SearchHighlight>
                   </InlineCodeText>

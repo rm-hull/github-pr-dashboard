@@ -59,7 +59,7 @@ export function IssueListItem({ issue, breakpoint, searchTerm }: IssueListItemPr
           <Box cursor={issue.body ? "pointer" : undefined}>
             <HStack alignItems="center" gap={2}>
               <Link href={issue.html_url} fontWeight="bold" target="_blank" rel="noopener noreferrer">
-                <Text as="span" truncate maxW={breakpoint === "lg" ? undefined : "320px"}>
+                <Text as="span" truncate={breakpoint === "base"} maxW={breakpoint === "base" ? "320px" : undefined}>
                   <InlineCodeText>
                     <SearchHighlight query={searchTerm}>{issue.title}</SearchHighlight>
                   </InlineCodeText>
