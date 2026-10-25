@@ -19,6 +19,10 @@ export function GithubActionsIcon({ owner, repo }: GithubActionsProps) {
   const isInView = useInView(ref, { once: true, margin: "-50px" });
   const { data, isLoading } = useLatestActionsStatus(owner, repo, { isActive: isInView });
 
+  if (!data && !isLoading) {
+    return null;
+  }
+
   let tooltip = "unknown";
   if (data) {
     const age = timeAgo.format(new Date(data.createdAt));
