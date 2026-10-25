@@ -19,11 +19,10 @@ export function useIssues(state: string = "open", options: Partial<FetchOptions>
   const { data: orgs, isSuccess: isOrgsSuccess } = useOrgs();
 
   const query = useInfiniteQuery({
-    queryKey: ["issues", state, user?.login, orgs?.map((o) => o.login)?.sort(), options.fetchAll ?? false],
+    queryKey: ["issues", state, user?.login, orgs?.map((o) => o.login)?.sort()],
     queryFn: async ({ pageParam = 1 }) => {
-      const commonQualifiers = `type:issue ${state === "merged" ? "is:merged" : `state:${state}`}`;
-      const owners = [user?.login, ...(orgs?.map((o) => o.login) ?? [])].filter((o): o is string => !!o);
-      const q = owners.map((owner) => `user:${owner} ${commonQualifiers}`).join(" OR ");
+      const orgFilters = orgs?.map((o) => `org:${o.login}`) ?? [];
+      const q = `type:issue (author:${user?.login} OR user:${user?.login} ${orgFilters.length ? 'OR (' + orgFilters.join(' OR ') + ')' : ''}) ${state === "merged" ? "is:merged" : `state:${state}`}`;
       const resp = await octokit.rest.search.issuesAndPullRequests({
         q,
         sort: "created",
