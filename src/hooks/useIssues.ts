@@ -22,7 +22,7 @@ export function useIssues(state: string = "open", options: Partial<FetchOptions>
     queryKey: ["issues", state, user?.login, orgs?.map((o) => o.login)?.sort()],
     queryFn: async ({ pageParam = 1 }) => {
       const orgFilters = orgs?.map((o) => `org:${o.login}`) ?? [];
-      const q = `type:issue (author:${user?.login} OR user:${user?.login} ${orgFilters.length ? 'OR (' + orgFilters.join(' OR ') + ')' : ''}) ${state === "merged" ? "is:merged" : `state:${state}`}`;
+      const q = `type:issue (author:${user?.login} OR user:${user?.login} ${orgFilters.length ? "OR (" + orgFilters.join(" OR ") + ")" : ""}) ${state === "merged" ? "is:merged" : `state:${state}`}`;
       const resp = await octokit.rest.search.issuesAndPullRequests({
         q,
         sort: "created",

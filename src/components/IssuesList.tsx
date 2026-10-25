@@ -1,4 +1,4 @@
-import { Box, Button, For, Heading, List, Separator, useBreakpointValue } from "@chakra-ui/react";
+import { Accordion, Box, Button, For, Heading, List, Separator, useBreakpointValue } from "@chakra-ui/react";
 import { compareDesc, parseISO } from "date-fns";
 import { AnimatePresence } from "framer-motion";
 import { useCallback, useMemo, useState } from "react";
@@ -65,6 +65,8 @@ export default function IssuesList({ issues, state, fetchNextPage, hasNextPage, 
 
   const count = useMemo(() => Object.values(issuesBySelector).flat().length, [issuesBySelector]);
 
+  const defaultExpandedItems = useMemo(() => Object.keys(issuesBySelector), [issuesBySelector]);
+
   if (isLoading) {
     return null;
   }
@@ -73,47 +75,57 @@ export default function IssuesList({ issues, state, fetchNextPage, hasNextPage, 
     <>
       {count === 0 && <NoSearchMatches />}
 
-      <List.Root gap={2} listStyleType="none" pb={12}>
-        <AnimatePresence>
-          {Object.entries(issuesBySelector).flatMap(([groupBy, groupedIssues], index, array) => {
-            const isRepoGroup = groupBy.includes("/repos/");
-            const repoFullName = isRepoGroup ? groupBy.split("/repos/")[1] : undefined;
-            const [owner, repo] = repoFullName?.split("/") ?? [];
-            const isLast = index === array.length - 1;
-            return (
-              <Box key={groupBy}>
-                {(!!repoFullName || !isRepoGroup) && (
-                  <Heading fontSize="2xl" py={1} mb={1} color="fg.info" display="flex" alignItems="center" gap={2}>
-                    {listSelectorIcons[listViewBy]}
-                    {repoFullName ?? groupBy}
-                    {isRepoGroup && <GithubActionsIcon owner={owner} repo={repo} />}
-                  </Heading>
-                )}
-                <For each={groupedIssues}>
-                  {(issue) => (
-                    <IssueListItem key={issue.id} issue={issue} breakpoint={breakpoint} searchTerm={searchTerm} />
+      <Accordion.Root multiple key={listViewBy} defaultValue={defaultExpandedItems} asChild>
+        <List.Root gap={2} listStyleType="none" pb={12}>
+          <AnimatePresence>
+            {Object.entries(issuesBySelector).flatMap(([groupBy, groupedIssues], index, array) => {
+              const isRepoGroup = groupBy.includes("/repos/");
+              const repoFullName = isRepoGroup ? groupBy.split("/repos/")[1] : undefined;
+              const [owner, repo] = repoFullName?.split("/") ?? [];
+              const isLast = index === array.length - 1;
+              return (
+                <Accordion.Item key={groupBy} value={groupBy}>
+                  {(!!repoFullName || !isRepoGroup) && (
+                    <Accordion.ItemTrigger justifyContent="space-between" py={0}>
+                      <Heading fontSize="2xl" py={1} color="fg.info" display="flex" alignItems="center" gap={2}>
+                        {listSelectorIcons[listViewBy]}
+                        {repoFullName ?? groupBy}
+                        {isRepoGroup && <GithubActionsIcon owner={owner} repo={repo} />}
+                      </Heading>
+                      <Accordion.ItemIndicator />
+                    </Accordion.ItemTrigger>
                   )}
-                </For>
-                {!isLast && <Separator mt={2} />}
-              </Box>
-            );
-          })}
-        </AnimatePresence>
-        {hasNextPage && (
-          <Box py={4} textAlign="center">
-            <Button
-              variant="surface"
-              colorPalette="blue"
-              size="sm"
-              loading={isFetchingNextPage}
-              loadingText="Fetching..."
-              onClick={fetchNextPage}
-            >
-              Load More
-            </Button>
-          </Box>
-        )}
-      </List.Root>
+                  <Accordion.ItemContent>
+                    <Accordion.ItemBody p={0}>
+                      <For each={groupedIssues}>
+                        {(issue) => (
+                          <IssueListItem key={issue.id} issue={issue} breakpoint={breakpoint} searchTerm={searchTerm} />
+                        )}
+                      </For>
+                    </Accordion.ItemBody>
+                  </Accordion.ItemContent>
+                  {!isLast && <Separator mt={2} />}
+                </Accordion.Item>
+              );
+            })}
+          </AnimatePresence>
+          {hasNextPage && (
+            <Box py={4} textAlign="center">
+              <Button
+                variant="surface"
+                colorPalette="blue"
+                size="sm"
+                loading={isFetchingNextPage}
+                loadingText="Fetching..."
+                onClick={fetchNextPage}
+              >
+                Load More
+              </Button>
+            </Box>
+          )}
+        </List.Root>
+      </Accordion.Root>
+
       <ListFooter onSearch={setSearchTerm} />
     </>
   );
