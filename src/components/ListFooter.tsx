@@ -95,6 +95,7 @@ export function ListFooter({ onSearch }: ListFooterProps) {
             }
           >
             <Input
+              id="search"
               ref={inputRef}
               colorPalette="blue"
               background="bg.muted"
