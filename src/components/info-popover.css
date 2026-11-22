@@ -53,10 +53,15 @@
 .pr-body-markdown-container ul {
   margin-left: 20px;
   margin-bottom: 10px;
+  list-style-type: disc;
+}
+.pr-body-markdown-container ol {
+  margin-left: 20px;
+  margin-bottom: 10px;
+  list-style-type: decimal;
 }
 .pr-body-markdown-container li {
   margin-bottom: 5px;
-  list-style-type: disc;
 }
 .pr-body-markdown-container p {
   padding-bottom: 5px;
